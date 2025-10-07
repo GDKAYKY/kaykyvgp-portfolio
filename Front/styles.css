@@ -50,8 +50,8 @@ header {
 
 .main-content {
     display: grid;
-    grid-template-columns: 368px 1fr;
-    gap: 64px;
+    grid-template-columns: 1fr 3.5fr;
+    row-gap: 10fr;
 }
 
 .sidebar {

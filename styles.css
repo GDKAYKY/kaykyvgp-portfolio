@@ -1,8 +1,16 @@
-
 column li::before {
     content: '•';
     position: absolute;
     left: 0;
+}
+
+:root{
+    --background--color:#000;
+    --primary-text:#FFF;
+    --secondary-text:#ABABAB;
+    --border-color:#383838;
+    --border-properties:1px solid var(--border-color);
+
 }
 
 * {
@@ -13,8 +21,8 @@ column li::before {
 
 body {
     font-family: 'Schibsted Grotesk', sans-serif;
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: var(--background--color);
+    color: var(--primary-text);
     line-height: 1.6;
 }
 
@@ -25,46 +33,48 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 60px;
-}
-
-.logo {
     font-size: 24px;
     font-weight: 600;
+    line-height: 130%;
+    flex-wrap: nowrap;
+    letter-spacing: calc(98%);
+    padding-bottom: 4rem;
+    gap: -3rem;
 }
 
 .subheader {
     font-size: 24px;
-    font-weight: 600;
-    color: #ababab;
+    line-height: 130%;
+    font-weight: 400;
+    color: var(--secondary-text);
 }
 
 .nav-link {
-    color: #FFFFFF;
+    -ms-flex-item-align: end;
+    color: var(--primary-text);
     text-decoration: none;
-    font-size: 16px;
+    line-height: 130%;
 }
 
 .main-content {
     display: grid;
-    grid-template-columns: 368px 1fr;
-    gap: 64px;
+    grid-template-columns: 1fr 3.5fr;
+    row-gap: 10fr;
 }
 
 .sidebar {
-    border-top: 1px solid #383838;
-    border-bottom: 1px solid #383838;
+    border-top: var(--border-properties);
+    border-bottom: var(--border-properties);
     padding-top: 32px;
 }
 
 .bio {
     padding-bottom: 36px;
+    line-height: 140%;
+    letter-spacing: 99%;
     font-size: 14px;
     line-height: 1.6;
-    border-bottom: 1px solid #383838;
+    border-bottom: var(--border-properties);
 }
 
 .experience-section {
@@ -85,7 +95,7 @@ header {
     align-items: center;
     gap: 8px;
     margin-bottom: 5px;
-    border-bottom: 1px solid #383838;
+    border-bottom: var(--border-properties);
 }
 
 .contact-link::after {
@@ -93,11 +103,7 @@ header {
     font-size: 16px;
 }
 
-.divider {
-    height: 1px;
-    background-color: #383838;
-    margin: 48px 0;
-}
+
 
 .section {
     margin-bottom: 64px;
@@ -155,6 +161,8 @@ header {
 }
 
 .skills-column ul {
+    padding-top: 1rem;
+    padding-left: 1rem;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -167,7 +175,6 @@ header {
 
 .skills-column li {
     font-size: 14px;
-    padding-left: 20px;
     position: relative;
 }
 
@@ -190,7 +197,7 @@ header {
 footer {
     margin-top: 120px;
     padding-top: 48px;
-    border-top: 1px solid #383838;
+    border-top: var(--border-properties);
 }
 
 .footer-title {

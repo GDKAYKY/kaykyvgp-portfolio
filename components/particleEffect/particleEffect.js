@@ -117,8 +117,10 @@ function createParticles() {
 
 function resize() {
   if (!canvas) return;
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Use parent container dimensions
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
   createParticles();
 }
 
@@ -181,8 +183,10 @@ function connectParticles() {
 
 /* ================= INPUT HANDLING ================= */
 function handleMouseMove(e) {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
 }
 
 function handleMouseLeave() {
@@ -226,8 +230,18 @@ function initParticleLoader() {
   ctx = canvas.getContext("2d", { alpha: false }); // Optimization: no alpha for background
 
   globalThis.addEventListener("resize", resize);
+  // Attach mouse events to the window but calculate relative position, or attach to canvas?
+  // Attaching to window ensures we track mouse even if it leaves the canvas momentarily but is over the page
+  // But we need coordinate mapping which is done in handleMouseMove
   globalThis.addEventListener("mousemove", handleMouseMove);
   globalThis.addEventListener("mouseleave", handleMouseLeave);
+  // Also update on scroll because getBoundingClientRect changes
+  globalThis.addEventListener("scroll", () => {
+    // Optional: we could re-read mouse position here if we stored the last event
+    // But standard particle effects usually just react to mouse movements.
+    // However, since canvas moves on scroll, the calculating "mouse in canvas" might shift if mouse stays still and page scrolls.
+    // For now, let's keep it simple.
+  });
 
   isRunning = true;
   resize();

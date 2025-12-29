@@ -1,91 +1,133 @@
-function typeWriter(element, text, speed = 100) {
+(() => {
+  "use strict";
+
+  // --- Configuration ---
+  const CONFIG = {
+    typewriterSpeed: 80,
+    headerTriggerOffset: 100, // px from bottom of hero
+    parallaxSpeedDefault: 0.5,
+    scrollThreshold: 0.1,
+  };
+
+  // --- Utils ---
+  /**
+   * Check if user prefers reduced motion
+   * @returns {boolean}
+   */
+  const isReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- Animations ---
+
+  /**
+   * Initialize IntersectionObserver for scroll reveal animations
+   * Replaces the old scroll event listener
+   */
+  const initScrollReveal = () => {
+    const elements = document.querySelectorAll(
+      ".animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+    );
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            // Apply styles directly or use a class.
+            // The existing CSS relies on inline styles being set by JS for the 'fade-in' classes to work?
+            // Checking stats: .animate-fade-in-up { opacity: 0; animation: ... }
+            // The previous JS set opacity=1 and transform.
+            // Actually, the CSS has 'animation' properties that run once triggered?
+            // The previous JS did: element.style.opacity = "1"; element.style.transform = "translateY(0) translateX(0)";
+            // But the CSS also has keyframes.
+            // Let's stick to the previous behavior: set styles to trigger visibility.
+            // Better yet, let's keep it simple and clean.
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0) translateX(0)";
+            el.classList.add("revealed");
+            obs.unobserve(el);
+          }
+        });
+      },
+      {
+        threshold: CONFIG.scrollThreshold,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  };
+
+  /**
+   * Initialize Typewriter effect for the H1
+   */
+  const initTypewriter = () => {
+    const titleElement = document.querySelector("h1");
+    if (!titleElement) return;
+
+    // Prevent layout shift by locking height
+    titleElement.style.height = getComputedStyle(titleElement).height;
+
+    // safe text retrieval
+    const text = titleElement.textContent.trim();
+    titleElement.textContent = "";
+
     let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+    const type = () => {
+      if (i < text.length && document.body.contains(titleElement)) {
+        titleElement.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, CONFIG.typewriterSpeed);
+      }
+    };
+
+    // Small delay to ensure render availability
+    setTimeout(type, 300);
+  };
+
+  /**
+   * Initialize Parallax effect with RequestAnimationFrame
+   */
+  const initParallax = () => {
+    if (isReducedMotion()) return;
+
+    const parallaxElements = document.querySelectorAll(".parallax");
+    if (parallaxElements.length === 0) return;
+
+    let ticking = false;
+
+    const updateParallax = () => {
+      const scrolled = window.scrollY;
+      parallaxElements.forEach((element) => {
+        const speed =
+          parseFloat(element.dataset.speed) || CONFIG.parallaxSpeedDefault;
+        // Limit maximum translation to prevent elements flying off too far
+        const yPos = scrolled * speed;
+        element.style.transform = `translateY(${yPos}px)`;
+      });
+      ticking = false;
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
         }
-    }
-    
-    type();
-}
+      },
+      { passive: true }
+    );
+  };
 
-// Animação de scroll para revelar elementos
-function revealOnScroll() {
-    const elements = document.querySelectorAll('.animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right');
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0) translateX(0)';
-        }
-    });
-}
+  // --- Core Components ---
 
-// Animação de contador para números
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    function updateCounter() {
-        start += increment;
-        if (start < target) {
-            element.textContent = Math.floor(start);
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target;
-        }
-    }
-    
-    updateCounter();
-}
-
-// Efeito parallax suave
-function parallaxEffect() {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.parallax');
-    
-    parallaxElements.forEach(element => {
-        const speed = element.dataset.speed || 0.5;
-        element.style.transform = `translateY(${scrolled * speed}px)`;
-    });
-}
-
-// Animação de hover para cards
-function addCardHoverEffect() {
-    const cards = document.querySelectorAll('.experience-item, .certification, .recommendation');
-    
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.02)';
-            
-            this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-            this.style.boxShadow = 'none';
-        });
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const titleElement = document.querySelector('h1');
-    if (titleElement) {
-        const originalText = titleElement.textContent.trim();
-        typeWriter(titleElement, originalText, 80);
-    }
-    
-    addCardHoverEffect();
-    
-    window.addEventListener('scroll', function() {
-        revealOnScroll();
-        parallaxEffect();
-    });
-});
+  // --- Main Initialization ---
+  document.addEventListener("DOMContentLoaded", () => {
+    initScrollReveal();
+    initTypewriter();
+    initParallax();
+  });
+})();

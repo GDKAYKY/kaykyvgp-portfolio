@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
     <script src="components/particleEffect/particleEffect.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,40 +20,57 @@
   </head>
 
   <body>
-    <canvas id="canvas"></canvas>
-    <div class="container">
-      <header class="animate-fade-in-up">
-        <h1 class="animate-fade-in-left animate-delay-1">
-          Kayky Vitor
-          <p class="subheader animate-fade-in-left animate-delay-2">
-            Software Developer
-          </p>
-        </h1>
-        <div class="about animate-fade-in-right animate-delay-3">
-          My Projects
-        </div>
-      </header>
+    <script src="components/header/header.js" defer></script>
+    <portfolio-header
+      class="site-header animate-fade-in-up"
+      active-page="home"
+    ></portfolio-header>
 
+    <section class="hero-section animate-fade-in-up">
+      <canvas id="canvas"></canvas>
+      <div class="hero-content">
+        <h1>I’m Kayky, creating software that scales ideas into results.</h1>
+        <p class="hero-description animate-fade-in-right animate-delay-3">
+          I build high-performance, secure, and scalable systems using .NET and
+          Cloud technologies.
+        </p>
+        <div class="hero-actions animate-fade-in-up animate-delay-4">
+          <a href="pages/projects.html" class="hero-button primary"
+            >My Projects</a
+          >
+          <a href="mailto:kaykyvitorgp@gmail.com" class="hero-button secondary"
+            >Contact Me</a
+          >
+        </div>
+      </div>
+
+      <div class="hero-visual animate-fade-in-up animate-delay-5">
+        <!-- Decorative visual elements or stack icons -->
+      </div>
+    </section>
+
+    <div class="container">
       <div class="main-content">
         <main class="animate-fade-in-right animate-delay-6">
-          <div class="experience-section animate-fade-in-up animate-delay-7">
+          <div
+            id="experience"
+            class="experience-section animate-fade-in-up animate-delay-7"
+          >
             <h2 class="section-title">Experience</h2>
             <div class="experience-item">
               <img
                 class="certification-logo"
-                src="assets\who_logo.jpeg"
+                src="assets/who_logo.jpeg"
                 alt="Microsoft Logo"
                 width="48"
                 height="48"
               />
-              <h3 class="job-title">
-                Apprentice Software Developer
-                <ul class="job-subtitle">
-                  <li>at Who</li>
-                  <li>December 2024 – December 2025</li>
-                  <li>Hybrid & Belo Horizonte, Minas Gerais</li>
-                </ul>
-              </h3>
+              <h3 class="job-title">Apprentice Software Developer</h3>
+              <ul class="job-subtitle">
+                <li>at Who</li>
+                <li>December 2024 – December 2025</li>
+                <li>Hybrid & Belo Horizonte, Minas Gerais</li>
+              </ul>
               <ul class="job-description">
                 <li>
                   Develop, Maintain, and Improve high performance systems,
@@ -73,7 +90,7 @@
               <div class="certification-content">
                 <img
                   class="certification-logo"
-                  src="assets\aws_machine_learning_logo.png"
+                  src="assets/aws_machine_learning_logo.png"
                   alt="AWS Logo"
                   width="48"
                   height="48"
@@ -90,7 +107,7 @@
                     <span class="certification-company">
                       <img
                         class="company-logo-small"
-                        src="assets\aws_logo.jpeg"
+                        src="assets/aws_logo.jpeg"
                         alt="AWS Logo"
                         width="16"
                         height="16"
@@ -103,14 +120,16 @@
               <ul class="job-description">
                 <li>Verification issued in November 2025</li>
                 <li>Credential code:f8f39b6e-90ce-4304-af14-3d2658f4c74b</li>
-                <a
-                  href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
-                  target="_blank"
-                  class="credential-button"
-                >
-                  <span class="button-icon">↗</span>
-                  <span class="button-text">Ver Credencial</span>
-                </a>
+                <li>
+                  <a
+                    href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
+                    target="_blank"
+                    class="credential-button"
+                  >
+                    <span class="button-icon">↗</span>
+                    <span class="button-text">Ver Credencial</span>
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -135,7 +154,7 @@
                     <span class="certification-company">
                       <img
                         class="company-logo-small"
-                        src="assets\aws_logo.jpeg"
+                        src="assets/aws_logo.jpeg"
                         alt="AWS Logo"
                         width="16"
                         height="16"
@@ -148,14 +167,16 @@
               <ul class="job-description">
                 <li>Verification issued in October 2025</li>
                 <li>Credential code: faabda17-42b4-4e3f-b027-47158c9b41b0</li>
-                <a
-                  href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
-                  target="_blank"
-                  class="credential-button"
-                >
-                  <span class="button-icon">↗</span>
-                  <span class="button-text">Ver Credencial</span>
-                </a>
+                <li>
+                  <a
+                    href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
+                    target="_blank"
+                    class="credential-button"
+                  >
+                    <span class="button-icon">↗</span>
+                    <span class="button-text">Ver Credencial</span>
+                  </a>
+                </li>
               </ul>
             </div>
             <div class="experience-item certification">
@@ -177,7 +198,7 @@
                     <span class="certification-company">
                       <img
                         class="company-logo-small"
-                        src="assets\microsoft_logo.jpeg"
+                        src="assets/microsoft_logo.jpeg"
                         alt="Microsoft Logo"
                         width="16"
                         height="16"
@@ -193,19 +214,24 @@
                   Credential code:
                   fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b-fcswm
                 </li>
-                <a
-                  href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
-                  target="_blank"
-                  class="credential-button"
-                >
-                  <span class="button-icon">↗</span>
-                  <span class="button-text">Ver Credencial</span>
-                </a>
+                <li>
+                  <a
+                    href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
+                    target="_blank"
+                    class="credential-button"
+                  >
+                    <span class="button-icon">↗</span>
+                    <span class="button-text">Ver Credencial</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </section>
 
-          <section class="section animate-fade-in-up animate-delay-9">
+          <section
+            id="skills"
+            class="section animate-fade-in-up animate-delay-9"
+          >
             <h2 class="section-title">Skills</h2>
             <div class="skills-grid stagger-animation">
               <div class="skills-column">
@@ -273,24 +299,24 @@
           </section>
         </main>
       </div>
-      <footer class="animate-fade-in-up animate-delay-12">
-        <div class="container">
-          <div class="bio animate-fade-in-up animate-delay-5">
-            A Passionate Software Developer, which is always up to learn
-            something new.
-          </div>
-          <div class="contact-info stagger-animation">
-            <a href="https://github.com/GDKAYKY" class="contact-link">Github</a>
-            <a href="mailto:kaykyvitorgp@gmail.com" class="contact-link"
-              >kaykyvitorgp@gmail.com</a
-            >
-            <a href="https://www.linkedin.com/in/kaykyvgp/" class="contact-link"
-              >LinkedIn</a
-            >
-          </div>
-          <n>@2025 Kayky</n>
-        </div>
-      </footer>
     </div>
+    <footer class="animate-fade-in-up animate-delay-12">
+      <div class="container">
+        <div class="bio animate-fade-in-up animate-delay-5">
+          A Passionate Software Developer, which is always up to learn something
+          new.
+        </div>
+        <div class="contact-info stagger-animation">
+          <a href="https://github.com/GDKAYKY" class="contact-link">Github</a>
+          <a href="mailto:kaykyvitorgp@gmail.com" class="contact-link"
+            >kaykyvitorgp@gmail.com</a
+          >
+          <a href="https://www.linkedin.com/in/kaykyvgp/" class="contact-link"
+            >LinkedIn</a
+          >
+        </div>
+        <small>@2025 Kayky</small>
+      </div>
+    </footer>
   </body>
 </html>

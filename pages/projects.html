@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../scripts.js" defer></script>
+    <script src="../components/particleEffect/particleEffect.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kayky Vitor - Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link
+      rel="stylesheet"
+      href="../components/particleEffect/particleEffect.css"
+    />
+    <link rel="stylesheet" href="../components/projectCard.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <script src="../components/header/header.js" defer></script>
+    <portfolio-header
+      class="site-header animate-fade-in-up"
+      active-page="projects"
+    ></portfolio-header>
+
+    <div class="container" style="padding-top: 60px">
+      <div class="main-content">
+        <main class="animate-fade-in-right animate-delay-2">
+          <div class="projects-grid">
+            <!-- YTDLN-OPEN Card -->
+            <a
+              href="projects/ytdln-open.html"
+              class="project-card-compact animate-fade-in-up animate-delay-3"
+            >
+              <div class="card-image-wrapper">
+                <img
+                  src="../assets/ytdln_mockup.png"
+                  alt="YTDLN-OPEN"
+                  class="card-image"
+                />
+              </div>
+              <div class="card-content">
+                <span class="card-type">Open Source Utility</span>
+                <h3 class="card-title">YTDLN-OPEN</h3>
+                <p class="card-description">
+                  A free and open-source desktop video/audio downloader powered
+                  by yt-dlp, ffmpeg, and Electron. Supports downloading from
+                  over 1000 websites with a clean, modern interface and
+                  high-speed multi-connection transfers.
+                </p>
+
+                <div class="card-footer">
+                  <div class="card-tags">
+                    <span class="card-tag">Electron</span>
+                    <span class="card-tag">Node.js</span>
+                    <span class="card-tag">yt-dlp</span>
+                  </div>
+                  <svg
+                    class="card-link-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Portfolio Card (Self-Reference) -->
+            <a
+              href="projects/portfolio.html"
+              class="project-card-compact animate-fade-in-up animate-delay-4"
+            >
+              <div
+                class="card-image-wrapper"
+                style="
+                  background: #111;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <span
+                  style="
+                    color: #333;
+                    font-weight: 700;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                  "
+                  >Visual Placeholder</span
+                >
+              </div>
+              <div class="card-content">
+                <span class="card-type">Web Development</span>
+                <h3 class="card-title">Personal Portfolio</h3>
+                <p class="card-description">
+                  A modern, high-performance portfolio website designed to
+                  showcase my skills and projects. Built with a focus on
+                  aesthetics, responsiveness, and clean code using vanilla
+                  HTML/CSS/JS.
+                </p>
+
+                <div class="card-footer">
+                  <div class="card-tags">
+                    <span class="card-tag">HTML5</span>
+                    <span class="card-tag">CSS3</span>
+                    <span class="card-tag">Design System</span>
+                  </div>
+                  <svg
+                    class="card-link-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <footer class="animate-fade-in-up animate-delay-5">
+      <div class="container">
+        <div class="bio">
+          A Passionate Software Developer, always ready to learn something new.
+        </div>
+        <div class="contact-info stagger-animation">
+          <a href="https://github.com/GDKAYKY" class="contact-link">Github</a>
+          <a href="mailto:kaykyvitorgp@gmail.com" class="contact-link"
+            >kaykyvitorgp@gmail.com</a
+          >
+          <a href="https://www.linkedin.com/in/kaykyvgp/" class="contact-link"
+            >LinkedIn</a
+          >
+        </div>
+        <small>@2025 Kayky</small>
+      </div>
+    </footer>
+  </body>
+</html>

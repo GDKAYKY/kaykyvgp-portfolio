@@ -46,7 +46,7 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--primary-text);
-  background: linear-gradient(180deg, #fff 0%, #b0b0b0 100%);
+  background: var(--primary-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -67,7 +67,7 @@
 .project-role-title {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--primary-text);
+  color: var(--tertiary-text);
   letter-spacing: -0.02em;
 }
 

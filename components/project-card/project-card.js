@@ -109,9 +109,88 @@ const CARD_STYLES = `
   transition: opacity 0.3s, transform 0.3s;
 }
 
+/* ... existing styles ... */
+
 .project-card-compact:hover .card-link-icon {
   opacity: 1;
   transform: translateX(4px);
+}
+
+/* Tooltip & More Tag Styles */
+.card-tag.more {
+  cursor: pointer;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-text);
+  transition: background-color 0.2s;
+}
+
+.card-tag.more:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tags-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: -10px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  width: max-content;
+  max-width: 220px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Tooltip Arrow */
+.tags-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 20px; /* Align with the +N tag roughly */
+  border-width: 6px;
+  border-style: solid;
+  border-color: #1a1a1a transparent transparent transparent;
+}
+
+.card-tag.more:hover .tags-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tooltip-title {
+  font-size: 0.7rem;
+  color: var(--secondary-text);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 4px;
+}
+
+.tooltip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tooltip-tag {
+  font-size: 0.65rem;
+  padding: 3px 6px;
+  background: rgba(255, 255, 255, 0.08); /* Slightly lighter than card bg */
+  border-radius: 4px;
+  color: var(--primary-text);
+  white-space: nowrap;
 }
 `;
 
@@ -185,9 +264,37 @@ class ProjectCard extends HTMLElement {
       cardContent.querySelector(".card-description").textContent = description;
 
       const tagsContainer = cardContent.querySelector(".card-tags");
-      tagsContainer.innerHTML = tags
-        .map((tag) => `<span class="card-tag">${tag}</span>`)
-        .join("");
+
+      const MAX_VISIBLE_TAGS = 3;
+
+      if (tags.length <= MAX_VISIBLE_TAGS) {
+        tagsContainer.innerHTML = tags
+          .map((tag) => `<span class="card-tag">${tag}</span>`)
+          .join("");
+      } else {
+        const visibleTags = tags.slice(0, MAX_VISIBLE_TAGS);
+        const remainingCount = tags.length - MAX_VISIBLE_TAGS;
+
+        const visibleTagsHtml = visibleTags
+          .map((tag) => `<span class="card-tag">${tag}</span>`)
+          .join("");
+
+        const tooltipHtml = `
+            <span class="card-tag more">
+                +${remainingCount}
+                <div class="tags-tooltip">
+                    <div class="tooltip-title">Technologies</div>
+                    <div class="tooltip-grid">
+                        ${tags
+                          .map((t) => `<span class="tooltip-tag">${t}</span>`)
+                          .join("")}
+                    </div>
+                </div>
+            </span>
+          `;
+
+        tagsContainer.innerHTML = visibleTagsHtml + tooltipHtml;
+      }
 
       this.outerHTML = cardContent.outerHTML;
     } catch (e) {

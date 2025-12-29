@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Showcase Component Preview</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../styles.css" />
+
+    <!-- Component Styles (using project-card.css as it houses showcase styles) -->
+    <link rel="stylesheet" href="../project-card/project-card.css" />
+
+    <style>
+      body {
+        background-color: #131313;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="max-width: 1200px">
+      <!-- COMPONENT CONTENT START -->
+      <div class="project-showcase" id="showcase-content">
+        <!-- Left Info Column -->
+        <div class="project-info animate-fade-in-up animate-delay-1">
+          <div class="project-header">
+            <span class="project-context">Project Context | Tech Stack</span>
+            <h1 class="project-title">Project Title</h1>
+          </div>
+
+          <div class="project-role-section">
+            <h2 class="project-role-title">About the project</h2>
+            <div class="project-description">
+              <p>
+                This is a sample description of the project. It can contain
+                <strong>bold text</strong> and other HTML elements. It describes
+                the features, technology, and purpose of the project.
+              </p>
+              <p>Second paragraph of the description to show spacing.</p>
+            </div>
+
+            <div class="project-tags">
+              <span class="tag-pill">Tag 1</span>
+              <span class="tag-pill">Tag 2</span>
+              <span class="tag-pill">Tag 3</span>
+            </div>
+          </div>
+
+          <div>
+            <a href="#" target="_blank" class="project-main-link">
+              View Project
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Visual Column -->
+        <div class="project-visual">
+          <div class="project-image-container-clean">
+            <img
+              src="https://via.placeholder.com/600x400"
+              alt="Project Preview"
+              class="project-image animate-fade-in-up animate-delay-5"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- COMPONENT CONTENT END -->
+    </div>
+  </body>
+</html>

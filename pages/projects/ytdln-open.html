@@ -36,82 +36,34 @@
 
     <div class="container" style="padding-top: 80px; min-height: 80vh">
       <main class="animate-fade-in-right animate-delay-2">
-        <!-- Reusing the large showcase layout for the details page -->
-        <div class="project-showcase">
-          <!-- Left Info Column -->
-          <div class="project-info animate-fade-in-up animate-delay-1">
-            <div class="project-header">
-              <span class="project-context"
-                >Open Source Utility | Electron & Node.js</span
-              >
-              <h1 class="project-title">YTDLN-OPEN</h1>
-            </div>
-
-            <div class="project-role-section">
-              <h2 class="project-role-title">About the project</h2>
-              <div class="project-description">
-                <p style="margin-bottom: 24px">
-                  YTDLN-OPEN is a free and open-source desktop video/audio
-                  downloader powered by <strong>yt-dlp</strong>,
-                  <strong>ffmpeg</strong>, and <strong>Electron</strong>. It
-                  supports downloading from over 1000 websites with a clean,
-                  modern interface.
-                </p>
-                <p>
-                  Featuring <strong>aria2c</strong> acceleration for high-speed
-                  multi-connection transfers, it includes advanced capabilities
-                  like playlist support, format conversion, metadata
-                  preservation, and cross-platform compatibility (Windows,
-                  macOS, Linux).
-                </p>
-              </div>
-
-              <div class="project-tags">
-                <span class="tag-pill">Electron</span>
-                <span class="tag-pill">Node.js</span>
-                <span class="tag-pill">yt-dlp</span>
-                <span class="tag-pill">aria2c</span>
-                <span class="tag-pill">FFmpeg</span>
-                <span class="tag-pill">TypeScript</span>
-              </div>
-            </div>
-
-            <div>
-              <a
-                href="https://github.com/GDKAYKY/ytdln-open"
-                target="_blank"
-                class="project-main-link"
-              >
-                View Repository
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Visual Column -->
-          <div class="project-visual">
-            <div class="project-image-container-clean">
-              <img
-                src="../../assets/ytdln_mockup.png"
-                alt="ytdln-open Interface Mockup"
-                class="project-image animate-fade-in-up animate-delay-5"
-              />
-            </div>
-          </div>
-        </div>
+        <project-showcase
+          context="Open Source Utility | Electron & Node.js"
+          title="YTDLN-OPEN"
+          tags="Electron,Node.js,yt-dlp,aria2c,FFmpeg,TypeScript"
+          link="https://github.com/GDKAYKY/ytdln-open"
+          link-text="View Repository"
+          image="../../assets/ytdln_mockup.png"
+          image-alt="ytdln-open Interface Mockup"
+          visual-style="clean"
+        >
+          <p style="margin-bottom: 24px">
+            YTDLN-OPEN is a free and open-source desktop video/audio downloader
+            powered by <strong>yt-dlp</strong>, <strong>ffmpeg</strong>, and
+            <strong>Electron</strong>. It supports downloading from over 1000
+            websites with a clean, modern interface.
+          </p>
+          <p>
+            Featuring <strong>aria2c</strong> acceleration for high-speed
+            multi-connection transfers, it includes advanced capabilities like
+            playlist support, format conversion, metadata preservation, and
+            cross-platform compatibility (Windows, macOS, Linux).
+          </p>
+        </project-showcase>
       </main>
+      <script
+        src="../../components/project-showcase/project-showcase.js"
+        defer
+      ></script>
     </div>
 
     <footer class="animate-fade-in-up animate-delay-5">

@@ -60,6 +60,9 @@
     elements.forEach((el) => observer.observe(el));
   };
 
+  // Expose to window for dynamic content (like components)
+  window.initScrollReveal = initScrollReveal;
+
   /**
    * Initialize Typewriter effect for the H1
    */

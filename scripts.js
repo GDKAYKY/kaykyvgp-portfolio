@@ -44,8 +44,8 @@
             // But the CSS also has keyframes.
             // Let's stick to the previous behavior: set styles to trigger visibility.
             // Better yet, let's keep it simple and clean.
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0) translateX(0)";
+            // el.style.opacity = "1";
+            // el.style.transform = "translateY(0) translateX(0)";
             el.classList.add("revealed");
             obs.unobserve(el);
           }

@@ -621,43 +621,72 @@ footer .contact-link:hover {
 }
 
 /* Classes de animação */
+/* Classes de animação com Transition */
+.animate-fade-in,
+.animate-fade-in-up,
+.animate-fade-in-left,
+.animate-fade-in-right {
+  transition: opacity var(--animation-duration) var(--animation-easing),
+    transform var(--animation-duration) var(--animation-easing);
+  will-change: opacity, transform;
+}
+
 .animate-fade-in {
-  animation: fadeIn var(--animation-duration) var(--animation-easing) forwards;
   opacity: 0;
+}
+.animate-fade-in.revealed {
+  opacity: 1;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
   opacity: 0;
+  transform: translateY(50px);
+}
+.animate-fade-in-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .animate-fade-in-left {
-  animation: fadeInLeft var(--animation-duration) var(--animation-easing)
-    forwards;
   opacity: 0;
+  transform: translateX(-50px);
+}
+.animate-fade-in-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .animate-fade-in-right {
-  animation: fadeInRight var(--animation-duration) var(--animation-easing)
-    forwards;
   opacity: 0;
+  transform: translateX(50px);
+}
+.animate-fade-in-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Delays para animações sequenciais */
+/* Delays para animações sequenciais */
 .animate-delay-1 {
-  animation-delay: 0.1s;
+  transition-delay: 0.1s;
 }
 .animate-delay-2 {
-  animation-delay: 0.2s;
+  transition-delay: 0.2s;
 }
 .animate-delay-3 {
-  animation-delay: 0.3s;
+  transition-delay: 0.3s;
 }
 .animate-delay-4 {
-  animation-delay: 0.4s;
+  transition-delay: 0.4s;
 }
 .animate-delay-5 {
-  animation-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.animate-delay-7 {
+  transition-delay: 0.7s;
+}
+.animate-delay-10 {
+  transition-delay: 0.5s;
 }
 
 /* Animação para experiência e certificações */

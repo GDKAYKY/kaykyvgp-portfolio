@@ -32,109 +32,32 @@
       <div class="main-content">
         <main class="animate-fade-in-right animate-delay-2">
           <div class="projects-grid">
+            <script
+              src="../components/project-card/project-card.js"
+              defer
+            ></script>
+
             <!-- YTDLN-OPEN Card -->
-            <a
-              href="projects/ytdln-open.html"
-              class="project-card-compact animate-fade-in-up animate-delay-3"
-            >
-              <div class="card-image-wrapper">
-                <img
-                  src="../assets/ytdln_mockup.png"
-                  alt="YTDLN-OPEN"
-                  class="card-image"
-                />
-              </div>
-              <div class="card-content">
-                <span class="card-type">Open Source Utility</span>
-                <h3 class="card-title">YTDLN-OPEN</h3>
-                <p class="card-description">
-                  A free and open-source desktop video/audio downloader powered
-                  by yt-dlp, ffmpeg, and Electron. Supports downloading from
-                  over 1000 websites with a clean, modern interface and
-                  high-speed multi-connection transfers.
-                </p>
+            <project-card
+              title="YTDLN-OPEN"
+              type="Open Source Utility"
+              description="A free and open-source desktop video/audio downloader powered by yt-dlp, ffmpeg, and Electron. Supports downloading from over 1000 websites with a clean, modern interface and high-speed multi-connection transfers."
+              image="../assets/ytdln_mockup.png"
+              link="projects/ytdln-open.html"
+              tags="Electron,Node.js,yt-dlp"
+              class="animate-fade-in-up animate-delay-3"
+            ></project-card>
 
-                <div class="card-footer">
-                  <div class="card-tags">
-                    <span class="card-tag">Electron</span>
-                    <span class="card-tag">Node.js</span>
-                    <span class="card-tag">yt-dlp</span>
-                  </div>
-                  <svg
-                    class="card-link-icon"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
-              </div>
-            </a>
-
-            <!-- Portfolio Card (Self-Reference) -->
-            <a
-              href="projects/portfolio.html"
-              class="project-card-compact animate-fade-in-up animate-delay-4"
-            >
-              <div
-                class="card-image-wrapper"
-                style="
-                  background: #111;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
-                <span
-                  style="
-                    color: #333;
-                    font-weight: 700;
-                    font-size: 14px;
-                    text-transform: uppercase;
-                  "
-                  >Visual Placeholder</span
-                >
-              </div>
-              <div class="card-content">
-                <span class="card-type">Web Development</span>
-                <h3 class="card-title">Personal Portfolio</h3>
-                <p class="card-description">
-                  A modern, high-performance portfolio website designed to
-                  showcase my skills and projects. Built with a focus on
-                  aesthetics, responsiveness, and clean code using vanilla
-                  HTML/CSS/JS.
-                </p>
-
-                <div class="card-footer">
-                  <div class="card-tags">
-                    <span class="card-tag">HTML5</span>
-                    <span class="card-tag">CSS3</span>
-                    <span class="card-tag">Design System</span>
-                  </div>
-                  <svg
-                    class="card-link-icon"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
-              </div>
-            </a>
+            <!-- Portfolio Card -->
+            <project-card
+              title="Personal Portfolio"
+              type="Web Development"
+              description="A modern, high-performance portfolio website designed to showcase my skills and projects. Built with a focus on aesthetics, responsiveness, and clean code using vanilla HTML/CSS/JS."
+              image=""
+              link="projects/portfolio.html"
+              tags="HTML5,CSS3,Design System"
+              class="animate-fade-in-up animate-delay-4"
+            ></project-card>
           </div>
         </main>
       </div>

@@ -786,12 +786,8 @@ footer .contact-link:hover {
   background-color: #f5f5f7;
   color: var(--primary-text);
   width: 100%;
-  padding: 100px 0;
-  position: relative;
   left: 50%;
   right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   width: 100vw;
   box-sizing: border-box;
 }

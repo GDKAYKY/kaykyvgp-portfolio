@@ -26,7 +26,6 @@ class ProjectShowcase extends HTMLElement {
     const image = this.getAttribute("image") || "";
     const imageAlt = this.getAttribute("image-alt") || title;
     const visualStyle = this.getAttribute("visual-style") || "framed"; // 'framed' or 'clean'
-    const animation = this.getAttribute("animation") || "";
 
     // Ensure CSS is loaded (it is shared with project-card)
     if (!document.querySelector('link[href*="project-showcase.css"]')) {
@@ -51,10 +50,6 @@ class ProjectShowcase extends HTMLElement {
       if (!content) throw new Error("Could not find showcase content");
 
       // Update Content
-      if (animation) {
-        const classes = animation.split(" ");
-        content.classList.add(...classes);
-      }
       content.querySelector(".project-context").textContent = context;
       content.querySelector(".project-title").textContent = title;
 

@@ -219,7 +219,6 @@ class ProjectCard extends HTMLElement {
       .split(",")
       .map((t) => t.trim())
       .filter((t) => t);
-    const animation = this.getAttribute("animation") || "";
 
     // Inject Styles
     if (!document.getElementById("project-card-styles")) {
@@ -245,11 +244,6 @@ class ProjectCard extends HTMLElement {
 
       // Update content via DOM manipulation instead of string replace
       cardContent.setAttribute("href", link);
-      if (animation) {
-        // Add animation classes to the internal card content
-        const classes = animation.split(" ");
-        cardContent.classList.add(...classes);
-      }
 
       const imgEl = cardContent.querySelector(".card-image");
       if (image) {
@@ -303,10 +297,6 @@ class ProjectCard extends HTMLElement {
       }
 
       this.outerHTML = cardContent.outerHTML;
-      // Re-trigger observer for new elements
-      if (globalThis.initScrollReveal) {
-        setTimeout(() => globalThis.initScrollReveal(), 100);
-      }
     } catch (e) {
       console.error("Failed to load project-card component:", e);
     }

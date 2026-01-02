@@ -24,18 +24,6 @@
    * Replaces the old scroll event listener
    */
   const initScrollReveal = () => {
-    // 1. Convert custom 'animation' attributes to classes if present
-    const animatedElements = document.querySelectorAll("[animation]");
-    animatedElements.forEach((el) => {
-      const animationClasses = el.getAttribute("animation");
-      if (animationClasses && !el.classList.contains("animate-processed")) {
-        const classes = animationClasses.split(" ");
-        el.classList.add(...classes);
-        el.classList.add("animate-processed"); // Marker to avoid re-adding
-      }
-    });
-
-    // 2. Select all elements that now have the animation classes
     const elements = document.querySelectorAll(
       ".animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
     );
@@ -47,6 +35,17 @@
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const el = entry.target;
+            // Apply styles directly or use a class.
+            // The existing CSS relies on inline styles being set by JS for the 'fade-in' classes to work?
+            // Checking stats: .animate-fade-in-up { opacity: 0; animation: ... }
+            // The previous JS set opacity=1 and transform.
+            // Actually, the CSS has 'animation' properties that run once triggered?
+            // The previous JS did: element.style.opacity = "1"; element.style.transform = "translateY(0) translateX(0)";
+            // But the CSS also has keyframes.
+            // Let's stick to the previous behavior: set styles to trigger visibility.
+            // Better yet, let's keep it simple and clean.
+            // el.style.opacity = "1";
+            // el.style.transform = "translateY(0) translateX(0)";
             el.classList.add("revealed");
             obs.unobserve(el);
           }
@@ -58,13 +57,7 @@
       }
     );
 
-    elements.forEach((el) => {
-      // Prevent attaching multiple observers to the same element
-      if (!el.hasAttribute("data-observed")) {
-        observer.observe(el);
-        el.setAttribute("data-observed", "true");
-      }
-    });
+    elements.forEach((el) => observer.observe(el));
   };
 
   // Expose to window for dynamic content (like components)

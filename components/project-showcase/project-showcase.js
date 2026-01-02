@@ -96,6 +96,37 @@ class ProjectShowcase extends HTMLElement {
         img.classList.add("animate-fade-in-up", "animate-delay-5");
       }
 
+      // Download Link (Windows Button)
+      const downloadLinkUrl = this.getAttribute("download-link");
+      if (downloadLinkUrl) {
+        const linkParent = linkEl.parentNode;
+        const downloadBtnHtml = `
+          <a href="${downloadLinkUrl}" class="win-download-btn" target="_blank" rel="noopener noreferrer">
+            <div class="win-icon-grid">
+              <div class="win-pane win-pane-1"></div>
+              <div class="win-pane win-pane-2"></div>
+              <div class="win-pane win-pane-3"></div>
+              <div class="win-pane win-pane-4"></div>
+            </div>
+            <div class="win-info">
+              <div class="win-title">Download for Windows x86-x64</div>
+              <div class="win-meta">275MB • v1.0.0</div>
+            </div>
+          </a>
+        `;
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = downloadBtnHtml.trim();
+        // Insert BEFORE the View Repository link (Left side)
+        linkParent.insertBefore(tempDiv.firstChild, linkEl);
+
+        // Ensure parent aligns items side-by-side
+        linkParent.style.display = "flex";
+        linkParent.style.flexDirection = "row";
+        linkParent.style.alignItems = "center";
+        linkParent.style.gap = "16px";
+        linkParent.style.marginTop = "24px";
+      }
+
       // 🔑 Só agora substitui o preview embutido
       this.innerHTML = "";
       this.appendChild(content);

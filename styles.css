@@ -9,7 +9,6 @@
   --secondary-text: #ababab;
   --tertiary-text: #d4d4d4;
   --border-color: #c4c4c4;
-  --border-properties: 1px solid var(--border-color);
 
   /* Animation variables */
   --animation-duration: 0.6s;
@@ -189,11 +188,9 @@ input {
   line-height: 140%;
   letter-spacing: 99%;
   font-size: 15px;
-  border-top: var(--border-properties);
 }
 
 .experience-section {
-  border-top: var(--border-properties);
   padding-top: 32px;
   padding-bottom: 36px;
 }
@@ -506,8 +503,8 @@ input {
 }
 
 footer {
-  padding-top: 48px;
-  padding-bottom: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;

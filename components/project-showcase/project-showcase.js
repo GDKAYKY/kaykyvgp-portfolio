@@ -4,7 +4,7 @@ class ProjectShowcase extends HTMLElement {
   }
 
   getBasePath() {
-    const path = window.location.pathname;
+    const path = globalThis.location.pathname;
     if (path.includes("/pages/projects/")) return "../..";
     if (path.includes("/pages/")) return "..";
     return ".";
@@ -26,6 +26,7 @@ class ProjectShowcase extends HTMLElement {
     const image = this.getAttribute("image") || "";
     const imageAlt = this.getAttribute("image-alt") || title;
     const visualStyle = this.getAttribute("visual-style") || "framed"; // 'framed' or 'clean'
+    const animation = this.getAttribute("animation") || "";
 
     // Ensure CSS is loaded (it is shared with project-card)
     if (!document.querySelector('link[href*="project-showcase.css"]')) {
@@ -50,6 +51,10 @@ class ProjectShowcase extends HTMLElement {
       if (!content) throw new Error("Could not find showcase content");
 
       // Update Content
+      if (animation) {
+        const classes = animation.split(" ");
+        content.classList.add(...classes);
+      }
       content.querySelector(".project-context").textContent = context;
       content.querySelector(".project-title").textContent = title;
 
@@ -130,9 +135,9 @@ class ProjectShowcase extends HTMLElement {
       this.appendChild(content);
 
       // Re-trigger scroll observer since we injected new animated elements
-      if (window.initScrollReveal) {
+      if (globalThis.initScrollReveal) {
         // Short timeout to ensure DOM is ready
-        setTimeout(() => window.initScrollReveal(), 100);
+        setTimeout(() => globalThis.initScrollReveal(), 100);
       }
     } catch (e) {
       console.error("Failed to load project-showcase component:", e);

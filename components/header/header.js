@@ -15,6 +15,7 @@ class PortfolioHeader extends HTMLElement {
   async render() {
     const basePath = this.getAttribute("base-path") || this.getBasePath();
     const activePage = this.getAttribute("active-page") || "";
+    const animation = this.getAttribute("animation") || "";
 
     // Inject Styles if not already present
     if (!document.getElementById("portfolio-header-styles")) {
@@ -57,6 +58,14 @@ class PortfolioHeader extends HTMLElement {
       // Ensure site-header class
       if (!this.classList.contains("site-header")) {
         this.classList.add("site-header");
+      }
+      if (animation) {
+        this.classList.add(...animation.split(" "));
+      }
+
+      // Re-trigger observer
+      if (globalThis.initScrollReveal) {
+        setTimeout(() => globalThis.initScrollReveal(), 100);
       }
     } catch (e) {
       console.error("Failed to load header component:", e);

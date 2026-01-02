@@ -1,96 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="../../scripts.js" defer></script>
+    <script
+      src="../../components/particleEffect/particleEffect.js"
+      defer
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Showcase Component Preview</title>
-
-    <!-- Fonts -->
+    <title>Project Showcase - Preview</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Global Styles -->
     <link rel="stylesheet" href="../../styles.css" />
-
-    <!-- Component Styles (using project-card.css as it houses showcase styles) -->
-    <link rel="stylesheet" href="../project-card/project-card.css" />
-
-    <style>
-      body {
-        background-color: #131313;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="../../components/particleEffect/particleEffect.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../components/project-card/project-card.css"
+    />
+    <!-- Component Styles manual import for preview safety -->
+    <link
+      rel="stylesheet"
+      href="./project-showcase.css"
+      id="project-showcase-style"
+    />
   </head>
+
   <body>
-    <div class="container" style="max-width: 1200px">
-      <!-- COMPONENT CONTENT START -->
-      <div class="project-showcase" id="showcase-content">
-        <!-- Left Info Column -->
-        <div class="project-info animate-fade-in-up animate-delay-1">
-          <div class="project-header">
-            <span class="project-context">Project Context | Tech Stack</span>
-            <h1 class="project-title">Project Title</h1>
-          </div>
+    <!-- Header -->
+    <script src="../../components/header/header.js" defer></script>
+    <portfolio-header
+      class="site-header animate-fade-in-up"
+      active-page="project-details"
+    ></portfolio-header>
 
-          <div class="project-role-section">
-            <h2 class="project-role-title">About the project</h2>
-            <div class="project-description">
-              <p>
-                This is a sample description of the project. It can contain
-                <strong>bold text</strong> and other HTML elements. It describes
-                the features, technology, and purpose of the project.
-              </p>
-              <p>Second paragraph of the description to show spacing.</p>
-            </div>
-
-            <div class="project-tags">
-              <span class="tag-pill">Tag 1</span>
-              <span class="tag-pill">Tag 2</span>
-              <span class="tag-pill">Tag 3</span>
-            </div>
-          </div>
-
-          <div>
-            <a href="#" target="_blank" class="project-main-link">
-              View Project
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+    <div class="container" style="padding-top: 80px">
+      <main class="animate-fade-in-right animate-delay-2">
+        <!-- COMPONENT TEMPLATE SOURCE -->
+        <!-- This is the element the JS clones -->
+        <div class="project-showcase" id="showcase-content">
+          <!-- Left Info Column -->
+          <div class="project-info animate-fade-in-up animate-delay-1 revealed">
+            <div class="project-header">
+              <span class="project-context"
+                >Open Source Utility | Electron & Node.js</span
               >
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
+              <h1 class="project-title">YTDLN-OPEN</h1>
+            </div>
+
+            <div class="project-role-section">
+              <h2 class="project-role-title">About the project</h2>
+              <div class="project-description">
+                <p style="margin-bottom: 24px">
+                  YTDLN-OPEN is a free and open-source desktop video/audio
+                  downloader powered by <strong>yt-dlp</strong>,
+                  <strong>ffmpeg</strong>, and <strong>Electron</strong>. It
+                  supports downloading from over 1000 websites with a clean,
+                  modern interface.
+                </p>
+                <p>
+                  Featuring <strong>aria2c</strong> acceleration for high-speed
+                  multi-connection transfers, it includes advanced capabilities
+                  like playlist support, format conversion, metadata
+                  preservation, and cross-platform compatibility (Windows,
+                  macOS, Linux).
+                </p>
+              </div>
+
+              <div class="project-tags">
+                <span class="tag-pill">Electron</span>
+                <span class="tag-pill">Node.js</span>
+                <span class="tag-pill">yt-dlp</span>
+                <span class="tag-pill">aria2c</span>
+                <span class="tag-pill">FFmpeg</span>
+              </div>
+            </div>
+
+            <div>
+              <a
+                href="https://github.com/GDKAYKY/ytdln-open"
+                target="_blank"
+                class="project-main-link"
+              >
+                View Repository
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Visual Column -->
+          <div class="project-visual">
+            <div class="project-image-container-clean">
+              <img
+                src="../../assets/ytdln_mockup.png"
+                alt="ytdln-open Interface Mockup"
+                class="project-image animate-fade-in-up animate-delay-5 revealed"
+              />
+            </div>
           </div>
         </div>
+        <!-- END COMPONENT TEMPLATE SOURCE -->
+      </main>
+    </div>
 
-        <!-- Right Visual Column -->
-        <div class="project-visual">
-          <div class="project-image-container-clean">
-            <img
-              src="https://via.placeholder.com/600x400"
-              alt="Project Preview"
-              class="project-image animate-fade-in-up animate-delay-5"
-            />
+    <!-- New Section: Experience Absolute Customisability (Static HTML for preview) -->
+    <section class="section-light animate-fade-in-up animate-delay-4 revealed">
+      <div class="container">
+        <!-- Re-using project-showcase styles but manually constructing for custom layout -->
+        <div class="project-showcase" style="flex-direction: row-reverse">
+          <!-- Content Side -->
+          <div class="project-info">
+            <span class="project-context">Power & Flexibility</span>
+            <h2 class="project-title" style="font-size: 2.5rem">
+              Experience Absolute Customizability
+            </h2>
+
+            <div class="project-description">
+              <p>
+                YTDLN-OPEN isn't just about downloading; it's about control.
+                Tailor every aspect of your experience with granular settings.
+              </p>
+              <p>
+                Configure <strong>output formats</strong> (MP4, MKV, MP3),
+                adjust <strong>video quality</strong>, and finetune
+                <strong>concurrent fragments</strong> for optimal speed. toggle
+                <strong>subtitle embedding</strong>, metadata options, and
+                more—all from a unified, intuitive dashboard.
+              </p>
+            </div>
+          </div>
+
+          <!-- Visual Side -->
+          <div class="project-visual">
+            <div
+              class="project-image-container-clean animate-fade-in-up animate-delay-5 revealed"
+            >
+              <img
+                src="../../assets/ytdln_settings_mockup.png"
+                alt="YTDLN-OPEN Settings Interface"
+                class="project-image"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <!-- COMPONENT CONTENT END -->
-    </div>
+    </section>
+
+    <footer class="animate-fade-in-up animate-delay-5 revealed">
+      <div class="container">
+        <div class="bio">
+          A Passionate Software Developer, always ready to learn something new.
+        </div>
+        <div class="contact-info stagger-animation">
+          <a href="https://github.com/GDKAYKY" class="contact-link">Github</a>
+          <a href="mailto:kaykyvitorgp@gmail.com" class="contact-link"
+            >kaykyvitorgp@gmail.com</a
+          >
+          <a href="https://www.linkedin.com/in/kaykyvgp/" class="contact-link"
+            >LinkedIn</a
+          >
+        </div>
+        <small>@2025 Kayky</small>
+      </div>
+    </footer>
   </body>
 </html>

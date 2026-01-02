@@ -1,5 +1,7 @@
 class ProjectShowcase extends HTMLElement {
-  async connectedCallback() {
+  connectedCallback() {
+    // Preserva preview embutido para debug no editor
+    this._inlinePreview = this.innerHTML.trim();
     this.render();
   }
 
@@ -10,132 +12,98 @@ class ProjectShowcase extends HTMLElement {
     return ".";
   }
 
+  ensureStyles(basePath) {
+    if (document.getElementById("project-showcase-style")) return;
+
+    const link = document.createElement("link");
+    link.id = "project-showcase-style";
+    link.rel = "stylesheet";
+    link.href = `${basePath}/components/project-showcase/project-showcase.css`;
+    document.head.appendChild(link);
+  }
+
   async render() {
     const basePath = this.getAttribute("base-path") || this.getBasePath();
 
-    // Attributes
     const context = this.getAttribute("context") || "Project Context";
     const title = this.getAttribute("title") || "Project Title";
-    const description = this.innerHTML || ""; // Use innerHTML for description to allow flexible markup
     const tags = (this.getAttribute("tags") || "")
       .split(",")
       .map((t) => t.trim())
-      .filter((t) => t);
+      .filter(Boolean);
+
     const link = this.getAttribute("link") || "#";
     const linkText = this.getAttribute("link-text") || "View Project";
-    const image = this.getAttribute("image") || "";
-    const imageAlt = this.getAttribute("image-alt") || title;
-    const visualStyle = this.getAttribute("visual-style") || "framed"; // 'framed' or 'clean'
 
-    // Ensure CSS is loaded (it is shared with project-card)
-    if (!document.querySelector('link[href*="project-showcase.css"]')) {
-      const linkEl = document.createElement("link");
-      linkEl.rel = "stylesheet";
-      linkEl.href = `${basePath}/components/project-showcase/project-showcase.css`;
-      document.head.appendChild(linkEl);
-    }
+    const image = this.getAttribute("image");
+    const imageAlt = this.getAttribute("image-alt") || title;
+    const visualStyle = this.getAttribute("visual-style") || "framed";
+
+    this.ensureStyles(basePath);
 
     try {
-      const response = await fetch(
+      const res = await fetch(
         `${basePath}/components/project-showcase/project-showcase.html`
       );
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const fullHtml = await response.text();
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(fullHtml, "text/html");
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
       const content = doc.querySelector("#showcase-content");
 
-      if (!content) throw new Error("Could not find showcase content");
+      if (!content) throw new Error("Missing #showcase-content");
 
-      // Update Content
+      // Context / title
+      content.removeAttribute("id");
       content.querySelector(".project-context").textContent = context;
       content.querySelector(".project-title").textContent = title;
 
-      // Description: Use the inner HTML passed to the component, or fallback to attribute
-      // Note: We need to put it inside .project-description
-      const descContainer = content.querySelector(".project-description");
-      if (description.trim()) {
-        descContainer.innerHTML = description;
-      } else if (this.getAttribute("description")) {
-        descContainer.textContent = this.getAttribute("description");
+      // Description (usa preview embutido se existir)
+      const desc = content.querySelector(".project-description");
+      if (this._inlinePreview) {
+        desc.innerHTML = this._inlinePreview;
+      } else if (this.hasAttribute("description")) {
+        desc.textContent = this.getAttribute("description");
       }
 
       // Tags
-      const tagsContainer = content.querySelector(".project-tags");
-      tagsContainer.innerHTML = tags
+      content.querySelector(".project-tags").innerHTML = tags
         .map((tag) => `<span class="tag-pill">${tag}</span>`)
         .join("");
 
       // Link
       const linkEl = content.querySelector(".project-main-link");
-      linkEl.href = link;
-      // Update text but keep the SVG
       const svg = linkEl.querySelector("svg");
-      linkEl.textContent = linkText + " ";
-      linkEl.appendChild(svg);
+      linkEl.href = link;
+      linkEl.textContent = `${linkText} `;
+      if (svg) linkEl.appendChild(svg);
 
-      // Image Area
-      const visualCol = content.querySelector(".project-visual");
-      // Check visual style
-      const imgContainer = visualCol.querySelector(
-        'div[class*="project-image-container"]'
+      // Visual
+      const visual = content.querySelector(".project-visual");
+      const container = visual.querySelector(
+        '[class^="project-image-container"]'
       );
+      const img = container.querySelector("img");
 
-      if (visualStyle === "clean") {
-        imgContainer.className =
-          "project-image-container-clean animate-fade-in-up animate-delay-5";
-        // Remove animation from image if container has it?
-        // Wait, previous step put animation on IMAGE for clean style.
-        // Let's stick to the HTML template structure logic.
+      container.className =
+        visualStyle === "clean"
+          ? "project-image-container-clean"
+          : "project-image-container";
 
-        // In template I put: <div class="project-image-container-clean"><img ... class="... animate-fade-in-up ..."></div>
-        // So default template handles 'clean' structure well.
-        imgContainer.className = "project-image-container-clean";
-      } else {
-        imgContainer.className = "project-image-container";
-      }
-
-      const imgEl = imgContainer.querySelector("img");
       if (image) {
-        imgEl.src = image;
-        imgEl.alt = imageAlt;
-
-        // Apply animations to image directly (as per latest user preference for clean style)
-        // Or keep consistent? User asked to animate image for YTDLN (clean).
-        // For framed, usually the container animates.
-
-        if (visualStyle === "clean") {
-          imgEl.classList.add("animate-fade-in-up", "animate-delay-5");
-        } else {
-          // Framed style usually animates the container or image?
-          // In styles.css previous usage, .project-visual had the animation.
-          // Let's put it on the container for framed, image for clean?
-          // Or just stick to image for consistency if possible.
-          // Let's apply to image for both to be safe, or Container.
-          // Current template has animation on image.
-        }
-      } else {
-        // Handle visual placeholder if no image (like in portfolio.html)
-        imgContainer.style.background = "#111";
-        imgContainer.style.display = "flex";
-        imgContainer.style.alignItems = "center";
-        imgContainer.style.justifyContent = "center";
-        imgContainer.style.minHeight = "300px";
-        imgContainer.innerHTML = `<span style="color: #333; font-weight: 700; font-size: 24px">Visual Placeholder</span>`;
+        img.src = image;
+        img.alt = imageAlt;
+        img.classList.add("animate-fade-in-up", "animate-delay-5");
       }
 
-      this.innerHTML = ""; // Clear custom element children (which were used for description)
+      // 🔑 Só agora substitui o preview embutido
+      this.innerHTML = "";
       this.appendChild(content);
 
-      // Re-trigger scroll observer since we injected new animated elements
-      if (globalThis.initScrollReveal) {
-        // Short timeout to ensure DOM is ready
-        setTimeout(() => globalThis.initScrollReveal(), 100);
-      }
-    } catch (e) {
-      console.error("Failed to load project-showcase component:", e);
+      globalThis.initScrollReveal?.();
+    } catch (err) {
+      console.error("ProjectShowcase failed:", err);
+      // preview embutido permanece visível se der erro
     }
   }
 }

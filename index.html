@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link
       rel="stylesheet"
       href="components/particleEffect/particleEffect.css"
@@ -53,34 +54,41 @@
 
     <tech-strip></tech-strip>
 
-    <div class="container">
-      <div class="main-content">
-        <main class="animate-fade-in-right animate-delay-6">
-          <div
-            id="experience"
-            class="experience-section animate-fade-in-up animate-delay-7"
-          >
+    <div class="main-content-wrapper">
+      <div class="container">
+        <div class="main-content">
+          <main class="animate-fade-in-right animate-delay-2">
+            <section
+              id="experience"
+              class="experience-section animate-fade-in-up"
+            >
             <h2 class="section-title">Experience</h2>
             <div class="experience-item">
-              <img
-                class="certification-logo"
-                src="assets/who_logo.jpeg"
-                alt="Microsoft Logo"
-                width="48"
-                height="48"
-              />
-              <h3 class="job-title">Apprentice Software Developer</h3>
-              <ul class="job-subtitle">
-                <li>at Who</li>
-                <li>December 2024 – December 2025</li>
-                <li>Hybrid & Belo Horizonte, Minas Gerais</li>
-              </ul>
+              <div class="experience-header">
+                <img
+                  class="certification-logo"
+                  src="assets/who_logo.jpeg"
+                  alt="Who Logo"
+                  width="56"
+                  height="56"
+                />
+                <div class="experience-title-area">
+                  <h3 class="job-title">Apprentice Software Developer</h3>
+                  <div class="job-meta">
+                    <span class="meta-item"><i data-lucide="building-2"></i> Who</span>
+                    <span class="dot">•</span>
+                    <span class="meta-item"><i data-lucide="calendar"></i> Dec 2024 – Dec 2025</span>
+                    <span class="dot">•</span>
+                    <span class="meta-item"><i data-lucide="map-pin"></i> Hybrid & Belo Horizonte</span>
+                  </div>
+                </div>
+              </div>
               <ul class="job-description">
                 <li>
-                  Develop, Maintain, and Improve high performance systems,
-                  leveraging C#,.NET and AWS with a strong focus on security,
-                  efficiency, and FinOps, i contributed developing robust and
-                  reliable systems and workflows.
+                  Developed and maintained high-performance systems using C#, .NET, and AWS.
+                </li>
+                <li>
+                  Focused on security, efficiency, and FinOps, contributing to robust workflows and reliable system architectures.
                 </li>
               </ul>
             </div>
@@ -90,7 +98,7 @@
             <h2 class="section-title">Certifications</h2>
 
             <!-- Machine Learning Foundations -->
-            <div class="experience-item certification">
+            <div class="experience-item certification animate-fade-in-up animate-delay-1">
               <div class="certification-content">
                 <img
                   class="certification-logo"
@@ -123,21 +131,19 @@
               </div>
               <ul class="job-description">
                 <li>Verification issued in November 2025</li>
-                <li>Credential code:f8f39b6e-90ce-4304-af14-3d2658f4c74b</li>
-                <li>
-                  <a
-                    href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
-                    target="_blank"
-                    class="credential-button"
-                  >
-                    <span class="button-icon">↗</span>
-                    <span class="button-text">Ver Credencial</span>
-                  </a>
-                </li>
+                <li>Credential code: f8f39b6e-90ce-4304-af14-3d2658f4c74b</li>
               </ul>
+              <a
+                href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
+                target="_blank"
+                class="credential-button"
+              >
+                <span class="button-text">See Credential</span>
+                <span class="button-icon">↗</span>
+              </a>
             </div>
 
-            <div class="experience-item certification">
+            <div class="experience-item certification animate-fade-in-up animate-delay-2">
               <div class="certification-content">
                 <img
                   class="certification-logo"
@@ -171,19 +177,17 @@
               <ul class="job-description">
                 <li>Verification issued in October 2025</li>
                 <li>Credential code: faabda17-42b4-4e3f-b027-47158c9b41b0</li>
-                <li>
-                  <a
-                    href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
-                    target="_blank"
-                    class="credential-button"
-                  >
-                    <span class="button-icon">↗</span>
-                    <span class="button-text">Ver Credencial</span>
-                  </a>
-                </li>
               </ul>
+              <a
+                href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
+                target="_blank"
+                class="credential-button"
+              >
+                <span class="button-text">See Credential</span>
+                <span class="button-icon">↗</span>
+              </a>
             </div>
-            <div class="experience-item certification">
+            <div class="experience-item certification animate-fade-in-up animate-delay-3">
               <div class="certification-content">
                 <img
                   class="certification-logo"
@@ -215,20 +219,17 @@
               <ul class="job-description">
                 <li>Verification issued in October 2025</li>
                 <li>
-                  Credential code:
-                  fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b-fcswm
-                </li>
-                <li>
-                  <a
-                    href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
-                    target="_blank"
-                    class="credential-button"
-                  >
-                    <span class="button-icon">↗</span>
-                    <span class="button-text">Ver Credencial</span>
-                  </a>
+                  Credential code: fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b-fcswm
                 </li>
               </ul>
+              <a
+                href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
+                target="_blank"
+                class="credential-button"
+              >
+                <span class="button-text">See Credential</span>
+                <span class="button-icon">↗</span>
+              </a>
             </div>
           </section>
 
@@ -238,31 +239,35 @@
           >
             <h2 class="section-title">Skills</h2>
             <div class="skills-grid stagger-animation">
-              <div class="skills-column">
-                <div class="skills-column-title">Hard Skills:</div>
+              <div class="skills-column animate-fade-in-up animate-delay-1">
+                <div class="skills-column-title">
+                  <i data-lucide="code-2"></i> Hard Skills
+                </div>
                 <ul>
-                  <li>C# and .NET Framework</li>
-                  <li>AWS</li>
-                  <li>FinOps</li>
-                  <li>Docker</li>
-                  <li>Grafana</li>
-                  <li>Cibersecurity Principles</li>
+                  <li><i data-lucide="hash"></i> C# and .NET Framework</li>
+                  <li><i data-lucide="cloud"></i> AWS</li>
+                  <li><i data-lucide="trending-down"></i> FinOps</li>
+                  <li><i data-lucide="container"></i> Docker</li>
+                  <li><i data-lucide="activity"></i> Grafana</li>
+                  <li><i data-lucide="shield-check"></i> Cybersecurity Principles</li>
                 </ul>
               </div>
-              <div class="skills-column">
-                <div class="skills-column-title">Soft Skills:</div>
+              <div class="skills-column animate-fade-in-up animate-delay-2">
+                <div class="skills-column-title">
+                  <i data-lucide="brain-circuit"></i> Soft Skills
+                </div>
                 <ul>
-                  <li>Autodidact</li>
-                  <li>Focus on Performance and Reliability</li>
-                  <li>Active Listener</li>
-                  <li>Always striving to learn more</li>
+                  <li><i data-lucide="zap"></i> Autodidact</li>
+                  <li><i data-lucide="gauge"></i> Focus on Performance</li>
+                  <li><i data-lucide="ear"></i> Active Listener</li>
+                  <li><i data-lucide="graduation-cap"></i> Constant Learner</li>
                 </ul>
               </div>
             </div>
           </section>
           <section class="section animate-fade-in-up animate-delay-10">
             <h2 class="section-title">Education</h2>
-            <div class="certification">
+            <div class="certification animate-fade-in-up animate-delay-1">
               <div class="certification-content">
                 <img
                   class="certification-logo"
@@ -296,8 +301,12 @@
             </div>
           </section>
         </main>
+        </div>
       </div>
     </div>
+    <script>
+      lucide.createIcons();
+    </script>
     <portfolio-footer></portfolio-footer>
   </body>
 </html>

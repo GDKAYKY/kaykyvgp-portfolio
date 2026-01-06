@@ -25,7 +25,7 @@
    */
   const initScrollReveal = () => {
     const elements = document.querySelectorAll(
-      ".animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+      ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
     );
 
     if (elements.length === 0) return;

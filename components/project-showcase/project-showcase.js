@@ -7,7 +7,7 @@ class ProjectShowcase extends HTMLElement {
 
   getBasePath() {
     const path = globalThis.location.pathname;
-    if (path.includes("/pages/projects/")) return "../..";
+    if (path.includes("/pages/projects")) return "../..";
     if (path.includes("/pages/")) return "..";
     return ".";
   }

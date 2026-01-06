@@ -6,8 +6,7 @@ class PortfolioHeader extends HTMLElement {
 
   getBasePath() {
     const path = window.location.pathname;
-    // Handle specific project paths
-    if (path.includes("/pages/projects/")) return "../..";
+    if (path.includes("/pages/projects")) return "../..";
     if (path.includes("/pages/")) return "..";
     return ".";
   }

@@ -201,7 +201,7 @@ class ProjectCard extends HTMLElement {
 
   getBasePath() {
     const path = window.location.pathname;
-    if (path.includes("/pages/projects/")) return "../..";
+    if (path.includes("/pages/projects")) return "../..";
     if (path.includes("/pages/")) return "..";
     return ".";
   }

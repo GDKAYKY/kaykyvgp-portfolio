@@ -41,6 +41,11 @@ class PortfolioFooter extends HTMLElement {
         }
 
         this.innerHTML = content.outerHTML;
+
+        // Initialize Lucide icons for the newly injected content
+        if (globalThis.lucide) {
+          globalThis.lucide.createIcons();
+        }
       }
 
       // Initialize any global animations if needed

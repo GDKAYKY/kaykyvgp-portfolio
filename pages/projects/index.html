@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="../scripts.js" defer></script>
-    <script src="../components/particleEffect/particleEffect.js" defer></script>
-    <script src="../components/footer/footer.js" defer></script>
+    <script src="../../scripts.js" defer></script>
+    <script
+      src="../../components/particleEffect/particleEffect.js"
+      defer
+    ></script>
+    <script src="../../components/footer/footer.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kayky Vitor - Projects</title>
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -16,7 +19,7 @@
       property="og:description"
       content="Explore my projects in software development, focusing on efficiency and scalability."
     />
-    <meta property="og:image" content="../favicon.svg" />
+    <meta property="og:image" content="../../favicon.svg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -25,24 +28,26 @@
       property="twitter:description"
       content="Explore my projects in software development, focusing on efficiency and scalability."
     />
-    <meta property="twitter:image" content="../favicon.svg" />
+    <meta property="twitter:image" content="../../favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../../styles.css" />
     <link
       rel="stylesheet"
-      href="../components/particleEffect/particleEffect.css"
+      href="../../components/particleEffect/particleEffect.css"
     />
-    <link rel="stylesheet" href="../components/projectCard.css" />
+    <link rel="stylesheet" href="../../components/projectCard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
 
   <body>
     <!-- Header -->
-    <script src="../components/header/header.js" defer></script>
+    <script src="../../components/header/header.js" defer></script>
     <portfolio-header
       class="site-header animate-fade-in-up"
       active-page="projects"
@@ -53,7 +58,7 @@
         <main class="animate-fade-in-right animate-delay-2">
           <div class="projects-grid">
             <script
-              src="../components/project-card/project-card.js"
+              src="../../components/project-card/project-card.js"
               defer
             ></script>
 
@@ -62,8 +67,8 @@
               title="YTDLN-OPEN"
               type="Open Source Utility"
               description="A free and open-source desktop video/audio downloader powered by yt-dlp, ffmpeg, and Electron. Supports downloading from over 1000 websites with a clean, modern interface and high-speed multi-connection transfers."
-              image="../assets/ytdln_mockup.png"
-              link="projects/ytdln-open.html"
+              image="../../assets/ytdln_mockup.png"
+              link="ytdln-open.html"
               tags="Electron,Node.js,yt-dlp,HTML5,CSS3,JavaScript,Ffmpeg,aria2c"
               class="animate-fade-in-up animate-delay-3"
             ></project-card>
@@ -73,8 +78,8 @@
               title="SPAN-CORE"
               type="Desktop Utility"
               description="A high-performance video downloading engine built with C++ and Qt. Native desktop experience with full yt-dlp support and FFmpeg integration."
-              image="../assets/ytdln_mockup.png"
-              link="projects/span-core.html"
+              image="../../assets/ytdln_mockup.png"
+              link="span-core.html"
               tags="C++,Qt,yt-dlp,FFmpeg"
               class="animate-fade-in-up animate-delay-4"
             ></project-card>
@@ -85,7 +90,7 @@
               type="Web Development"
               description="A modern, high-performance portfolio website designed to showcase my skills and projects. Built with a focus on aesthetics, responsiveness, and clean code using vanilla HTML/CSS/JS."
               image=""
-              link="projects/portfolio.html"
+              link="portfolio.html"
               tags="HTML5,CSS3,Design System"
               class="animate-fade-in-up animate-delay-5"
             ></project-card>
@@ -95,5 +100,8 @@
     </div>
 
     <portfolio-footer></portfolio-footer>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>

@@ -237,7 +237,8 @@ input {
   gap: 6px;
 }
 
-.meta-item i {
+.meta-item i,
+.meta-item svg {
   width: 14px;
   height: 14px;
   stroke-width: 2.5;
@@ -262,58 +263,7 @@ input {
   display: block; /* Content stacked vertically */
 }
 
-.contact-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  padding: 10px 0px;
-  color: #ffffff;
-  font-size: 14px;
-  text-decoration: none;
-  border-top: var(--border-properties);
-  transition: var(--hover-transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-link::after {
-  content: "→";
-  font-size: 16px;
-  transition: var(--hover-transition);
-}
-
-.contact-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.contact-link:hover::before {
-  left: 100%;
-}
-
-.contact-link:hover {
-  color: #ffffff;
-  transform: translateX(5px);
-}
-
-.contact-link:hover::after {
-  transform: translateX(3px);
-}
+/* Global contact link styles removed to favor component-based styling */
 
 .section {
   padding-top: 32px;
@@ -469,6 +419,18 @@ input {
   font-weight: 600;
 }
 
+.certification-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.certification-date i {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+}
+
 .certification-company {
   display: flex;
   align-items: center;
@@ -538,7 +500,8 @@ input {
   gap: 12px;
 }
 
-.skills-column-title i {
+.skills-column-title i,
+.skills-column-title svg {
   width: 20px;
   height: 20px;
   color: #fff;
@@ -566,7 +529,8 @@ input {
   gap: 12px;
 }
 
-.skills-column li i {
+.skills-column li i,
+.skills-column li svg {
   width: 18px;
   height: 18px;
   opacity: 0.6;
@@ -593,48 +557,7 @@ input {
   margin-bottom: 24px;
 }
 
-footer {
-  padding-top: 32px;
-  padding-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-top: var(--border-properties);
-  text-align: center;
-}
-
-footer .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-footer .bio {
-  border-top: none;
-  padding-top: 0;
-  padding-bottom: 0;
-  max-width: 600px;
-}
-
-footer .contact-info {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-}
-
-footer .contact-link {
-  border-top: none;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-}
-
-footer .contact-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
+/* Footer specific styles removed to favor component-based styling */
 
 /* ===== ANIMAÇÕES ===== */
 

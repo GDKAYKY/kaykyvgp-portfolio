@@ -44,17 +44,43 @@
 }
 
 .portfolio-footer .contact-link {
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
   width: fit-content;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: 500;
+}
+
+.portfolio-footer .contact-link svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+.portfolio-footer .contact-link::after {
+  content: "→";
+  font-size: 1.2rem;
+  opacity: 0.4;
+  transition: all 0.3s ease;
 }
 
 .portfolio-footer .contact-link:hover {
-  color: #fff;
-  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.portfolio-footer .contact-link:hover::after {
+  opacity: 1;
+  transform: translateX(4px);
 }
 
 .footer-bottom {

@@ -131,6 +131,10 @@ class ProjectShowcase extends HTMLElement {
       this.innerHTML = "";
       this.appendChild(content);
 
+      if (globalThis.lucide) {
+        globalThis.lucide.createIcons();
+      }
+
       globalThis.initScrollReveal?.();
     } catch (err) {
       console.error("ProjectShowcase failed:", err);

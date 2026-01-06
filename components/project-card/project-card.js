@@ -297,6 +297,11 @@ class ProjectCard extends HTMLElement {
       }
 
       this.outerHTML = cardContent.outerHTML;
+
+      // Initialize Lucide icons
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
     } catch (e) {
       console.error("Failed to load project-card component:", e);
     }

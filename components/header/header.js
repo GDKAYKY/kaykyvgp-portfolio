@@ -1,10 +1,42 @@
 class PortfolioHeader extends HTMLElement {
-  async connectedCallback() {
+  constructor() {
+    super();
+    this._onScroll = this._onScroll.bind(this);
+    this._onResize = this._onResize.bind(this);
+    this._ticking = false;
+    this._triggerPoint = 100;
+    this._heroSection = null;
+    this._mounted = false;
+  }
+
+  connectedCallback() {
+    // 5. _mounted guard to avoid double initialization
+    if (this._mounted) return;
+    this._mounted = true;
+
     this.render();
     this.initScrollEffect();
   }
 
+  disconnectedCallback() {
+    window.removeEventListener("scroll", this._onScroll);
+    window.removeEventListener("resize", this._onResize);
+    this._mounted = false;
+  }
+
+  /**
+   * Resolve base path for assets.
+   * Priority: attribute > automatic detection (heuristic)
+   */
   getBasePath() {
+    const attrPath = this.getAttribute("base-path");
+    if (attrPath) return attrPath;
+
+    // 2. Warn about heuristic fallback
+    console.warn(
+      "PortfolioHeader: 'base-path' attribute not provided. Using heuristic path resolution."
+    );
+
     const path = globalThis.location.pathname;
     if (path.includes("/pages/projects")) return "../..";
     if (path.includes("/pages/")) return "..";
@@ -12,10 +44,10 @@ class PortfolioHeader extends HTMLElement {
   }
 
   async render() {
-    const basePath = this.getAttribute("base-path") || this.getBasePath();
-    const activePage = this.getAttribute("active-page") || "";
+    const basePath = this.getBasePath();
+    const activeAttribute = this.getAttribute("active-page");
 
-    // Inject Styles if not already present
+    // Inject Styles once
     if (!document.getElementById("portfolio-header-styles")) {
       const link = document.createElement("link");
       link.id = "portfolio-header-styles";
@@ -24,91 +56,97 @@ class PortfolioHeader extends HTMLElement {
       document.head.appendChild(link);
     }
 
-    // Fetch and inject HTML
     try {
       const response = await fetch(`${basePath}/components/header/header.html`);
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const fullHtml = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-      // Extract content using DOMParser
+      const fullHtml = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(fullHtml, "text/html");
       const content =
         doc.querySelector("#header-content") ||
         doc.querySelector(".header-inner");
 
-      if (!content) {
-        throw new Error("Could not find header content in template");
-      }
+      if (!content) throw new Error("Header content not found in template");
 
-      let html = content.outerHTML;
+      // 1. Idempotent DOM update
+      this.replaceChildren(content.cloneNode(true));
 
-      // Template interpolation
-      html = html.replaceAll("${basePath}", basePath);
-      html = html.replaceAll(
-        "${activePage === 'projects' ? 'active' : ''}",
-        activePage.includes("project") ? "active" : ""
-      );
+      // 3. Update dynamic parts with clear source of truth
+      this._updateDynamicState(activeAttribute);
 
-      this.innerHTML = html;
-
-      // Ensure site-header class
-      if (!this.classList.contains("site-header")) {
-        this.classList.add("site-header");
-      }
+      // Component wrapper class
+      this.classList.add("site-header");
     } catch (e) {
-      console.error("Failed to load header component:", e);
+      console.error("PortfolioHeader: Render failed", e);
+    }
+  }
+
+  /**
+   * @param {string|null} activeAttribute
+   */
+  _updateDynamicState(activeAttribute) {
+    this._projectsBtn = this.querySelector('[data-nav="projects"]');
+    if (this._projectsBtn) {
+      // 3. Clear source of truth: Attribute wins over URL
+      const isActive = activeAttribute
+        ? activeAttribute === "projects"
+        : globalThis.location.pathname.includes("/projects");
+
+      this._projectsBtn.classList.toggle("active", isActive);
     }
   }
 
   initScrollEffect() {
-    const CONFIG = {
-      headerTriggerOffset: 100, // px from top or bottom of hero
-    };
+    this._heroSection = document.querySelector(".hero-section");
 
-    const heroSection = document.querySelector(".hero-section");
-    let triggerPoint = 100; // Default trigger point if no hero
+    // 4. Intentional behavior: We only care about scroll transitions if there's a hero
+    // If no hero, we stay fixed or transparent based on initial CSS or global layout.
+    // However, for this portfolio, we'll keep the fallback trigger point but make it explicit.
+    this._updateTriggerPoint();
 
-    // If hero exists, set trigger point based on its height
-    const updateTriggerPoint = () => {
-      if (heroSection) {
-        triggerPoint = heroSection.offsetHeight - CONFIG.headerTriggerOffset;
-      }
-    };
+    window.addEventListener("resize", this._onResize, { passive: true });
+    window.addEventListener("scroll", this._onScroll, { passive: true });
 
-    // Update on resize
-    globalThis.addEventListener("resize", updateTriggerPoint, {
-      passive: true,
-    });
-    // Attempt initial update (might need delay if hero loads async)
-    if (heroSection) updateTriggerPoint();
+    // Initial state
+    this._updateHeaderState();
+  }
 
-    let ticking = false;
-    const updateHeader = () => {
-      if (window.scrollY > triggerPoint) {
-        this.classList.add("floating");
-      } else {
-        this.classList.remove("floating");
-      }
-      ticking = false;
-    };
+  _onResize() {
+    this._updateTriggerPoint();
+  }
 
-    globalThis.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          globalThis.requestAnimationFrame(updateHeader);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
+  _updateTriggerPoint() {
+    const CONFIG = { offset: 100, defaultTrigger: 100 };
 
-    // Initial check
-    updateHeader();
+    if (!this._heroSection) {
+      this._heroSection = document.querySelector(".hero-section");
+    }
+
+    if (this._heroSection) {
+      this._triggerPoint = Math.max(
+        0,
+        this._heroSection.offsetHeight - CONFIG.offset
+      );
+    } else {
+      this._triggerPoint = CONFIG.defaultTrigger;
+    }
+  }
+
+  _onScroll() {
+    if (!this._ticking) {
+      requestAnimationFrame(() => {
+        this._updateHeaderState();
+        this._ticking = false;
+      });
+      this._ticking = true;
+    }
+  }
+
+  _updateHeaderState() {
+    const isFloating = window.scrollY > this._triggerPoint;
+    this.classList.toggle("floating", isFloating);
   }
 }
 
-// Define the custom element
 customElements.define("portfolio-header", PortfolioHeader);

@@ -99,6 +99,15 @@ class ProjectShowcase extends HTMLElement {
       // Download Link (Windows Button)
       const downloadLinkUrl = this.getAttribute("download-link");
       if (downloadLinkUrl) {
+        const downloadVersion =
+          this.getAttribute("download-version") || "v1.0.0";
+        const downloadSize = this.getAttribute("download-size") || "275MB";
+        const downloadCount = this.getAttribute("download-count");
+
+        const metaText = downloadCount
+          ? `${downloadSize} • ${downloadVersion} • ${downloadCount} downloads`
+          : `${downloadSize} • ${downloadVersion}`;
+
         const linkParent = linkEl.parentNode;
         const downloadBtnHtml = `
           <a href="${downloadLinkUrl}" class="win-download-btn" target="_blank" rel="noopener noreferrer">
@@ -110,7 +119,7 @@ class ProjectShowcase extends HTMLElement {
             </div>
             <div class="win-info">
               <div class="win-title">Download for Windows x86-x64</div>
-              <div class="win-meta">275MB • v1.0.0</div>
+              <div class="win-meta">${metaText}</div>
             </div>
           </a>
         `;

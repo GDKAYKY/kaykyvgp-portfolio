@@ -42,7 +42,7 @@ strong {
 
 /* Hero Section Styles */
 .hero-section {
-  min-height: 100vh; /* Ensure full viewport height */
+  min-height: 100dvh; /* Ensure full viewport height */
   padding: 140px 0 120px; /* Keep padding for header clearance */
   display: flex;
   flex-direction: column;
@@ -268,7 +268,6 @@ input {
 .section {
   padding-top: 32px;
   margin-bottom: 48px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
   transition: var(--hover-transition);
 }
 
@@ -727,7 +726,6 @@ input {
 .recommendation {
   transition: var(--hover-transition);
   padding: 16px;
-  border-radius: 4px;
 }
 
 .experience-item:hover,
@@ -834,6 +832,11 @@ input {
   right: 50%;
   width: 100vw;
   box-sizing: border-box;
+}
+
+.section-light strong {
+  color: #000;
+  font-weight: 700;
 }
 
 /* Constraint container for content inside full-width section */

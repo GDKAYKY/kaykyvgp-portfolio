@@ -5,7 +5,7 @@ class PortfolioHeader extends HTMLElement {
   }
 
   getBasePath() {
-    const path = window.location.pathname;
+    const path = globalThis.location.pathname;
     if (path.includes("/pages/projects")) return "../..";
     if (path.includes("/pages/")) return "..";
     return ".";
@@ -45,9 +45,9 @@ class PortfolioHeader extends HTMLElement {
       let html = content.outerHTML;
 
       // Template interpolation
-      html = html.replace(/\$\{basePath\}/g, basePath);
-      html = html.replace(
-        /\$\{activePage === 'projects' \? 'active' : ''\}/g,
+      html = html.replaceAll("${basePath}", basePath);
+      html = html.replaceAll(
+        "${activePage === 'projects' ? 'active' : ''}",
         activePage.includes("project") ? "active" : ""
       );
 
@@ -78,7 +78,9 @@ class PortfolioHeader extends HTMLElement {
     };
 
     // Update on resize
-    window.addEventListener("resize", updateTriggerPoint, { passive: true });
+    globalThis.addEventListener("resize", updateTriggerPoint, {
+      passive: true,
+    });
     // Attempt initial update (might need delay if hero loads async)
     if (heroSection) updateTriggerPoint();
 
@@ -92,11 +94,11 @@ class PortfolioHeader extends HTMLElement {
       ticking = false;
     };
 
-    window.addEventListener(
+    globalThis.addEventListener(
       "scroll",
       () => {
         if (!ticking) {
-          window.requestAnimationFrame(updateHeader);
+          globalThis.requestAnimationFrame(updateHeader);
           ticking = true;
         }
       },

@@ -91,7 +91,6 @@
   letter-spacing: 0.05em;
   color: var(--secondary-text);
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
   padding: 8px 16px;
   border-radius: 100px;
   transition: all 0.3s ease;

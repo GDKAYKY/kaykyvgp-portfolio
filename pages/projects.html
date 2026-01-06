@@ -3,6 +3,7 @@
   <head>
     <script src="../scripts.js" defer></script>
     <script src="../components/particleEffect/particleEffect.js" defer></script>
+    <script src="../components/footer/footer.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kayky Vitor - Projects</title>
@@ -48,6 +49,17 @@
               class="animate-fade-in-up animate-delay-3"
             ></project-card>
 
+            <!-- SPAN-CORE Card -->
+            <project-card
+              title="SPAN-CORE"
+              type="Desktop Utility"
+              description="A high-performance video downloading engine built with C++ and Qt. Native desktop experience with full yt-dlp support and FFmpeg integration."
+              image="../assets/ytdln_mockup.png"
+              link="projects/span-core.html"
+              tags="C++,Qt,yt-dlp,FFmpeg"
+              class="animate-fade-in-up animate-delay-4"
+            ></project-card>
+
             <!-- Portfolio Card -->
             <project-card
               title="Personal Portfolio"
@@ -56,29 +68,13 @@
               image=""
               link="projects/portfolio.html"
               tags="HTML5,CSS3,Design System"
-              class="animate-fade-in-up animate-delay-4"
+              class="animate-fade-in-up animate-delay-5"
             ></project-card>
           </div>
         </main>
       </div>
     </div>
 
-    <footer class="animate-fade-in-up animate-delay-5">
-      <div class="container">
-        <div class="bio">
-          A Passionate Software Developer, always ready to learn something new.
-        </div>
-        <div class="contact-info stagger-animation">
-          <a href="https://github.com/GDKAYKY" class="contact-link">Github</a>
-          <a href="mailto:kaykyvitorgp@gmail.com" class="contact-link"
-            >kaykyvitorgp@gmail.com</a
-          >
-          <a href="https://www.linkedin.com/in/kaykyvgp/" class="contact-link"
-            >LinkedIn</a
-          >
-        </div>
-        <small>@2025 Kayky</small>
-      </div>
-    </footer>
+    <portfolio-footer></portfolio-footer>
   </body>
 </html>

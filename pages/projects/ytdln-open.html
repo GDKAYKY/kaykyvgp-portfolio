@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="../../scripts.js" defer></script>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <base href="../../" />
+    <script src="scripts.js" defer></script>
+    <script src="components/particle-effect/particle-effect.js" defer></script>
+    <script src="components/header/header.js" defer></script>
+    <script src="components/tech-strip/tech-strip.js" defer></script>
     <script
-      src="../../components/particleEffect/particleEffect.js"
+      src="components/project-showcase/project-showcase.js"
       defer
     ></script>
-    <script src="../../components/tech-strip/tech-strip.js" defer></script>
-    <script src="../../components/footer/footer.js" defer></script>
+    <script src="components/footer/footer.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YTDLN-OPEN - Project Details</title>
@@ -17,15 +23,12 @@
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="../../components/particleEffect/particleEffect.css"
+      href="components/particle-effect/particle-effect.css"
     />
-    <link
-      rel="stylesheet"
-      href="../../components/project-card/project-card.css"
-    />
+    <link rel="stylesheet" href="components/project-card/project-card.css" />
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       window.va =
@@ -39,15 +42,16 @@
 
   <body>
     <!-- Header -->
-    <script src="../../components/header/header.js" defer></script>
     <portfolio-header
+      base-path="."
       class="site-header animate-fade-in-up"
       active-page="project-details"
     ></portfolio-header>
 
-    <div class="container" style="padding-top: 80px">
+    <div class="container container--header-offset">
       <main class="animate-fade-in-right animate-delay-2">
         <project-showcase
+          base-path="."
           context="Open Source Utility | Electron & Node.js"
           title="YTDLN-OPEN"
           tags="Electron,Node.js,yt-dlp,aria2c,FFmpeg,React"
@@ -57,7 +61,7 @@
           download-version="v1.1.0"
           download-size="289MB"
           download-count="7"
-          image="../../assets/ytdln_mockup.png"
+          image="assets/ytdln_mockup.png"
           image-alt="ytdln-open Interface Mockup"
           visual-style="clean"
         >
@@ -79,7 +83,7 @@
       </main>
     </div>
 
-    <tech-strip></tech-strip>
+    <tech-strip base-path="."></tech-strip>
 
     <!-- New Section: Experience Absolute Customisability -->
     <section class="section-light animate-fade-in-up animate-delay-4">
@@ -114,7 +118,7 @@
               class="project-image-container-clean animate-fade-in-up animate-delay-5"
             >
               <img
-                src="../../assets/ytdln_settings_mockup.png"
+                src="assets/ytdln_settings_mockup.png"
                 alt="YTDLN-OPEN Settings Interface"
                 class="project-image"
               />
@@ -124,14 +128,11 @@
       </div>
     </section>
 
-    <script
-      src="../../components/project-showcase/project-showcase.js"
-      defer
-    ></script>
-
-    <portfolio-footer></portfolio-footer>
+    <portfolio-footer base-path="."></portfolio-footer>
     <script>
-      lucide.createIcons();
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+      });
     </script>
   </body>
 </html>

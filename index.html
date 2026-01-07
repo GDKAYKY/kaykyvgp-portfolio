@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <base href="./" />
     <script src="scripts.js" defer></script>
-    <script src="components/particleEffect/particleEffect.js" defer></script>
+    <script src="components/particle-effect/particle-effect.js" defer></script>
+    <script src="components/header/header.js" defer></script>
     <script src="components/tech-strip/tech-strip.js" defer></script>
     <script src="components/footer/footer.js" defer></script>
     <meta charset="UTF-8" />
@@ -33,7 +38,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link
       rel="stylesheet"
-      href="components/particleEffect/particleEffect.css"
+      href="components/particle-effect/particle-effect.css"
     />
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -42,8 +47,8 @@
   </head>
 
   <body>
-    <script src="components/header/header.js" defer></script>
     <portfolio-header
+      base-path="."
       class="site-header animate-fade-in-up"
       active-page="home"
     ></portfolio-header>
@@ -71,7 +76,7 @@
       </div>
     </section>
 
-    <tech-strip></tech-strip>
+    <tech-strip base-path="."></tech-strip>
 
     <div class="main-content-wrapper">
       <div class="container">
@@ -152,7 +157,6 @@
               </div>
               <ul class="job-description">
                 <li>Verification issued in November 2025</li>
-                <li>Credential code: f8f39b6e-90ce-4304-af14-3d2658f4c74b</li>
               </ul>
               <a
                 href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
@@ -199,7 +203,6 @@
               </div>
               <ul class="job-description">
                 <li>Verification issued in October 2025</li>
-                <li>Credential code: faabda17-42b4-4e3f-b027-47158c9b41b0</li>
               </ul>
               <a
                 href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
@@ -243,9 +246,6 @@
               </div>
               <ul class="job-description">
                 <li>Verification issued in October 2025</li>
-                <li>
-                  Credential code: fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b-fcswm
-                </li>
               </ul>
               <a
                 href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
@@ -330,8 +330,10 @@
       </div>
     </div>
     <script>
-      lucide.createIcons();
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+      });
     </script>
-    <portfolio-footer></portfolio-footer>
+    <portfolio-footer base-path="."></portfolio-footer>
   </body>
 </html>

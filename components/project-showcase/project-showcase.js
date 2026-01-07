@@ -104,29 +104,16 @@ class ProjectShowcase extends HTMLElement {
         const downloadSize = this.getAttribute("download-size") || "275MB";
         const downloadCount = this.getAttribute("download-count");
 
-        const metaText = downloadCount
-          ? `${downloadSize} • ${downloadVersion} • ${downloadCount} downloads`
-          : `${downloadSize} • ${downloadVersion}`;
+        const downloadBtn = document.createElement("download-button");
+        downloadBtn.setAttribute("link", downloadLinkUrl);
+        downloadBtn.setAttribute("version", downloadVersion);
+        downloadBtn.setAttribute("size", downloadSize);
+        if (downloadCount) downloadBtn.setAttribute("count", downloadCount);
+        downloadBtn.setAttribute("base-path", basePath);
 
         const linkParent = linkEl.parentNode;
-        const downloadBtnHtml = `
-          <a href="${downloadLinkUrl}" class="win-download-btn" target="_blank" rel="noopener noreferrer">
-            <div class="win-icon-grid">
-              <div class="win-pane win-pane-1"></div>
-              <div class="win-pane win-pane-2"></div>
-              <div class="win-pane win-pane-3"></div>
-              <div class="win-pane win-pane-4"></div>
-            </div>
-            <div class="win-info">
-              <div class="win-title">Download for Windows x86-x64</div>
-              <div class="win-meta">${metaText}</div>
-            </div>
-          </a>
-        `;
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = downloadBtnHtml.trim();
         // Insert BEFORE the View Repository link (Left side)
-        linkParent.insertBefore(tempDiv.firstChild, linkEl);
+        linkParent.insertBefore(downloadBtn, linkEl);
 
         // Ensure parent aligns items side-by-side
         linkParent.style.display = "flex";

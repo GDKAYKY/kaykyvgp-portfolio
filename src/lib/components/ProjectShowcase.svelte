@@ -21,6 +21,7 @@
     reverse?: boolean;
     roleTitle?: string;
     children?: import("svelte").Snippet;
+    visual?: import("svelte").Snippet;
   }
 
   let {
@@ -41,13 +42,14 @@
     reverse = false,
     roleTitle = "About the project",
     children,
+    visual,
   }: Props = $props();
 
   const parsedTags = $derived(
     tags
       .split(",")
       .map((t) => t.trim())
-      .filter((t) => t)
+      .filter((t) => t),
   );
 </script>
 
@@ -110,7 +112,9 @@
           ? "project-image-container-clean"
           : "project-image-container"}
       >
-        {#if image}
+        {#if visual}
+          {@render visual()}
+        {:else if image}
           <img src={image} alt={imageAlt || title} class="project-image" />
         {:else}
           <div class="placeholder">

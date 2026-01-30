@@ -16,30 +16,50 @@
 
   let { children }: Props = $props();
 
-  onMount(() => {
-    // Silencia erros de extensões do navegador que tentam interceptar mensagens
-    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      const errorMessage = event.reason?.message || "";
+  // Supressão de erros de extensões do navegador (ruído de console)
+  if (typeof window !== "undefined") {
+    const originalConsoleError = console.error;
+    const extensionErrorSnippets = [
+      "message channel closed",
+      "asynchronous response",
+      "Extension context invalidated",
+      "could not establish connection",
+    ];
 
-      // Ignora erros conhecidos de extensões do navegador
-      if (
-        errorMessage.includes("message channel closed") ||
-        errorMessage.includes("asynchronous response") ||
-        errorMessage.includes("Extension context invalidated")
-      ) {
-        event.preventDefault();
+    console.error = (...args: any[]) => {
+      const msg = args[0]?.toString() || "";
+      if (extensionErrorSnippets.some((snippet) => msg.includes(snippet))) {
         return;
+      }
+      originalConsoleError.apply(console, args);
+    };
+
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      const msg = event.reason?.message || "";
+      if (extensionErrorSnippets.some((snippet) => msg.includes(snippet))) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
       }
     };
 
-    window.addEventListener("unhandledrejection", handleUnhandledRejection);
-
-    return () => {
-      window.removeEventListener(
-        "unhandledrejection",
-        handleUnhandledRejection
-      );
+    const handleError = (event: ErrorEvent) => {
+      const msg = event.message || "";
+      if (extensionErrorSnippets.some((snippet) => msg.includes(snippet))) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+      }
     };
+
+    window.addEventListener(
+      "unhandledrejection",
+      handleUnhandledRejection,
+      true,
+    );
+    window.addEventListener("error", handleError, true);
+  }
+
+  onMount(() => {
+    // Logic inside onMount if needed
   });
 </script>
 

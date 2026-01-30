@@ -3,6 +3,7 @@
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
+  import DemoWindow from "$lib/components/DemoWindow.svelte";
 
   // Scroll reveal animation
   onMount(() => {
@@ -71,7 +72,6 @@
 <ProjectShowcase
   context="Architecture & Integration"
   title="Technical Excellence"
-  image="/assets/llama_cpp_desktop_mockup.png"
   imageAlt="Llama.cpp Desktop Technical Details"
   variant="light"
   reverse={true}
@@ -80,7 +80,9 @@
   <div class="tech-features-grid">
     <div class="tech-feature">
       <div class="feature-header">
-        <Icon name="box" size={24} />
+        <div class="icon-wrapper">
+          <Icon name="box" size={22} />
+        </div>
         <h3>Ollama Ecosystem</h3>
       </div>
       <p>
@@ -90,8 +92,10 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <Icon name="crab" size={24} />
-        <h3>Rust Native Performance</h3>
+        <div class="icon-wrapper">
+          <Icon name="gauge" size={22} />
+        </div>
+        <h3>Native Performance</h3>
       </div>
       <p>
         Leverages Tokio for asynchronous process management of llama-server and
@@ -100,7 +104,9 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <Icon name="gpu" size={24} />
+        <div class="icon-wrapper">
+          <Icon name="gpu" size={22} />
+        </div>
         <h3>Hardware Acceleration</h3>
       </div>
       <p>
@@ -110,7 +116,9 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <Icon name="shield-check" size={24} />
+        <div class="icon-wrapper">
+          <Icon name="shield-check" size={22} />
+        </div>
         <h3>Privacy First</h3>
       </div>
       <p>
@@ -119,6 +127,11 @@
       </p>
     </div>
   </div>
+  {#snippet visual()}
+    <div class="demo-container">
+      <DemoWindow />
+    </div>
+  {/snippet}
 </ProjectShowcase>
 
 <style>
@@ -149,6 +162,18 @@
     margin: 0;
   }
 
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: #ebebeb;
+    border-radius: 12px;
+    color: var(--primary-text);
+    flex-shrink: 0;
+  }
+
   .tech-feature p {
     font-size: 0.95rem;
     line-height: 1.5;
@@ -156,9 +181,32 @@
     color: var(--secondary-text);
   }
 
+  .demo-container {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :global(.project-visual .project-image-container) {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  @media (max-width: 900px) {
+    .demo-container {
+      height: 480px;
+    }
+  }
+
   @media (max-width: 600px) {
     .tech-features-grid {
       grid-template-columns: 1fr;
+    }
+    .demo-container {
+      display: none;
     }
   }
 </style>

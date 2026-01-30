@@ -1,4 +1,7 @@
 <script lang="ts">
+  import * as LucideIcons from "lucide-svelte";
+  import type { Component } from "svelte";
+
   interface Props {
     name: string;
     size?: number;
@@ -13,127 +16,10 @@
     class: className = "",
   }: Props = $props();
 
-  // Map of commonly used Lucide icons as SVG paths
-  const icons: Record<string, { paths: string[]; viewBox?: string }> = {
-    "building-2": {
-      paths: [
-        "M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z",
-        "M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2",
-        "M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2",
-        "M10 6h4",
-        "M10 10h4",
-        "M10 14h4",
-        "M10 18h4",
-      ],
-    },
-    calendar: {
-      paths: [
-        "M8 2v4",
-        "M16 2v4",
-        "M3 10h18",
-        "M21 8.5V21a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z",
-      ],
-    },
-    "map-pin": {
-      paths: [
-        "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0Z",
-        "M12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z",
-      ],
-    },
-    "code-2": {
-      paths: ["m18 16 4-4-4-4", "m6 8-4 4 4 4", "m14.5 4-5 16"],
-    },
-    hash: {
-      paths: ["M4 9h16", "M4 15h16", "M10 3 8 21", "M16 3l-2 18"],
-    },
-    cloud: {
-      paths: ["M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"],
-    },
-    "trending-down": {
-      paths: ["m22 17-8.5-8.5-5 5L2 7", "M16 17h6v-6"],
-    },
-    container: {
-      paths: [
-        "M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5z",
-        "M10 21.9V14L2.1 9.1",
-        "M10 14l11.9-6.9",
-        "M14 19.8v-8.1",
-        "M18 17.5V9.4",
-      ],
-    },
-    activity: {
-      paths: ["M22 12h-4l-3 9L9 3l-3 9H2"],
-    },
-    "shield-check": {
-      paths: ["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10", "m9 12 2 2 4-4"],
-    },
-    "brain-circuit": {
-      paths: [
-        "M12 4.5a2.5 2.5 0 0 0-4.96-.46 2.5 2.5 0 0 0-1.98 3 2.5 2.5 0 0 0-1.32 4.24 3 3 0 0 0 .34 5.58 2.5 2.5 0 0 0 2.96 3.08 2.5 2.5 0 0 0 4.91.05L12 20V4.5Z",
-        "M16 8V5c0-1.1.9-2 2-2",
-        "M12 13h4",
-        "M12 18h6a2 2 0 0 1 2 2v1",
-        "M12 8h8",
-        "M20.5 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z",
-        "M16.5 13a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z",
-        "M20.5 21a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z",
-        "M18.5 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z",
-      ],
-    },
-    zap: {
-      paths: [
-        "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
-      ],
-    },
-    gauge: {
-      paths: [
-        "M12 16a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z",
-        "M15.6 12.4 18 10",
-        "M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0",
-      ],
-    },
-    ear: {
-      paths: [
-        "M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0",
-        "M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4",
-      ],
-    },
-    "graduation-cap": {
-      paths: [
-        "M22 10v6M2 10l10-5 10 5-10 5z",
-        "M6 12v5c0 1 4 3 6 3s6-2 6-3v-5",
-      ],
-    },
-    github: {
-      paths: [
-        "M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5a5.403 5.403 0 0 0-1 3.5c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4",
-        "M9 18c-4.51 2-5-2-7-2",
-      ],
-    },
-    linkedin: {
-      paths: [
-        "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z",
-        "M2 9h4v12H2z",
-        "M4 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z",
-      ],
-    },
-    mail: {
-      paths: [
-        "M22 7.535V17a3 3 0 0 1-2.824 2.995L19 20H5a3 3 0 0 1-2.995-2.824L2 17V7.535l9.445 6.297.555.37.555-.37L22 7.535Z",
-        "M2 6a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v.465l-10 6.667L2 6.465V6Z",
-      ],
-    },
-    "arrow-right": {
-      paths: ["m12 5 7 7-7 7", "M5 12h14"],
-    },
-    "external-link": {
-      paths: [
-        "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",
-        "M15 3h6v6",
-        "M10 14 21 3",
-      ],
-    },
+  // Custom icons that are not in Lucide or need project-specific versions
+  const CUSTOM_ICONS: Record<string, { paths: string[]; viewBox?: string }> = {
     crab: {
+      // High-quality Ferris the Crab (Rust mascot)
       paths: [
         "M12 22a7.5 7.5 0 0 0 7.5-7.5V11a5 5 0 0 0-10 0v3.5A7.5 7.5 0 0 0 12 22Z",
         "m15 14-3 3-3-3",
@@ -145,21 +31,23 @@
         "M5 19a2 2 0 0 1-2-2 2 2 0 0 1 2-2",
       ],
     },
-    cpu: {
+    rust: {
+      // Official Rust Gear Logo (Simplified for 24x24)
       paths: [
-        "M20 9V7a2 2 0 0 0-2-2h-2m-4 0H8a2 2 0 0 0-2 2v2m0 4v2a2 2 0 0 0 2 2h2m4 0h2a2 2 0 0 0 2-2v-2",
-        "M9 9h6v6H9z",
-        "M15 2v3",
-        "M9 2v3",
-        "M20 15h2",
-        "M20 9h2",
-        "M15 19v3",
-        "M9 19v3",
-        "M2 15h2",
-        "M2 9h2",
+        "M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z", // Outer circle
+        "M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z", // Inner circle
+        "M12 5V2",
+        "M12 22V19",
+        "M5 12H2",
+        "M22 12H19", // Teeth
+        "M17 17L19 19",
+        "M7 7L5 5",
+        "M17 7L19 5",
+        "M7 17L5 19",
       ],
     },
     gpu: {
+      // Custom GPU / Hardware Accelerator icon
       paths: [
         "M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z",
         "M10 10h4",
@@ -168,32 +56,47 @@
         "M7 14h1",
       ],
     },
-    box: {
-      paths: [
-        "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z",
-        "m3.3 7 8.7 5 8.7-5",
-        "M12 22V12",
-      ],
-    },
   };
 
-  const icon = $derived(icons[name] || icons["code-2"]);
+  // Helper to map kebab-case string to PascalCase component name
+  const getPascalName = (str: string) => {
+    return str
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join("");
+  };
+
+  // Resolve the icon component or custom path
+  const IconComponent = $derived(() => {
+    if (CUSTOM_ICONS[name]) return null;
+
+    const pascalName = getPascalName(name);
+    // @ts-ignore - dynamic access to lucide icons
+    return (LucideIcons[pascalName] as Component) || LucideIcons.Code2;
+  });
+
+  const customIcon = $derived(CUSTOM_ICONS[name]);
 </script>
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width={size}
-  height={size}
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width={strokeWidth}
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  class={className}
-  aria-hidden="true"
->
-  {#each icon.paths as path}
-    <path d={path} />
-  {/each}
-</svg>
+{#if customIcon}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox={customIcon.viewBox || "0 0 24 24"}
+    fill="none"
+    stroke="currentColor"
+    stroke-width={strokeWidth}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class={className}
+    aria-hidden="true"
+  >
+    {#each customIcon.paths as path}
+      <path d={path} />
+    {/each}
+  </svg>
+{:else}
+  {@const Icon = IconComponent()}
+  <Icon {size} {strokeWidth} class={className} aria-hidden="true" />
+{/if}

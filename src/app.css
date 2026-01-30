@@ -25,7 +25,7 @@
 
 /* ===== BODY ===== */
 body {
-  font-family: "Schibsted Grotesk", sans-serif;
+  font-family: "Inter", "Schibsted Grotesk", sans-serif;
   background-color: #131313;
   color: var(--primary-text);
   line-height: 1.6;
@@ -542,7 +542,8 @@ input {
 .animate-fade-in-up,
 .animate-fade-in-left,
 .animate-fade-in-right {
-  transition: opacity var(--animation-duration) var(--animation-easing),
+  transition:
+    opacity var(--animation-duration) var(--animation-easing),
     transform var(--animation-duration) var(--animation-easing);
   will-change: opacity, transform;
 }

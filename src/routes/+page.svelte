@@ -9,7 +9,7 @@
 
   onMount(() => {
     elements = document.querySelectorAll(
-      ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+      ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
     );
 
     const observer = new IntersectionObserver(
@@ -24,7 +24,7 @@
       {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -280,6 +280,7 @@
               </div>
               <ul>
                 <li><Icon name="hash" size={18} /> C# and .NET Framework</li>
+                <li><Icon name="crab" size={18} /> Rust &amp; Tauri</li>
                 <li><Icon name="cloud" size={18} /> AWS</li>
                 <li><Icon name="trending-down" size={18} /> FinOps</li>
                 <li><Icon name="container" size={18} /> Docker</li>

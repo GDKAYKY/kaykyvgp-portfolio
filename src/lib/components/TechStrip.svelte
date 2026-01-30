@@ -32,6 +32,12 @@
     ts: "typescript",
     react: "react",
     svelte: "svelte",
+    rust: "rust",
+    tauri: "tauri",
+    vite: "vite",
+    "llama.cpp": "github",
+    llama: "github",
+    ollama: "ollama",
   };
 
   interface Props {
@@ -57,19 +63,20 @@
     { name: "React", slug: "react" },
   ];
 
-  const parsedTags = $derived(() => {
-    if (!tags) return defaultTechs;
-    return tags.split(",").map((t) => {
-      const tag = t.trim().toLowerCase();
-      return {
-        name: t.trim(),
-        slug: TECH_MAP[tag] || "github",
-      };
-    });
-  });
+  const parsedTags = $derived(
+    tags
+      ? tags.split(",").map((t) => {
+          const tag = t.trim().toLowerCase();
+          return {
+            name: t.trim(),
+            slug: TECH_MAP[tag] || "github",
+          };
+        })
+      : defaultTechs,
+  );
 
   // Duplicate items for infinite scroll
-  const displayItems = $derived([...parsedTags(), ...parsedTags()]);
+  const displayItems = $derived([...parsedTags, ...parsedTags]);
 
   onMount(() => {
     // Ensure images are loaded before starting animation
@@ -83,8 +90,8 @@
               (img as HTMLImageElement).onload = () => resolve(null);
               (img as HTMLImageElement).onerror = () => resolve(null);
             }
-          })
-      )
+          }),
+      ),
     );
   });
 </script>

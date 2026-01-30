@@ -7,7 +7,7 @@
 
   onMount(() => {
     elements = document.querySelectorAll(
-      ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+      ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
     );
 
     const observer = new IntersectionObserver(
@@ -22,7 +22,7 @@
       {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -45,8 +45,20 @@
   <div class="main-content">
     <main class="animate-fade-in-right animate-delay-2">
       <div class="projects-grid">
-        <!-- YTDLN-OPEN Card -->
+        <!-- Llama.cpp Desktop Card -->
         <div class="animate-fade-in-up animate-delay-3">
+          <ProjectCard
+            title="Llama.cpp Desktop"
+            type="AI Desktop Utility"
+            description="A premium Tauri-based desktop application for managing and running Llama.cpp models locally with a state-of-the-art interface. Features high-performance Rust backend and a sleek Svelte 5 frontend."
+            image="/assets/llama_cpp_desktop_mockup.png"
+            link="/projects/llama-cpp-desktop"
+            tags="Tauri,Rust,Svelte,Llama.cpp,TypeScript,Vite"
+          />
+        </div>
+
+        <!-- YTDLN-OPEN Card -->
+        <div class="animate-fade-in-up animate-delay-4">
           <ProjectCard
             title="YTDLN-OPEN"
             type="Open Source Utility"
@@ -58,7 +70,7 @@
         </div>
 
         <!-- SPAN-CORE Card -->
-        <div class="animate-fade-in-up animate-delay-4">
+        <div class="animate-fade-in-up animate-delay-5">
           <ProjectCard
             title="SPAN-CORE"
             type="Desktop Utility"
@@ -70,7 +82,7 @@
         </div>
 
         <!-- Portfolio Card -->
-        <div class="animate-fade-in-up animate-delay-5">
+        <div class="animate-fade-in-up animate-delay-6">
           <ProjectCard
             title="Personal Portfolio"
             type="Web Development"

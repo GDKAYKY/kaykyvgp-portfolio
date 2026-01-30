@@ -6,7 +6,7 @@
   let triggerPoint = $state(100);
 
   const updateTriggerPoint = () => {
-    const heroSection = document.querySelector(".hero-section");
+    const heroSection = document.querySelector(".hero-section") as HTMLElement;
     if (heroSection) {
       triggerPoint = Math.max(0, heroSection.offsetHeight - 100);
     }
@@ -29,7 +29,7 @@
   });
 
   const isProjectsPage = $derived(
-    page.url?.pathname?.includes("/projects") ?? false
+    page.url?.pathname?.includes("/projects") ?? false,
   );
 </script>
 

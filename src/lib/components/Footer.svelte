@@ -7,7 +7,8 @@
     <div class="footer-grid">
       <div class="footer-brand animate-fade-in-up">
         <div class="bio">
-          A Passionate Software Developer, always ready to learn something new.
+          A Passionate Software Developer specializing in high-performance
+          systems and AI solutions.
         </div>
       </div>
 

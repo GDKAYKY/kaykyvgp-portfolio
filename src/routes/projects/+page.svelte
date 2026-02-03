@@ -11,7 +11,7 @@
         "A premium Tauri-based desktop application for managing and running Llama.cpp models locally with a state-of-the-art interface. Features high-performance Rust backend and a sleek Svelte 5 frontend.",
       image: "/assets/llama_cpp_desktop_mockup.png",
       link: "/projects/llama-cpp-desktop",
-      tags: "Tauri,Rust,Svelte,Llama.cpp,TypeScript,Vite",
+      tags: "Tauri v2,Rust,Tokio,Reqwest,Serde,Svelte 5,TypeScript,Vite,Tailwind CSS,IndexedDB,Dexie",
       categories: ["AI", "Desktop", "Rust"],
       date: "2024-01-30",
     },

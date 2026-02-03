@@ -9,6 +9,8 @@
     description?: string;
     image?: string;
     imageAlt?: string;
+    titleLogo?: string;
+    titleLogoAlt?: string;
     visualStyle?: "framed" | "clean";
     link?: string;
     linkText?: string;
@@ -30,6 +32,8 @@
     description = "",
     image,
     imageAlt,
+    titleLogo,
+    titleLogoAlt,
     visualStyle = "framed",
     link,
     linkText = "View Project",
@@ -63,7 +67,16 @@
     <div class="project-info animate-fade-in-left animate-delay-2">
       <div class="project-header">
         <span class="project-context">{context}</span>
-        <h1 class="project-title">{title}</h1>
+        <div class="project-title-row">
+          <h1 class="project-title">{title}</h1>
+          {#if titleLogo}
+            <img
+              src={titleLogo}
+              alt={titleLogoAlt || `${title} logo`}
+              class="project-title-logo"
+            />
+          {/if}
+        </div>
       </div>
       <div class="project-role-section">
         {#if roleTitle}
@@ -145,7 +158,7 @@
 
   @media (min-width: 900px) {
     .project-showcase .container {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 40px;
     }
     .project-showcase.reversed {
@@ -160,6 +173,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    min-width: 0;
   }
 
   .project-header {
@@ -279,6 +293,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 0;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .project-title-logo {
+    width: 56px;
+    height: auto;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  }
+
+  .project-title {
+    flex: 1;
+    min-width: 0;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   .project-image-container {

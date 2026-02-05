@@ -1,5 +1,6 @@
 <script lang="ts">
   import * as LucideIcons from "lucide-svelte";
+  import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
   import type { Component } from "svelte";
 
   interface Props {
@@ -71,8 +72,22 @@
     if (CUSTOM_ICONS[name]) return null;
 
     const pascalName = getPascalName(name);
-    // @ts-ignore - dynamic access to lucide icons
-    return (LucideIcons[pascalName] as Component) || LucideIcons.Code2;
+
+    // 1. Try Lucide
+    // @ts-ignore - dynamic access
+    if (LucideIcons[pascalName]) {
+      return LucideIcons[pascalName] as Component;
+    }
+
+    // 2. Try Simple Icons (with and without Si prefix)
+    const siName = pascalName.startsWith("Si") ? pascalName : `Si${pascalName}`;
+    // @ts-ignore - dynamic access
+    if (SimpleIcons[siName]) {
+      return SimpleIcons[siName] as Component;
+    }
+
+    // Fallback
+    return LucideIcons.Code2;
   });
 
   const customIcon = $derived(CUSTOM_ICONS[name]);

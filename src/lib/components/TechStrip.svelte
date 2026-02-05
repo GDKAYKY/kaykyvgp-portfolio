@@ -1,59 +1,61 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
 
   // Tech mapping for Simple Icons
   const TECH_MAP: Record<string, string> = {
-    "c#": "csharp",
-    dotnet: "dotnet",
-    ".net": "dotnet",
-    aws: "amazonaws",
-    docker: "docker",
-    electron: "electron",
-    nodejs: "nodedotjs",
-    "node.js": "nodedotjs",
-    javascript: "javascript",
-    js: "javascript",
-    html5: "html5",
-    html: "html5",
-    css3: "css3",
-    css: "css3",
-    postgresql: "postgresql",
-    postgres: "postgresql",
-    grafana: "grafana",
-    redis: "redis",
-    ffmpeg: "ffmpeg",
-    git: "git",
-    github: "github",
-    "yt-dlp": "github",
-    ytdlp: "github",
-    aria2c: "github",
-    aria2: "github",
-    typescript: "typescript",
-    ts: "typescript",
-    react: "react",
-    svelte: "svelte",
-    rust: "rust",
-    tauri: "tauri",
-    "tauri v2": "tauri",
-    vite: "vite",
-    tailwind: "tailwindcss",
-    tailwindcss: "tailwindcss",
-    "tailwind css": "tailwindcss",
-    "svelte 5": "svelte",
-    tokio: "rust",
-    reqwest: "rust",
-    serde: "rust",
-    indexeddb: "github",
-    "indexed db": "github",
-    dexie: "github",
-    vitest: "vitest",
-    lucide: "lucide",
-    "tailwind css v4": "tailwindcss",
-    "nvidia smi": "nvidia",
-    "nvidia-smi": "nvidia",
-    "llama.cpp": "github",
-    llama: "github",
-    ollama: "ollama",
+    "c#": "SiCsharp",
+    dotnet: "SiDotnet",
+    ".net": "SiDotnet",
+    aws: "SiAmazonaws",
+    docker: "SiDocker",
+    electron: "SiElectron",
+    nodejs: "SiNodedotjs",
+    "node.js": "SiNodedotjs",
+    javascript: "SiJavascript",
+    js: "SiJavascript",
+    html5: "SiHtml5",
+    html: "SiHtml5",
+    mcp: "SiModelcontextprotocol",
+    css3: "SiCss3",
+    css: "SiCss3",
+    postgresql: "SiPostgresql",
+    postgres: "SiPostgresql",
+    grafana: "SiGrafana",
+    redis: "SiRedis",
+    ffmpeg: "SiFfmpeg",
+    git: "SiGit",
+    github: "SiGithub",
+    "yt-dlp": "SiGithub",
+    ytdlp: "SiGithub",
+    aria2c: "SiGithub",
+    aria2: "SiGithub",
+    typescript: "SiTypescript",
+    ts: "SiTypescript",
+    react: "SiReact",
+    svelte: "SiSvelte",
+    rust: "SiRust",
+    tauri: "SiTauri",
+    "tauri v2": "SiTauri",
+    vite: "SiVite",
+    tailwind: "SiTailwindcss",
+    tailwindcss: "SiTailwindcss",
+    "tailwind css": "SiTailwindcss",
+    "tailwind css v4": "SiTailwindcss",
+    "svelte 5": "SiSvelte",
+    tokio: "SiTokio",
+    reqwest: "SiRust",
+    serde: "SiRust",
+    indexeddb: "SiDatabricks",
+    "indexed db": "SiDatabricks",
+    dexie: "SiOpenlayers",
+    vitest: "SiVitest",
+    lucide: "SiLucide",
+    "nvidia smi": "SiNvidia",
+    "nvidia-smi": "SiNvidia",
+    "llama.cpp": "SiOpenai",
+    llama: "SiOpenai",
+    ollama: "SiOllama",
   };
 
   interface Props {
@@ -67,7 +69,7 @@
   // Default tech items if no tags provided
   const defaultTechs = [
     { name: "C#", slug: "csharp" },
-    { name: ".NET", slug: "dotnet" },
+    { name: ".NET", slug: "Sidotnet" },
     { name: "AWS", slug: "amazonaws" },
     { name: "Docker", slug: "docker" },
     { name: "Electron", slug: "electron" },
@@ -115,13 +117,24 @@
 <div class="tech-strip-container">
   <div class="tech-strip-track" bind:this={trackElement}>
     {#each displayItems as tech}
+      {@const IconComponent =
+        SimpleIcons[tech.slug as keyof typeof SimpleIcons]}
       <div class="tech-item">
-        <img
-          src="https://cdn.simpleicons.org/{tech.slug}/white"
-          alt=""
-          aria-hidden="true"
-          title={tech.name}
-        />
+        {#if IconComponent}
+          <IconComponent
+            size={32}
+            color="white"
+            aria-hidden="true"
+            title={tech.name}
+          />
+        {:else}
+          <img
+            src="https://cdn.simpleicons.org/{tech.slug}/white"
+            alt=""
+            aria-hidden="true"
+            title={tech.name}
+          />
+        {/if}
         <span>{tech.name}</span>
       </div>
     {/each}
@@ -189,6 +202,7 @@
     transform: translateY(-2px);
   }
 
+  .tech-item :global(svg),
   .tech-item img {
     height: 32px;
     width: auto;

@@ -5,6 +5,12 @@
   import Icon from "$lib/components/Icon.svelte";
   import DemoWindow from "$lib/components/DemoWindow.svelte";
 
+  let { data } = $props();
+
+  // Shared project tags
+  const tags =
+    "Tauri v2,Rust,Tokio,Svelte 5,Vitest,Lucide,Tailwind CSS v4,IndexedDB,Dexie,MCP,NVIDIA SMI";
+
   // Scroll reveal animation
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -28,7 +34,7 @@
 </script>
 
 <svelte:head>
-  <title>Llama.cpp Desktop - Project Details</title>
+  <title>Llama Desktop - Project Details</title>
   <meta
     name="description"
     content="A premium Tauri-based desktop application for managing and running Llama.cpp models locally."
@@ -39,43 +45,46 @@
   <main class="animate-fade-in-right animate-delay-2">
     <ProjectShowcase
       context="AI Desktop Utility | Tauri & Rust"
-      title="Llama.cpp Desktop"
+      title="Llama Desktop"
       description=""
       image="/assets/llama.cpp.png"
-      imageAlt="Llama.cpp Desktop Chat Interface"
+      imageAlt="Llama Desktop Chat Interface"
       visualStyle="clean"
       link="https://github.com/GDKAYKY/llama.cpp-desktop"
       linkText="View Repository"
-      downloadLink="https://github.com/GDKAYKY/llama.cpp-desktop/releases/download/v.1.0.0/llama-desktop_1.0.0_x64-setup.exe"
-      downloadVersion="v1.0.0"
-      downloadSize="N/A"
-      tags="Tauri v2,Rust,Tokio,Reqwest,Serde,Svelte 5,TypeScript,Vite,Tailwind CSS,IndexedDB,Dexie"
+      downloadLink={data.release?.exe?.url ||
+        "https://github.com/GDKAYKY/llama.cpp-desktop/releases/download/v1.1.0/llama-desktop_1.1.0_x64-setup.exe"}
+      downloadVersion={data.release?.version || "v1.1.0"}
+      downloadSize={data.release?.exe?.size || "N/A"}
+      downloadCount={data.release?.exe?.downloads}
+      {tags}
     >
       <p style="margin-bottom: 24px">
-        <strong>Llama.cpp Desktop</strong> is a premium, high-performance
-        desktop application designed for local LLM execution. Built with
+        <strong>Llama Desktop</strong> is a premium, high-performance desktop
+        application designed for local LLM execution. Built with
         <strong>Tauri v2</strong>
         and <strong>Rust</strong>, it provides a secure environment to run
-        <strong>GGUF</strong> models with full hardware acceleration.
+        <strong>GGUF</strong> models with full hardware acceleration and
+        <strong>MCP</strong> (Model Context Protocol) extensibility.
       </p>
       <p>
-        The project implements a deep <strong>LLama.cpp Integration</strong>,
+        The project implements a deep <strong>llama.cpp integration</strong>,
         featuring automatic manifest parsing and blob resolution from local
         Ollama installations. It follows a strict
-        <strong>Centralized Backend Architecture</strong>, ensuring a robust
-        system where all data entities are unified across the Service and
-        Command layers.
+        <strong>Actor-based Service Architecture</strong>, ensuring a robust
+        system where model management and MCP bridges are decoupled and
+        thread-safe.
       </p>
     </ProjectShowcase>
   </main>
 </div>
 
-<TechStrip tags="Tauri v2,Rust,Tokio,Reqwest,Serde,Svelte 5,TypeScript,Vite,Tailwind CSS,IndexedDB,Dexie" />
+<TechStrip {tags} />
 
 <ProjectShowcase
   context="Architecture & Integration"
   title="Technical Excellence"
-  imageAlt="Llama.cpp Desktop Technical Details"
+  imageAlt="Llama Desktop Technical Details"
   variant="light"
   reverse={true}
   roleTitle={"Architecture Highlights"}
@@ -108,25 +117,25 @@
     <div class="tech-feature">
       <div class="feature-header">
         <div class="icon-wrapper">
-          <Icon name="layout" size={22} />
+          <Icon name="cpu" size={22} />
         </div>
-        <h3>Glassmorphism UI</h3>
+        <h3>Actor Architecture</h3>
       </div>
       <p>
-        Premium dark-themed design with translucent surfaces, custom border-gap
-        model cards, and real-time resource graphs.
+        Uses an Actor-based service pattern in Rust to manage the llama-server
+        lifecycle and MCP connection states with strict thread safety.
       </p>
     </div>
     <div class="tech-feature">
       <div class="feature-header">
         <div class="icon-wrapper">
-          <Icon name="cpu" size={22} />
+          <Icon name="shield" size={22} />
         </div>
-        <h3>Layered Architecture</h3>
+        <h3>Type-Safe Bridge</h3>
       </div>
       <p>
-        Strict separation between Tauri Commands, Rust Services, and Centralized
-        Data Models for maximum scalability.
+        Leverages Tauri v2's type-safe commands and IPC system to ensure
+        seamless, memory-safe communication with the Rust core.
       </p>
     </div>
   </div>
@@ -140,7 +149,7 @@
 <ProjectShowcase
   context="Data & Logic"
   title="Intelligent Persistence"
-  imageAlt="Llama.cpp Desktop Database and Search"
+  imageAlt="Llama Desktop Database and Search"
   variant="dark"
   visualStyle="clean"
   roleTitle={"Context & History"}
@@ -150,7 +159,7 @@
       <div class="preview-card animate-fade-in">
         <img
           src="/assets/models.png"
-          alt="Llama.cpp Model Library Management"
+          alt="Llama Desktop Model Library Management"
           class="preview-image"
         />
         <div class="preview-overlay"></div>
@@ -211,20 +220,19 @@
 </ProjectShowcase>
 
 <ProjectShowcase
-  context="Performance & optimization"
-  title="Native Efficiency"
-  imageAlt="Llama.cpp Desktop Resource Usage"
+  context="Tools & Extensibility"
+  title="Model Context Protocol"
+  imageAlt="Llama Desktop MCP Server Management"
   variant="light"
-  visualStyle="clean"
   reverse={true}
-  roleTitle={"Resource Management"}
+  roleTitle={"MCP Integration"}
 >
   {#snippet visual()}
     <div class="demo-container">
-      <div class="preview-card animate-fade-in" style="transform: scale(0.9)">
+      <div class="preview-card animate-fade-in">
         <img
-          src="/assets/lowusage.png"
-          alt="Llama.cpp Desktop Low Resource Usage"
+          src="/assets/mcp.png"
+          alt="Llama Desktop MCP Servers"
           class="preview-image"
         />
         <div class="preview-overlay"></div>
@@ -236,6 +244,80 @@
     <div class="tech-feature">
       <div class="feature-header">
         <div class="icon-wrapper">
+          <Icon name="puzzle" size={22} />
+        </div>
+        <h3>Server Management</h3>
+      </div>
+      <p>
+        Easily add and configure MCP servers using stdio or HTTP-SSE transports.
+        Manage environment variables and command arguments directly.
+      </p>
+    </div>
+    <div class="tech-feature">
+      <div class="feature-header">
+        <div class="icon-wrapper">
+          <Icon name="wrench" size={22} />
+        </div>
+        <h3>Tool Discovery</h3>
+      </div>
+      <p>
+        Automatically lists and exposes tools from connected servers, allowing
+        the LLM to perform web searches, execute code, or query databases.
+      </p>
+    </div>
+    <div class="tech-feature">
+      <div class="feature-header">
+        <div class="icon-wrapper">
+          <Icon name="file-text" size={22} />
+        </div>
+        <h3>Resource Layer</h3>
+      </div>
+      <p>
+        Expose local files and documentation as MCP resources. The app handles
+        URI-based retrieval and context injection seamlessly.
+      </p>
+    </div>
+    <div class="tech-feature">
+      <div class="feature-header">
+        <div class="icon-wrapper">
+          <Icon name="link" size={22} />
+        </div>
+        <h3>Interactive Bridge</h3>
+      </div>
+      <p>
+        Real-time monitoring of tool calls and connection status ensures a
+        transparent and reliable workflow between the AI and your tools.
+      </p>
+    </div>
+  </div>
+</ProjectShowcase>
+
+<ProjectShowcase
+  context="Performance & optimization"
+  title="Native Efficiency"
+  imageAlt="Llama Desktop Resource Usage"
+  variant="dark"
+  visualStyle="clean"
+  reverse={false}
+  roleTitle={"Resource Management"}
+>
+  {#snippet visual()}
+    <div class="demo-container">
+      <div class="preview-card animate-fade-in">
+        <img
+          src="/assets/lowusage.png"
+          alt="Llama Desktop Low Resource Usage"
+          class="preview-image"
+        />
+        <div class="preview-overlay"></div>
+      </div>
+    </div>
+  {/snippet}
+
+  <div class="tech-features-grid">
+    <div class="tech-feature">
+      <div class="feature-header">
+        <div class="icon-wrapper icon-wrapper--dark">
           <Icon name="zap" size={22} />
         </div>
         <h3>Zero-Overhead Core</h3>
@@ -247,7 +329,7 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <div class="icon-wrapper">
+        <div class="icon-wrapper icon-wrapper--dark">
           <Icon name="activity" size={22} />
         </div>
         <h3>Ultra-Low Idle</h3>
@@ -259,7 +341,7 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <div class="icon-wrapper">
+        <div class="icon-wrapper icon-wrapper--dark">
           <Icon name="gauge" size={22} />
         </div>
         <h3>Intelligent Offloading</h3>
@@ -271,7 +353,7 @@
     </div>
     <div class="tech-feature">
       <div class="feature-header">
-        <div class="icon-wrapper">
+        <div class="icon-wrapper icon-wrapper--dark">
           <Icon name="shield" size={22} />
         </div>
         <h3>Async Orchestration</h3>
@@ -336,7 +418,6 @@
     color: var(--secondary-text);
   }
 
-
   .demo-container {
     position: relative;
     width: 100%;
@@ -359,6 +440,11 @@
     align-items: center;
     justify-content: center;
     background: #111;
+    transform: scale(0.9);
+  }
+
+  .preview-card:hover {
+    transform: scale(0.95);
   }
 
   .preview-image {
@@ -366,12 +452,7 @@
     height: auto;
     display: block;
     object-fit: contain;
-    transform: scale(0.85);
     transition: transform 0.3s ease;
-  }
-
-  .preview-card:hover .preview-image {
-    transform: scale(0.9);
   }
 
   :global(.project-visual .project-image-container) {

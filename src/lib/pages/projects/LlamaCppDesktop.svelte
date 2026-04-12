@@ -4,14 +4,17 @@
   import TechStrip from "$lib/components/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import DemoWindow from "$lib/components/DemoWindow.svelte";
+  import type { ReleaseInfo } from "$lib/types";
 
-  let { data } = $props();
+  interface Props {
+    release?: ReleaseInfo;
+  }
 
-  // Shared project tags
+  let { release }: Props = $props();
+
   const tags =
     "Tauri v2,Rust,Tokio,Svelte 5,Vitest,Lucide,Tailwind CSS v4,IndexedDB,Dexie,MCP,NVIDIA SMI";
 
-  // Scroll reveal animation
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,14 +36,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>Llama Desktop - Project Details</title>
-  <meta
-    name="description"
-    content="A premium Tauri-based desktop application for managing and running Llama.cpp models locally."
-  />
-</svelte:head>
-
 <div class="container container--header-offset">
   <main class="animate-fade-in-right animate-delay-2">
     <ProjectShowcase
@@ -52,11 +47,11 @@
       visualStyle="clean"
       link="https://github.com/GDKAYKY/llama.cpp-desktop"
       linkText="View Repository"
-      downloadLink={data.release?.exe?.url ||
+      downloadLink={release?.exe?.url ||
         "https://github.com/GDKAYKY/llama.cpp-desktop/releases/download/v1.1.0/llama-desktop_1.1.0_x64-setup.exe"}
-      downloadVersion={data.release?.version || "v1.1.0"}
-      downloadSize={data.release?.exe?.size || "N/A"}
-      downloadCount={data.release?.exe?.downloads}
+      downloadVersion={release?.version || "v1.1.0"}
+      downloadSize={release?.exe?.size || "N/A"}
+      downloadCount={release?.exe?.downloads}
       {tags}
     >
       <p style="margin-bottom: 24px">

@@ -3,7 +3,6 @@
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
 
-  // Scroll reveal animation
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -14,24 +13,16 @@
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
     document
       .querySelectorAll(
-        ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+        ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
       )
       .forEach((el) => observer.observe(el));
   });
 </script>
-
-<svelte:head>
-  <title>Personal Portfolio - Kayky Vitor</title>
-  <meta
-    name="description"
-    content="A modern, high-performance portfolio website built with Svelte."
-  />
-</svelte:head>
 
 <div class="container container--header-offset">
   <ProjectShowcase

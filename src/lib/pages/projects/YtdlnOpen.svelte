@@ -2,10 +2,14 @@
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
+  import type { ReleaseInfo } from "$lib/types";
 
-  let { data } = $props();
+  interface Props {
+    release?: ReleaseInfo;
+  }
 
-  // Scroll reveal animation
+  let { release }: Props = $props();
+
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -27,14 +31,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>YTDLN-OPEN - Project Details</title>
-  <meta
-    name="description"
-    content="A free and open-source desktop video/audio downloader powered by yt-dlp, ffmpeg, Electron, and React."
-  />
-</svelte:head>
-
 <div class="container container--header-offset">
   <main class="animate-fade-in-right animate-delay-2">
     <ProjectShowcase
@@ -47,11 +43,11 @@
       link="https://github.com/GDKAYKY/ytdln-open"
       linkText="View Repository"
       tags="Electron,Node.js,yt-dlp,aria2c,FFmpeg,React"
-      downloadLink={data.release?.exe?.url ||
+      downloadLink={release?.exe?.url ||
         "https://github.com/GDKAYKY/ytdln-open/releases/download/v01.04.2026(1.1.0)/ytdln-open.Setup.1.1.0.exe"}
-      downloadVersion={data.release?.version || "v1.1.0"}
-      downloadSize={data.release?.exe?.size || "289MB"}
-      downloadCount={data.release?.exe?.downloads || 7}
+      downloadVersion={release?.version || "v1.1.0"}
+      downloadSize={release?.exe?.size || "289MB"}
+      downloadCount={release?.exe?.downloads || 7}
     >
       <p style="margin-bottom: 24px">
         YTDLN-OPEN is a free and open-source desktop video/audio downloader

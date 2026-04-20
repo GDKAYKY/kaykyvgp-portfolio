@@ -4,13 +4,15 @@
   import TechStrip from "$lib/components/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
 
-  // Import images for enhanced-img
-  import whoLogo from "$lib/assets/who_logo.jpeg?enhanced";
-  import awsMlLogo from "$lib/assets/aws_machine_learning_logo.png?enhanced";
-  import awsLogo from "$lib/assets/aws_logo.jpeg?enhanced";
-  import awsComputeLogo from "$lib/assets/aws_compute_logo.png?enhanced";
-  import microsoftLogo from "$lib/assets/microsoft_logo.jpeg?enhanced";
-  import funecLogo from "$lib/assets/funec_logo.png?enhanced";
+  // Logo paths from static folder
+  const whoLogo = "/assets/logos/who_logo.jpeg";
+  const awsMlLogo = "/assets/logos/aws_machine_learning_logo.png";
+  const awsLogo = "/assets/logos/aws_logo.jpeg";
+  const awsComputeLogo = "/assets/logos/aws_compute_logo.png";
+  const microsoftLogo = "/assets/logos/microsoft_logo.jpeg";
+  const courseraLogo = "/assets/logos/coursera_logo.png";
+  const dukeLogo = "/assets/logos/duke_logo.png";
+  const funecLogo = "/assets/logos/funec_logo.png";
 
   // Scroll reveal animation
   let elements: NodeListOf<Element>;
@@ -77,11 +79,7 @@
           <h2 class="section-title">Experience</h2>
           <div class="card experience-item">
             <div class="experience-header">
-              <enhanced:img
-                class="certification-logo"
-                src={whoLogo}
-                alt="Who Logo"
-              />
+              <img class="certification-logo" src={whoLogo} alt="Who Logo" />
               <div class="experience-title-area">
                 <h3 class="job-title">Apprentice Software Developer</h3>
                 <div class="job-meta">
@@ -122,7 +120,7 @@
           <!-- Machine Learning Foundations -->
           <div class="card certification">
             <div class="certification-content">
-              <enhanced:img
+              <img
                 class="certification-logo"
                 src={awsMlLogo}
                 alt="AWS Machine Learning Logo"
@@ -133,11 +131,7 @@
                 </h3>
                 <div class="certification-details">
                   <span class="certification-issuer">
-                    <enhanced:img
-                      class="issuer-logo"
-                      src={awsLogo}
-                      alt="AWS Logo"
-                    />
+                    <img class="issuer-logo" src={awsLogo} alt="AWS Logo" />
                     Amazon Web Services
                   </span>
                   <span class="certification-date">
@@ -170,7 +164,7 @@
           <!-- Getting Started with Compute -->
           <div class="card certification">
             <div class="certification-content">
-              <enhanced:img
+              <img
                 class="certification-logo"
                 src={awsComputeLogo}
                 alt="AWS Compute Logo"
@@ -181,11 +175,7 @@
                 </h3>
                 <div class="certification-details">
                   <span class="certification-issuer">
-                    <enhanced:img
-                      class="issuer-logo"
-                      src={awsLogo}
-                      alt="AWS Logo"
-                    />
+                    <img class="issuer-logo" src={awsLogo} alt="AWS Logo" />
                     Amazon Web Services
                   </span>
                   <span class="certification-date">
@@ -232,7 +222,7 @@
                 </h3>
                 <div class="certification-details">
                   <span class="certification-issuer">
-                    <enhanced:img
+                    <img
                       class="issuer-logo"
                       src={microsoftLogo}
                       alt="Microsoft Logo"
@@ -262,6 +252,51 @@
               <span class="button-icon">↗</span>
             </a>
           </div>
+
+          <!-- Rust Fundamentals -->
+          <div class="card certification">
+            <div class="certification-content">
+              <img
+                class="certification-logo"
+                src={courseraLogo}
+                alt="Coursera Logo"
+              />
+              <div class="certification-info">
+                <h3 class="certification-title">Rust Fundamentals</h3>
+                <div class="certification-details">
+                  <span class="certification-issuer">
+                    <img
+                      class="issuer-logo"
+                      src={dukeLogo}
+                      alt="Duke University Logo"
+                    />
+                    Duke University
+                  </span>
+                  <span class="certification-date">
+                    <Icon name="calendar" size={14} />
+                    April 2026
+                  </span>
+                </div>
+              </div>
+            </div>
+            <ul class="job-description">
+              <li>Rust syntax, ownership, and borrowing concepts</li>
+              <li>Memory safety without garbage collection</li>
+              <li>Cargo package manager and the Rust ecosystem</li>
+              <li>
+                Error handling, pattern matching, and concurrent programming
+              </li>
+            </ul>
+            <a
+              href="https://www.coursera.org/account/accomplishments/records/SZAJYL33TBJS"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="credential-button"
+            >
+              <span class="button-text">See Credential</span>
+              <span class="button-icon">↗</span>
+            </a>
+          </div>
         </section>
 
         <!-- Education Section -->
@@ -269,7 +304,7 @@
           <h2 class="section-title">Education</h2>
           <div class="card certification">
             <div class="certification-content">
-              <enhanced:img
+              <img
                 class="certification-logo"
                 src={funecLogo}
                 alt="FUNEC Logo"
@@ -278,11 +313,7 @@
                 <h3 class="certification-title">High School</h3>
                 <div class="certification-details">
                   <span class="certification-issuer">
-                    <enhanced:img
-                      class="issuer-logo"
-                      src={funecLogo}
-                      alt="FUNEC Logo"
-                    />
+                    <img class="issuer-logo" src={funecLogo} alt="FUNEC Logo" />
                     FUNEC - Fundação de Ensino de Contagem
                   </span>
                   <span class="certification-date">

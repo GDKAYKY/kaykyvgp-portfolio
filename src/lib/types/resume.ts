@@ -5,6 +5,8 @@ export interface Experience {
   location: string;
   period: string;
   description: string[];
+  technologies?: string[];
+  projects?: string[];
 }
 
 export interface Certification {
@@ -15,6 +17,8 @@ export interface Certification {
   date: string;
   skills: string[];
   credentialUrl: string;
+  skillsGained?: string[];
+  tools?: string[];
 }
 
 export interface Education {

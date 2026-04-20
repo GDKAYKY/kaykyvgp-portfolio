@@ -11,6 +11,8 @@ export const EXPERIENCES: Experience[] = [
       'Developed and maintained high-performance systems using C#, .NET, and AWS.',
       'Focused on security, efficiency, and FinOps, contributing to robust workflows and reliable system architectures.',
     ],
+    technologies: ['C#', '.NET', 'AWS', 'Docker', 'Grafana'],
+    projects: ['High-performance backend systems', 'Cloud infrastructure optimization'],
   },
 ];
 
@@ -27,6 +29,14 @@ export const CERTIFICATIONS: Certification[] = [
       'Model training, evaluation, and deployment strategies',
       'Supervised and unsupervised learning techniques',
     ],
+    skillsGained: [
+      'Machine Learning',
+      'Model Training',
+      'Model Evaluation',
+      'Cloud ML Services',
+      'Data Analysis',
+    ],
+    tools: ['AWS SageMaker', 'AWS Rekognition', 'AWS Comprehend', 'Python'],
     credentialUrl:
       'https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile',
   },
@@ -42,6 +52,14 @@ export const CERTIFICATIONS: Certification[] = [
       'Container services (ECS, EKS) and serverless computing (Lambda)',
       'Cost optimization and performance tuning for compute resources',
     ],
+    skillsGained: [
+      'Cloud Computing',
+      'Infrastructure Management',
+      'Cost Optimization',
+      'Container Orchestration',
+      'Serverless Architecture',
+    ],
+    tools: ['AWS EC2', 'AWS ECS', 'AWS EKS', 'AWS Lambda', 'Elastic Load Balancing'],
     credentialUrl: 'https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0',
   },
   {
@@ -56,6 +74,14 @@ export const CERTIFICATIONS: Certification[] = [
       '.NET runtime and framework fundamentals',
       'Debugging, testing, and best practices in C# development',
     ],
+    skillsGained: [
+      'Object-Oriented Programming',
+      'Software Development',
+      'Debugging',
+      'Unit Testing',
+      'Code Quality',
+    ],
+    tools: ['C#', '.NET Framework', 'Visual Studio', 'Visual Studio Code'],
     credentialUrl:
       'https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft',
   },
@@ -71,6 +97,18 @@ export const CERTIFICATIONS: Certification[] = [
       'Cargo package manager and the Rust ecosystem',
       'Error handling, pattern matching, and concurrent programming',
     ],
+    skillsGained: [
+      'Software Documentation',
+      'Programming Principles',
+      'Test Case',
+      'Package and Software Management',
+      'Development Environment',
+      'Data Structures',
+      'Debugging',
+      'System Programming',
+      'Software Testing',
+    ],
+    tools: ['Rust (Programming Language)', 'GitHub', 'Cargo', 'Rust Analyzer'],
     credentialUrl: 'https://www.coursera.org/account/accomplishments/records/SZAJYL33TBJS',
   },
 ];

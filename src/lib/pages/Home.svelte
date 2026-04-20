@@ -2,17 +2,16 @@
   import { onMount } from "svelte";
   import ParticleEffect from "$lib/components/ParticleEffect.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
-  import Icon from "$lib/components/Icon.svelte";
-
-  // Logo paths from static folder
-  const whoLogo = "/assets/logos/who_logo.jpeg";
-  const awsMlLogo = "/assets/logos/aws_machine_learning_logo.png";
-  const awsLogo = "/assets/logos/aws_logo.jpeg";
-  const awsComputeLogo = "/assets/logos/aws_compute_logo.png";
-  const microsoftLogo = "/assets/logos/microsoft_logo.jpeg";
-  const courseraLogo = "/assets/logos/coursera_logo.png";
-  const dukeLogo = "/assets/logos/duke_logo.png";
-  const funecLogo = "/assets/logos/funec_logo.png";
+  import ExperienceCard from "$lib/components/ExperienceCard.svelte";
+  import CertificationCard from "$lib/components/CertificationCard.svelte";
+  import EducationCard from "$lib/components/EducationCard.svelte";
+  import SkillsColumn from "$lib/components/SkillsColumn.svelte";
+  import {
+    EXPERIENCES,
+    CERTIFICATIONS,
+    EDUCATION,
+    SKILLS_COLUMNS,
+  } from "$lib/data/resume";
 
   // Scroll reveal animation
   let elements: NodeListOf<Element>;
@@ -77,290 +76,34 @@
         <!-- Experience Section -->
         <section id="experience" class="experience-section animate-fade-in-up">
           <h2 class="section-title">Experience</h2>
-          <div class="card experience-item">
-            <div class="experience-header">
-              <img class="certification-logo" src={whoLogo} alt="Who Logo" />
-              <div class="experience-title-area">
-                <h3 class="job-title">Apprentice Software Developer</h3>
-                <div class="job-meta">
-                  <span class="meta-item">
-                    <Icon name="building-2" size={14} />
-                    Who
-                  </span>
-                  <span class="dot">•</span>
-                  <span class="meta-item">
-                    <Icon name="calendar" size={14} />
-                    Dec 2024 – Dec 2025
-                  </span>
-                  <span class="dot">•</span>
-                  <span class="meta-item">
-                    <Icon name="map-pin" size={14} />
-                    Hybrid &amp; BH
-                  </span>
-                </div>
-              </div>
-            </div>
-            <ul class="job-description">
-              <li>
-                Developed and maintained high-performance systems using C#,
-                .NET, and AWS.
-              </li>
-              <li>
-                Focused on security, efficiency, and FinOps, contributing to
-                robust workflows and reliable system architectures.
-              </li>
-            </ul>
-          </div>
+          {#each EXPERIENCES as experience}
+            <ExperienceCard {experience} />
+          {/each}
         </section>
 
         <!-- Courses & Certifications Section -->
         <section class="section animate-fade-in-up">
           <h2 class="section-title">Courses & Certifications</h2>
-
-          <!-- Machine Learning Foundations -->
-          <div class="card certification">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src={awsMlLogo}
-                alt="AWS Machine Learning Logo"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">
-                  Machine Learning Foundations
-                </h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img class="issuer-logo" src={awsLogo} alt="AWS Logo" />
-                    Amazon Web Services
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    November 2025
-                  </span>
-                </div>
-              </div>
-            </div>
-            <!-- Machine Learning Foundations Skills -->
-            <ul class="job-description">
-              <li>Machine Learning fundamentals and core concepts</li>
-              <li>
-                AWS ML services and tools (SageMaker, Rekognition, Comprehend)
-              </li>
-              <li>Model training, evaluation, and deployment strategies</li>
-              <li>Supervised and unsupervised learning techniques</li>
-            </ul>
-            <a
-              href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="credential-button"
-            >
-              <span class="button-text">See Credential</span>
-              <span class="button-icon">↗</span>
-            </a>
-          </div>
-
-          <!-- Getting Started with Compute -->
-          <div class="card certification">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src={awsComputeLogo}
-                alt="AWS Compute Logo"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">
-                  Getting Started with Compute
-                </h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img class="issuer-logo" src={awsLogo} alt="AWS Logo" />
-                    Amazon Web Services
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    October 2025
-                  </span>
-                </div>
-              </div>
-            </div>
-            <ul class="job-description">
-              <li>AWS EC2 instances and compute options</li>
-              <li>Auto Scaling and load balancing strategies</li>
-              <li>
-                Container services (ECS, EKS) and serverless computing (Lambda)
-              </li>
-              <li>
-                Cost optimization and performance tuning for compute resources
-              </li>
-            </ul>
-            <a
-              href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="credential-button"
-            >
-              <span class="button-text">See Credential</span>
-              <span class="button-icon">↗</span>
-            </a>
-          </div>
-
-          <!-- Foundational C# -->
-          <div class="card certification">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src="https://learn.microsoft.com/en-us/training/achievements/get-started-c-sharp-part-1.svg"
-                alt="Microsoft C# Logo"
-                width="48"
-                height="48"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">
-                  Foundational C# with Microsoft
-                </h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img
-                      class="issuer-logo"
-                      src={microsoftLogo}
-                      alt="Microsoft Logo"
-                    />
-                    Microsoft
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    October 2025
-                  </span>
-                </div>
-              </div>
-            </div>
-            <ul class="job-description">
-              <li>C# syntax, data types, and control structures</li>
-              <li>Object-oriented programming principles</li>
-              <li>.NET runtime and framework fundamentals</li>
-              <li>Debugging, testing, and best practices in C# development</li>
-            </ul>
-            <a
-              href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="credential-button"
-            >
-              <span class="button-text">See Credential</span>
-              <span class="button-icon">↗</span>
-            </a>
-          </div>
-
-          <!-- Rust Fundamentals -->
-          <div class="card certification">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src={courseraLogo}
-                alt="Coursera Logo"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">Rust Fundamentals</h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img
-                      class="issuer-logo"
-                      src={dukeLogo}
-                      alt="Duke University Logo"
-                    />
-                    Duke University
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    April 2026
-                  </span>
-                </div>
-              </div>
-            </div>
-            <ul class="job-description">
-              <li>Rust syntax, ownership, and borrowing concepts</li>
-              <li>Memory safety without garbage collection</li>
-              <li>Cargo package manager and the Rust ecosystem</li>
-              <li>
-                Error handling, pattern matching, and concurrent programming
-              </li>
-            </ul>
-            <a
-              href="https://www.coursera.org/account/accomplishments/records/SZAJYL33TBJS"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="credential-button"
-            >
-              <span class="button-text">See Credential</span>
-              <span class="button-icon">↗</span>
-            </a>
-          </div>
+          {#each CERTIFICATIONS as certification}
+            <CertificationCard {certification} />
+          {/each}
         </section>
 
         <!-- Education Section -->
         <section class="section animate-fade-in-up">
           <h2 class="section-title">Education</h2>
-          <div class="card certification">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src={funecLogo}
-                alt="FUNEC Logo"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">High School</h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img class="issuer-logo" src={funecLogo} alt="FUNEC Logo" />
-                    FUNEC - Fundação de Ensino de Contagem
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    January 2022 – December 2025
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {#each EDUCATION as education}
+            <EducationCard {education} />
+          {/each}
         </section>
 
         <!-- Skills Section -->
         <section id="skills" class="section animate-fade-in-up">
           <h2 class="section-title">Skills</h2>
           <div class="skills-grid stagger-animation">
-            <div class="skills-column animate-fade-in-up">
-              <div class="skills-column-title">
-                <Icon name="code-2" size={20} />
-                Hard Skills
-              </div>
-              <ul>
-                <li><Icon name="hash" size={18} /> C# and .NET Framework</li>
-                <li><Icon name="crab" size={18} /> Rust &amp; Tauri</li>
-                <li><Icon name="cloud" size={18} /> AWS</li>
-                <li><Icon name="trending-down" size={18} /> FinOps</li>
-                <li><Icon name="container" size={18} /> Docker</li>
-                <li><Icon name="activity" size={18} /> Grafana</li>
-                <li>
-                  <Icon name="shield-check" size={18} /> Cybersecurity Principles
-                </li>
-              </ul>
-            </div>
-            <div class="skills-column animate-fade-in-up">
-              <div class="skills-column-title">
-                <Icon name="brain-circuit" size={20} />
-                Soft Skills
-              </div>
-              <ul>
-                <li><Icon name="zap" size={18} /> Autodidact</li>
-                <li><Icon name="gauge" size={18} /> Focus on Performance</li>
-                <li><Icon name="ear" size={18} /> Active Listener</li>
-                <li>
-                  <Icon name="graduation-cap" size={18} /> Constant Learner
-                </li>
-              </ul>
-            </div>
+            {#each SKILLS_COLUMNS as column}
+              <SkillsColumn {column} />
+            {/each}
           </div>
         </section>
       </main>

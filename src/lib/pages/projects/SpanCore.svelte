@@ -2,6 +2,9 @@
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
+  
+  // Import images for enhanced-img
+  import ytdlnMockup from "$lib/assets/ytdln_mockup.png?enhanced";
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -29,7 +32,7 @@
     context="Desktop Utility"
     title="SPAN-CORE"
     description=""
-    image="/assets/ytdln_mockup.png"
+    image={ytdlnMockup}
     imageAlt="SPAN-CORE Interface"
     link="https://github.com/GDKAYKY/span-core"
     linkText="View Repository"

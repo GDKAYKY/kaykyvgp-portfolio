@@ -3,6 +3,10 @@
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/TechStrip.svelte";
   import type { ReleaseInfo } from "$lib/types";
+  
+  // Import images for enhanced-img
+  import ytdlnMockup from "$lib/assets/ytdln_mockup.png?enhanced";
+  import ytdlnSettings from "$lib/assets/ytdln_settings_mockup.png?enhanced";
 
   interface Props {
     release?: ReleaseInfo;
@@ -37,7 +41,7 @@
       context="Open Source Utility | Electron & Node.js"
       title="YTDLN-OPEN"
       description=""
-      image="/assets/ytdln_mockup.png"
+      image={ytdlnMockup}
       imageAlt="ytdln-open Interface Mockup"
       visualStyle="clean"
       link="https://github.com/GDKAYKY/ytdln-open"
@@ -72,7 +76,7 @@
 <ProjectShowcase
   context="Power & Flexibility"
   title="Experience Absolute Customizability"
-  image="/assets/ytdln_settings_mockup.png"
+  image={ytdlnSettings}
   imageAlt="YTDLN-OPEN Settings Interface"
   variant="light"
   reverse={true}

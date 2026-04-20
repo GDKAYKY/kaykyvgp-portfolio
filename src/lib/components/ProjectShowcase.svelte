@@ -7,7 +7,7 @@
     context: string;
     title: string;
     description?: string;
-    image?: string;
+    image?: string | any; // Accept both string and Picture type from enhanced-img
     imageAlt?: string;
     titleLogo?: string;
     titleLogoAlt?: string;
@@ -128,7 +128,11 @@
         {#if visual}
           {@render visual()}
         {:else if image}
-          <img src={image} alt={imageAlt || title} class="project-image" />
+          {#if typeof image === 'string'}
+            <img src={image} alt={imageAlt || title} class="project-image" />
+          {:else}
+            <enhanced:img src={image} alt={imageAlt || title} class="project-image" />
+          {/if}
         {:else}
           <div class="placeholder">
             <span>Visual Preview</span>

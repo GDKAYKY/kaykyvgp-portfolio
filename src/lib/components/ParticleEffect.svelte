@@ -155,8 +155,8 @@
       particles.push(
         new Particle(
           Math.random() * canvas.width,
-          Math.random() * canvas.height
-        )
+          Math.random() * canvas.height,
+        ),
       );
     }
   }

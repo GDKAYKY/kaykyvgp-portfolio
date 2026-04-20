@@ -74,16 +74,16 @@
     const pascalName = getPascalName(name);
 
     // 1. Try Lucide
-    // @ts-ignore - dynamic access
-    if (LucideIcons[pascalName]) {
-      return LucideIcons[pascalName] as Component;
+    const lucideIcons = LucideIcons as unknown as Record<string, Component>;
+    if (lucideIcons[pascalName]) {
+      return lucideIcons[pascalName];
     }
 
     // 2. Try Simple Icons (with and without Si prefix)
     const siName = pascalName.startsWith("Si") ? pascalName : `Si${pascalName}`;
-    // @ts-ignore - dynamic access
-    if (SimpleIcons[siName]) {
-      return SimpleIcons[siName] as Component;
+    const simpleIcons = SimpleIcons as unknown as Record<string, Component>;
+    if (simpleIcons[siName]) {
+      return simpleIcons[siName];
     }
 
     // Fallback

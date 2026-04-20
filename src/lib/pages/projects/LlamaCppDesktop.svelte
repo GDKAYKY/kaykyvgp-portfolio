@@ -5,6 +5,12 @@
   import Icon from "$lib/components/Icon.svelte";
   import DemoWindow from "$lib/components/DemoWindow.svelte";
   import type { ReleaseInfo } from "$lib/types";
+  
+  // Import images for enhanced-img
+  import llamaCppImage from "$lib/assets/llama.cpp.png?enhanced";
+  import modelsImage from "$lib/assets/models.png?enhanced";
+  import mcpImage from "$lib/assets/mcp.png?enhanced";
+  import lowUsageImage from "$lib/assets/lowusage.png?enhanced";
 
   interface Props {
     release?: ReleaseInfo;
@@ -42,7 +48,7 @@
       context="AI Desktop Utility | Tauri & Rust"
       title="Llama Desktop"
       description=""
-      image="/assets/llama.cpp.png"
+      image={llamaCppImage}
       imageAlt="Llama Desktop Chat Interface"
       visualStyle="clean"
       link="https://github.com/GDKAYKY/llama.cpp-desktop"
@@ -152,8 +158,8 @@
   {#snippet visual()}
     <div class="demo-container">
       <div class="preview-card animate-fade-in">
-        <img
-          src="/assets/models.png"
+        <enhanced:img
+          src={modelsImage}
           alt="Llama Desktop Model Library Management"
           class="preview-image"
         />
@@ -225,8 +231,8 @@
   {#snippet visual()}
     <div class="demo-container">
       <div class="preview-card animate-fade-in">
-        <img
-          src="/assets/mcp.png"
+        <enhanced:img
+          src={mcpImage}
           alt="Llama Desktop MCP Servers"
           class="preview-image"
         />
@@ -299,8 +305,8 @@
   {#snippet visual()}
     <div class="demo-container">
       <div class="preview-card animate-fade-in">
-        <img
-          src="/assets/lowusage.png"
+        <enhanced:img
+          src={lowUsageImage}
           alt="Llama Desktop Low Resource Usage"
           class="preview-image"
         />

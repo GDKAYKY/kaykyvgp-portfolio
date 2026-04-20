@@ -68,26 +68,32 @@
 
   // Default tech items if no tags provided
   const defaultTechs = [
-    { name: "C#", slug: "csharp" },
-    { name: ".NET", slug: "Sidotnet" },
-    { name: "AWS", slug: "amazonaws" },
-    { name: "Docker", slug: "docker" },
-    { name: "Electron", slug: "electron" },
-    { name: "Node.js", slug: "nodedotjs" },
-    { name: "JavaScript", slug: "javascript" },
-    { name: "PostgreSQL", slug: "postgresql" },
-    { name: "Grafana", slug: "grafana" },
-    { name: "Redis", slug: "redis" },
-    { name: "React", slug: "react" },
+    { name: "C#", slug: "SiCsharp", cdnSlug: "csharp" },
+    { name: ".NET", slug: "SiDotnet", cdnSlug: "dotnet" },
+    { name: "AWS", slug: "SiAmazonaws", cdnSlug: "amazonwebservices" },
+    { name: "Docker", slug: "SiDocker", cdnSlug: "docker" },
+    { name: "Electron", slug: "SiElectron", cdnSlug: "electron" },
+    { name: "Node.js", slug: "SiNodedotjs", cdnSlug: "nodedotjs" },
+    { name: "JavaScript", slug: "SiJavascript", cdnSlug: "javascript" },
+    { name: "PostgreSQL", slug: "SiPostgresql", cdnSlug: "postgresql" },
+    { name: "Grafana", slug: "SiGrafana", cdnSlug: "grafana" },
+    { name: "Redis", slug: "SiRedis", cdnSlug: "redis" },
+    { name: "React", slug: "SiReact", cdnSlug: "react" },
   ];
 
   const parsedTags = $derived(
     tags
       ? tags.split(",").map((t) => {
           const tag = t.trim().toLowerCase();
+          const componentSlug = TECH_MAP[tag] || "SiGithub";
+          // Convert component name to CDN slug: remove "Si" prefix and lowercase
+          const cdnSlug = componentSlug.startsWith("Si")
+            ? componentSlug.slice(2).toLowerCase()
+            : componentSlug.toLowerCase();
           return {
             name: t.trim(),
-            slug: TECH_MAP[tag] || "github",
+            slug: componentSlug,
+            cdnSlug: cdnSlug,
           };
         })
       : defaultTechs,
@@ -117,19 +123,14 @@
 <div class="tech-strip-container">
   <div class="tech-strip-track" bind:this={trackElement}>
     {#each displayItems as tech}
-      {@const IconComponent =
-        SimpleIcons[tech.slug as keyof typeof SimpleIcons]}
+      {@const simpleIcons = SimpleIcons as unknown as Record<string, any>}
+      {@const IconComponent = simpleIcons[tech.slug]}
       <div class="tech-item">
         {#if IconComponent}
-          <IconComponent
-            size={32}
-            color="white"
-            aria-hidden="true"
-            title={tech.name}
-          />
+          <IconComponent size={32} color="white" title={tech.name} />
         {:else}
           <img
-            src="https://cdn.simpleicons.org/{tech.slug}/white"
+            src="https://cdn.simpleicons.org/{tech.cdnSlug}/fff"
             alt=""
             aria-hidden="true"
             title={tech.name}

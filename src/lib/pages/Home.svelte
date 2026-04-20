@@ -4,6 +4,12 @@
   import TechStrip from "$lib/components/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
 
+  // Import images for enhanced-img
+  import whoLogo from "$lib/assets/who_logo.jpeg?enhanced";
+  import awsMlLogo from "$lib/assets/aws_machine_learning_logo.png?enhanced";
+  import awsLogo from "$lib/assets/aws_logo.jpeg?enhanced";
+  import microsoftLogo from "$lib/assets/microsoft_logo.jpeg?enhanced";
+
   // Scroll reveal animation
   let elements: NodeListOf<Element>;
 
@@ -69,12 +75,10 @@
           <h2 class="section-title">Experience</h2>
           <div class="experience-item">
             <div class="experience-header">
-              <img
+              <enhanced:img
                 class="certification-logo"
-                src="/assets/who_logo.jpeg"
+                src={whoLogo}
                 alt="Who Logo"
-                width="56"
-                height="56"
               />
               <div class="experience-title-area">
                 <h3 class="job-title">Apprentice Software Developer</h3>
@@ -109,47 +113,48 @@
           </div>
         </section>
 
-        <!-- Certifications Section -->
+        <!-- Courses & Certifications Section -->
         <section class="section animate-fade-in-up animate-delay-8">
-          <h2 class="section-title">Certifications</h2>
+          <h2 class="section-title">Courses & Certifications</h2>
 
           <!-- Machine Learning Foundations -->
           <div
             class="experience-item certification animate-fade-in-up animate-delay-1"
           >
             <div class="certification-content">
-              <img
+              <enhanced:img
                 class="certification-logo"
-                src="/assets/aws_machine_learning_logo.png"
-                alt="AWS Logo"
-                width="48"
-                height="48"
+                src={awsMlLogo}
+                alt="AWS Machine Learning Logo"
               />
               <div class="certification-info">
                 <h3 class="certification-title">
                   Machine Learning Foundations
                 </h3>
                 <div class="certification-details">
-                  <span class="certification-issuer">Amazon Web Services</span>
+                  <span class="certification-issuer">
+                    <enhanced:img
+                      class="issuer-logo"
+                      src={awsLogo}
+                      alt="AWS Logo"
+                    />
+                    Amazon Web Services
+                  </span>
                   <span class="certification-date">
                     <Icon name="calendar" size={14} />
                     November 2025
                   </span>
-                  <span class="certification-company">
-                    <img
-                      class="company-logo-small"
-                      src="/assets/aws_logo.jpeg"
-                      alt="AWS Logo"
-                      width="16"
-                      height="16"
-                    />
-                    Issued by Amazon Web Services
-                  </span>
                 </div>
               </div>
             </div>
+            <!-- Machine Learning Foundations Skills -->
             <ul class="job-description">
-              <li>Verification issued in November 2025</li>
+              <li>Machine Learning fundamentals and core concepts</li>
+              <li>
+                AWS ML services and tools (SageMaker, Rekognition, Comprehend)
+              </li>
+              <li>Model training, evaluation, and deployment strategies</li>
+              <li>Supervised and unsupervised learning techniques</li>
             </ul>
             <a
               href="https://www.credly.com/badges/f8f39b6e-90ce-4304-af14-3d2658f4c74b/linked_in_profile"
@@ -179,26 +184,30 @@
                   Getting Started with Compute
                 </h3>
                 <div class="certification-details">
-                  <span class="certification-issuer">Amazon Web Services</span>
+                  <span class="certification-issuer">
+                    <enhanced:img
+                      class="issuer-logo"
+                      src={awsLogo}
+                      alt="AWS Logo"
+                    />
+                    Amazon Web Services
+                  </span>
                   <span class="certification-date">
                     <Icon name="calendar" size={14} />
                     October 2025
-                  </span>
-                  <span class="certification-company">
-                    <img
-                      class="company-logo-small"
-                      src="/assets/aws_logo.jpeg"
-                      alt="AWS Logo"
-                      width="16"
-                      height="16"
-                    />
-                    Issued by Amazon Web Services
                   </span>
                 </div>
               </div>
             </div>
             <ul class="job-description">
-              <li>Verification issued in October 2025</li>
+              <li>AWS EC2 instances and compute options</li>
+              <li>Auto Scaling and load balancing strategies</li>
+              <li>
+                Container services (ECS, EKS) and serverless computing (Lambda)
+              </li>
+              <li>
+                Cost optimization and performance tuning for compute resources
+              </li>
             </ul>
             <a
               href="https://www.credly.com/badges/faabda17-42b4-4e3f-b027-47158c9b41b0"
@@ -228,26 +237,26 @@
                   Foundational C# with Microsoft
                 </h3>
                 <div class="certification-details">
-                  <span class="certification-issuer">Microsoft</span>
+                  <span class="certification-issuer">
+                    <enhanced:img
+                      class="issuer-logo"
+                      src={microsoftLogo}
+                      alt="Microsoft Logo"
+                    />
+                    Microsoft
+                  </span>
                   <span class="certification-date">
                     <Icon name="calendar" size={14} />
                     October 2025
-                  </span>
-                  <span class="certification-company">
-                    <img
-                      class="company-logo-small"
-                      src="/assets/microsoft_logo.jpeg"
-                      alt="Microsoft Logo"
-                      width="16"
-                      height="16"
-                    />
-                    Issued by Microsoft
                   </span>
                 </div>
               </div>
             </div>
             <ul class="job-description">
-              <li>Verification issued in October 2025</li>
+              <li>C# syntax, data types, and control structures</li>
+              <li>Object-oriented programming principles</li>
+              <li>.NET runtime and framework fundamentals</li>
+              <li>Debugging, testing, and best practices in C# development</li>
             </ul>
             <a
               href="https://freecodecamp.org/certification/fcc-ed711c85-4ef5-459c-8a5e-7a6e3106d87b/foundational-c-sharp-with-microsoft"
@@ -314,22 +323,19 @@
               <div class="certification-info">
                 <h3 class="certification-title">High School</h3>
                 <div class="certification-details">
-                  <span class="certification-issuer"
-                    >FUNEC - Fundação de Ensino de Contagem</span
-                  >
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    January 2022 – December 2025
-                  </span>
-                  <span class="certification-company">
+                  <span class="certification-issuer">
                     <img
-                      class="company-logo-small"
+                      class="issuer-logo"
                       src="https://portal.contagem.mg.gov.br/fotos/0e8622a63c0582f938374f922a2d271d.png"
                       alt="FUNEC Logo"
                       width="16"
                       height="16"
                     />
-                    Technical course on Economic Processes
+                    FUNEC - Fundação de Ensino de Contagem
+                  </span>
+                  <span class="certification-date">
+                    <Icon name="calendar" size={14} />
+                    January 2022 – December 2025
                   </span>
                 </div>
               </div>

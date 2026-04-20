@@ -14,13 +14,13 @@
     tags
       .split(",")
       .map((t) => t.trim())
-      .filter((t) => t)
+      .filter((t) => t),
   );
 
   const MAX_VISIBLE_TAGS = 3;
   const visibleTags = $derived(parsedTags.slice(0, MAX_VISIBLE_TAGS));
   const remainingCount = $derived(
-    Math.max(0, parsedTags.length - MAX_VISIBLE_TAGS)
+    Math.max(0, parsedTags.length - MAX_VISIBLE_TAGS),
   );
 </script>
 
@@ -160,6 +160,7 @@
     line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 16px;

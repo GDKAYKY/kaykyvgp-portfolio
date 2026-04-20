@@ -8,7 +8,9 @@
   import whoLogo from "$lib/assets/who_logo.jpeg?enhanced";
   import awsMlLogo from "$lib/assets/aws_machine_learning_logo.png?enhanced";
   import awsLogo from "$lib/assets/aws_logo.jpeg?enhanced";
+  import awsComputeLogo from "$lib/assets/aws_compute_logo.png?enhanced";
   import microsoftLogo from "$lib/assets/microsoft_logo.jpeg?enhanced";
+  import funecLogo from "$lib/assets/funec_logo.png?enhanced";
 
   // Scroll reveal animation
   let elements: NodeListOf<Element>;
@@ -73,7 +75,7 @@
         <!-- Experience Section -->
         <section id="experience" class="experience-section animate-fade-in-up">
           <h2 class="section-title">Experience</h2>
-          <div class="experience-item">
+          <div class="card experience-item">
             <div class="experience-header">
               <enhanced:img
                 class="certification-logo"
@@ -114,13 +116,11 @@
         </section>
 
         <!-- Courses & Certifications Section -->
-        <section class="section animate-fade-in-up animate-delay-8">
+        <section class="section animate-fade-in-up">
           <h2 class="section-title">Courses & Certifications</h2>
 
           <!-- Machine Learning Foundations -->
-          <div
-            class="experience-item certification animate-fade-in-up animate-delay-1"
-          >
+          <div class="card certification">
             <div class="certification-content">
               <enhanced:img
                 class="certification-logo"
@@ -168,16 +168,12 @@
           </div>
 
           <!-- Getting Started with Compute -->
-          <div
-            class="experience-item certification animate-fade-in-up animate-delay-2"
-          >
+          <div class="card certification">
             <div class="certification-content">
-              <img
+              <enhanced:img
                 class="certification-logo"
-                src="https://images.credly.com/size/500x500/images/7b08cc0e-064b-407d-b70e-323509c3e474/blob"
-                alt="AWS Logo"
-                width="48"
-                height="48"
+                src={awsComputeLogo}
+                alt="AWS Compute Logo"
               />
               <div class="certification-info">
                 <h3 class="certification-title">
@@ -221,14 +217,12 @@
           </div>
 
           <!-- Foundational C# -->
-          <div
-            class="experience-item certification animate-fade-in-up animate-delay-3"
-          >
+          <div class="card certification">
             <div class="certification-content">
               <img
                 class="certification-logo"
                 src="https://learn.microsoft.com/en-us/training/achievements/get-started-c-sharp-part-1.svg"
-                alt="Microsoft Logo"
+                alt="Microsoft C# Logo"
                 width="48"
                 height="48"
               />
@@ -270,11 +264,42 @@
           </div>
         </section>
 
+        <!-- Education Section -->
+        <section class="section animate-fade-in-up">
+          <h2 class="section-title">Education</h2>
+          <div class="card certification">
+            <div class="certification-content">
+              <enhanced:img
+                class="certification-logo"
+                src={funecLogo}
+                alt="FUNEC Logo"
+              />
+              <div class="certification-info">
+                <h3 class="certification-title">High School</h3>
+                <div class="certification-details">
+                  <span class="certification-issuer">
+                    <enhanced:img
+                      class="issuer-logo"
+                      src={funecLogo}
+                      alt="FUNEC Logo"
+                    />
+                    FUNEC - Fundação de Ensino de Contagem
+                  </span>
+                  <span class="certification-date">
+                    <Icon name="calendar" size={14} />
+                    January 2022 – December 2025
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Skills Section -->
-        <section id="skills" class="section animate-fade-in-up animate-delay-9">
+        <section id="skills" class="section animate-fade-in-up">
           <h2 class="section-title">Skills</h2>
           <div class="skills-grid stagger-animation">
-            <div class="skills-column animate-fade-in-up animate-delay-1">
+            <div class="skills-column animate-fade-in-up">
               <div class="skills-column-title">
                 <Icon name="code-2" size={20} />
                 Hard Skills
@@ -291,7 +316,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skills-column animate-fade-in-up animate-delay-2">
+            <div class="skills-column animate-fade-in-up">
               <div class="skills-column-title">
                 <Icon name="brain-circuit" size={20} />
                 Soft Skills
@@ -304,41 +329,6 @@
                   <Icon name="graduation-cap" size={18} /> Constant Learner
                 </li>
               </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Education Section -->
-        <section class="section animate-fade-in-up animate-delay-10">
-          <h2 class="section-title">Education</h2>
-          <div class="certification animate-fade-in-up animate-delay-1">
-            <div class="certification-content">
-              <img
-                class="certification-logo"
-                src="https://portal.contagem.mg.gov.br/fotos/0e8622a63c0582f938374f922a2d271d.png"
-                alt="School Cap"
-                width="48"
-                height="48"
-              />
-              <div class="certification-info">
-                <h3 class="certification-title">High School</h3>
-                <div class="certification-details">
-                  <span class="certification-issuer">
-                    <img
-                      class="issuer-logo"
-                      src="https://portal.contagem.mg.gov.br/fotos/0e8622a63c0582f938374f922a2d271d.png"
-                      alt="FUNEC Logo"
-                      width="16"
-                      height="16"
-                    />
-                    FUNEC - Fundação de Ensino de Contagem
-                  </span>
-                  <span class="certification-date">
-                    <Icon name="calendar" size={14} />
-                    January 2022 – December 2025
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </section>

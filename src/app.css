@@ -252,19 +252,30 @@ strong {
   opacity: 0.3;
 }
 
-/* ===== EXPERIENCE/CERTIFICATION CARDS ===== */
-.experience-item,
-.certification {
-  background: #1a1a1a;
+/* ===== CARD BASE ===== */
+.card {
+  background-color: #181818;
   border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 20px 24px;
   border-radius: 16px;
-  transition: all 0.15s ease-out;
+}
+
+.card:hover {
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
+  transform: scale(1.02);
+  transition: border-radius cubic-bezier(0.075, 0.82, 0.165, 1) 1s,
+              transform cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+}
+
+/* ===== EXPERIENCE/CERTIFICATION CARDS ===== */
+.experience-item {
   margin-bottom: 16px;
   display: block;
 }
 
 .certification {
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -281,14 +292,6 @@ strong {
   flex: 1;
   border-left: 1px solid rgba(255, 255, 255, 0.05);
   padding-left: 32px;
-}
-
-.experience-item:hover,
-.certification:hover {
-  background: #1f1f1f;
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== CERTIFICATION ===== */
@@ -308,7 +311,7 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .certification-info {
@@ -346,7 +349,7 @@ strong {
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .certification-date {

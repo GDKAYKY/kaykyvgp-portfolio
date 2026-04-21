@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { keywordPanel } from "$lib/stores/keywordStore";
+  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
+
   interface Props {
     title: string;
     type: string;
@@ -22,6 +25,17 @@
   const remainingCount = $derived(
     Math.max(0, parsedTags.length - MAX_VISIBLE_TAGS),
   );
+
+  const keywordMap = buildKeywordMap();
+
+  function handleTagClick(event: MouseEvent, tag: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    const usage = getKeywordUsage(tag, keywordMap);
+    if (usage) {
+      keywordPanel.open(usage);
+    }
+  }
 </script>
 
 <a href={link} class="project-card-compact">
@@ -41,7 +55,9 @@
     <div class="card-footer">
       <div class="card-tags">
         {#each visibleTags as tag}
-          <span class="card-tag">{tag}</span>
+          <button class="card-tag" onclick={(e) => handleTagClick(e, tag)}>
+            {tag}
+          </button>
         {/each}
         {#if remainingCount > 0}
           <span class="card-tag more">
@@ -50,7 +66,12 @@
               <div class="tooltip-title">Technologies</div>
               <div class="tooltip-grid">
                 {#each parsedTags as tag}
-                  <span class="tooltip-tag">{tag}</span>
+                  <button
+                    class="tooltip-tag"
+                    onclick={(e) => handleTagClick(e, tag)}
+                  >
+                    {tag}
+                  </button>
                 {/each}
               </div>
             </div>
@@ -187,6 +208,15 @@
     background: rgba(255, 255, 255, 0.05);
     border-radius: 6px;
     color: var(--secondary-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .card-tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-text);
+    transform: translateY(-2px);
   }
 
   .card-link-icon {
@@ -251,6 +281,7 @@
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
   }
 
   .tooltip-title {
@@ -275,6 +306,14 @@
     background: rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     color: var(--primary-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tooltip-tag:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
     white-space: nowrap;
   }
 </style>

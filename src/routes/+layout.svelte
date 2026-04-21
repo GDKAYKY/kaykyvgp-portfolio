@@ -5,6 +5,7 @@
   import "../app.css";
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
+  import KeywordPanel from "$lib/components/KeywordPanel.svelte";
 
   if (!dev) {
     injectSpeedInsights();
@@ -68,3 +69,5 @@
 {@render children()}
 
 <Footer />
+
+<KeywordPanel />

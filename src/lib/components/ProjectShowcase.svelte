@@ -1,7 +1,10 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
   import DownloadButton from "./DownloadButton.svelte";
-  import TechStrip from "./TechStrip.svelte";
+  import KeywordHighlight from "./KeywordHighlight.svelte";
+  import TechStrip from "./layout/TechStrip.svelte";
+  import { keywordPanel } from "$lib/stores/keywordStore";
+  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
 
   interface Props {
     context: string;
@@ -55,6 +58,15 @@
       .map((t) => t.trim())
       .filter((t) => t),
   );
+
+  const keywordMap = buildKeywordMap();
+
+  function handleTagClick(tag: string) {
+    const usage = getKeywordUsage(tag, keywordMap);
+    if (usage) {
+      keywordPanel.open(usage);
+    }
+  }
 </script>
 
 <section
@@ -86,12 +98,16 @@
           {#if children}
             {@render children()}
           {:else}
-            <p>{description}</p>
+            <p><KeywordHighlight text={description} /></p>
           {/if}
         </div>
         <div class="project-tags">
           {#each parsedTags as tag}
-            <span class="tag-pill">{tag}</span>
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <span class="tag-pill" onclick={() => handleTagClick(tag)}
+              >{tag}</span
+            >
           {/each}
         </div>
       </div>
@@ -128,10 +144,14 @@
         {#if visual}
           {@render visual()}
         {:else if image}
-          {#if typeof image === 'string'}
+          {#if typeof image === "string"}
             <img src={image} alt={imageAlt || title} class="project-image" />
           {:else}
-            <enhanced:img src={image} alt={imageAlt || title} class="project-image" />
+            <enhanced:img
+              src={image}
+              alt={imageAlt || title}
+              class="project-image"
+            />
           {/if}
         {:else}
           <div class="placeholder">
@@ -254,7 +274,7 @@
     padding: 8px 16px;
     border-radius: 100px;
     transition: all 0.3s ease;
-    cursor: default;
+    cursor: pointer;
   }
 
   .tag-pill:hover {

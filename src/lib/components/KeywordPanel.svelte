@@ -6,14 +6,6 @@
 </script>
 
 {#if state.isOpen && state.selectedKeyword}
-  <div
-    class="keyword-panel-overlay"
-    onclick={() => keywordPanel.close()}
-    onkeydown={(e) => e.key === "Escape" && keywordPanel.close()}
-    role="button"
-    tabindex="-1"
-    aria-label="Close panel"
-  ></div>
   <aside class="keyword-panel">
     <div class="panel-header">
       <h3 class="panel-title">{state.selectedKeyword.keyword}</h3>
@@ -76,38 +68,28 @@
 {/if}
 
 <style>
-  .keyword-panel-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    backdrop-filter: blur(2px);
-  }
-
   .keyword-panel {
-    position: fixed;
+    position: sticky;
     top: 0;
-    right: 0;
-    width: 300px;
+    width: 360px;
     height: 100vh;
-    background: rgba(17, 24, 39, 0.98);
+    background: #0a0a0a;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
+    z-index: 1001;
     display: flex;
     flex-direction: column;
-    animation: slideIn 0.3s ease-out;
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
   }
 
   @keyframes slideIn {
     from {
       transform: translateX(100%);
+      opacity: 0;
     }
     to {
       transform: translateX(0);
+      opacity: 1;
     }
   }
 
@@ -115,15 +97,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
   }
 
   .panel-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: rgb(96, 165, 250);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
     margin: 0;
   }
 
@@ -136,62 +119,68 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .close-button:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.9);
+    color: #fff;
+    transform: rotate(90deg);
   }
 
   .panel-content {
     flex: 1;
     overflow-y: auto;
-    padding: 1.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .usage-section {
-    margin-bottom: 2rem;
-  }
-
-  .usage-section:last-child {
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .section-title {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
   }
 
   .usage-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .usage-item {
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
   }
 
   .usage-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(-4px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-6px);
   }
 
   .empty-state {
@@ -199,23 +188,34 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1rem;
+    padding: 4rem 1.5rem;
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .empty-state p {
     margin-top: 1rem;
     font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   /* Scrollbar styling */
   .panel-content::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
 
   .panel-content::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+
+  .panel-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+
+  .panel-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
   }
 
   .panel-content::-webkit-scrollbar-thumb {
@@ -225,5 +225,17 @@
 
   .panel-content::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .keyword-panel {
+      position: static;
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-left: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+    }
   }
 </style>

@@ -37,7 +37,22 @@
     // Encontrar todas as keywords detectadas no texto
     detectedKeywords.forEach((keyword) => {
       const escapedKeyword = escapeRegex(keyword);
-      const regex = new RegExp(`\\b${escapedKeyword}\\b`, "gi");
+      // Não usar word boundaries para keywords com caracteres especiais no início ou fim
+      const hasSpecialStart = /^[^a-zA-Z0-9]/.test(keyword);
+      const hasSpecialEnd = /[^a-zA-Z0-9]$/.test(keyword);
+
+      let pattern;
+      if (hasSpecialStart && hasSpecialEnd) {
+        pattern = escapedKeyword;
+      } else if (hasSpecialStart) {
+        pattern = `${escapedKeyword}\\b`;
+      } else if (hasSpecialEnd) {
+        pattern = `\\b${escapedKeyword}`;
+      } else {
+        pattern = `\\b${escapedKeyword}\\b`;
+      }
+
+      const regex = new RegExp(pattern, "gi");
       let match;
       while ((match = regex.exec(text)) !== null) {
         matches.push({
@@ -126,14 +141,12 @@
   }
 
   :global(.keyword-highlight) {
-    color: #60a5fa;
+    color: var(--tertiary-text);
+    font-weight: 700;
     cursor: pointer;
-    text-decoration: underline;
-    text-decoration-style: dotted;
   }
 
   :global(.keyword-highlight:hover) {
-    color: #3b82f6;
-    text-decoration-style: solid;
+    opacity: 0.8;
   }
 </style>

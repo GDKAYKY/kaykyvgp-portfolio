@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ParticleEffect from "$lib/components/ParticleEffect.svelte";
-  import TechStrip from "$lib/components/TechStrip.svelte";
+  import TechStrip from "$lib/components/layout/TechStrip.svelte";
   import ExperienceCard from "$lib/components/ExperienceCard.svelte";
   import CertificationCard from "$lib/components/CertificationCard.svelte";
   import EducationCard from "$lib/components/EducationCard.svelte";
@@ -20,6 +20,9 @@
     elements = document.querySelectorAll(
       ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
     );
+
+    // Immediately reveal all elements - no invisible spacing
+    elements.forEach((el) => el.classList.add("revealed"));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -72,7 +75,7 @@
 <div class="main-content-wrapper">
   <div class="container">
     <div class="main-content">
-      <main class="animate-fade-in-right animate-delay-2">
+      <main class="animate-fade-in-right revealed">
         <!-- Experience Section -->
         <section id="experience" class="experience-section animate-fade-in-up">
           <h2 class="section-title">Experience</h2>

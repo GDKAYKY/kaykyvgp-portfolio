@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
-  import TechStrip from "$lib/components/TechStrip.svelte";
-  
+  import TechStrip from "$lib/components/layout/TechStrip.svelte";
+
   // Import images for enhanced-img
   import ytdlnMockup from "$lib/assets/ytdln_mockup.png?enhanced";
 

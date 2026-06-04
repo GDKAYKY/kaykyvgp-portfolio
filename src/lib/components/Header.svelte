@@ -4,6 +4,9 @@
 
   let floating = $state(false);
   let triggerPoint = $state(100);
+  let headerElement = $state<HTMLElement>();
+  let floatingLeft = $state(0);
+  let floatingWidth = $state(0);
 
   const updateTriggerPoint = () => {
     const heroSection = document.querySelector(".hero-section") as HTMLElement;
@@ -16,15 +19,38 @@
     floating = window.scrollY > triggerPoint;
   };
 
+  const updateFloatingBounds = () => {
+    const pageShell = headerElement?.parentElement;
+    if (!pageShell) return;
+
+    const { left, width } = pageShell.getBoundingClientRect();
+    const nextWidth = Math.min(width * 0.9, 1200);
+
+    floatingLeft = left + (width - nextWidth) / 2;
+    floatingWidth = nextWidth;
+  };
+
   onMount(() => {
+    let resizeObserver: ResizeObserver | undefined;
+
     updateTriggerPoint();
+    updateFloatingBounds();
+
+    if (headerElement?.parentElement) {
+      resizeObserver = new ResizeObserver(updateFloatingBounds);
+      resizeObserver.observe(headerElement.parentElement);
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateTriggerPoint, { passive: true });
+    window.addEventListener("resize", updateFloatingBounds, { passive: true });
     handleScroll();
 
     return () => {
+      resizeObserver?.disconnect();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateTriggerPoint);
+      window.removeEventListener("resize", updateFloatingBounds);
     };
   });
 
@@ -33,7 +59,13 @@
   );
 </script>
 
-<header class="site-header" class:floating>
+<header
+  bind:this={headerElement}
+  class="site-header"
+  class:floating
+  style:--floating-left={`${floatingLeft}px`}
+  style:--floating-width={`${floatingWidth}px`}
+>
   <div class="header-inner">
     <a href="/" class="header-logo">
       <svg
@@ -87,17 +119,28 @@
     border-bottom: 1px solid transparent;
     background: transparent;
     padding: 24px 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      position 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      right 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .site-header.floating {
     position: fixed;
     top: 20px;
-    left: 0;
-    right: 0;
+    left: var(--floating-left);
+    right: auto;
     margin: 0 auto;
-    width: 90%;
-    max-width: 1200px;
+    width: var(--floating-width);
+    max-width: none;
     background: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);

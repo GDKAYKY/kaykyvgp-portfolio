@@ -411,7 +411,7 @@
   /* App Layout */
   .window-content {
     flex: 1;
-    min-heirgb(75, 75, 75)
+    min-height: 0;
   }
   .app-layout {
     display: flex;
@@ -550,11 +550,13 @@
 
   /* Main Chat Area */
   .chat-main {
+    --chat-gutter: 0px;
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
     background: var(--app-bg);
+    padding-inline: var(--chat-gutter);
   }
 
   .chat-header {
@@ -722,10 +724,10 @@
     animation: typing 1.4s infinite ease-in-out;
   }
   .typing-indicator span:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: 0.1s;
   }
   .typing-indicator span:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: 0.2s;
   }
   @keyframes typing {
     0%,
@@ -835,6 +837,16 @@
   }
 
   @media (max-width: 800px) {
+    .chat-main {
+      --chat-gutter: clamp(12px, 4vw, 24px);
+    }
+
+    .chat-header,
+    .message-row,
+    .input-container {
+      padding-inline: 0;
+    }
+
     .sidebar {
       width: 60px;
     }

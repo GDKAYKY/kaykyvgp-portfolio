@@ -2,6 +2,7 @@
   import { slide } from "svelte/transition";
   import ProjectCard from "$lib/components/ProjectCard.svelte";
   import Icon from "$lib/components/Icon.svelte";
+  import { buildKeywordMap } from "$lib/utils/keywordMapper";
   import type { Project } from "$lib/types";
 
   interface Props {
@@ -10,14 +11,11 @@
 
   let { projects }: Props = $props();
 
-  const EXTRA_TECHS = [
-    "Svelte",
-    "TypeScript",
-    "Vite",
-    "Qt",
-    "Ffmpeg",
-    "Electron",
-  ];
+  const keywordMap = buildKeywordMap();
+  const indexedSkills = Object.values(keywordMap)
+    .filter((usage) => usage.projects.length > 0)
+    .map((usage) => usage.keyword)
+    .sort((a, b) => a.localeCompare(b));
 
   let selectedTech = $state<string | null>(null);
   let sortBy = $state("newest");
@@ -38,9 +36,20 @@
     }
 
     if (selectedTech) {
-      base = base.filter((p) =>
-        p.tags.toLowerCase().includes(selectedTech!.toLowerCase()),
-      );
+      const selected = selectedTech.toLowerCase();
+      base = base.filter((p) => {
+        const searchableText = [
+          p.title,
+          p.type,
+          p.description,
+          p.tags,
+          p.categories.join(" "),
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        return searchableText.includes(selected);
+      });
     }
 
     if (sortBy === "alphabetical") {
@@ -72,12 +81,19 @@
     );
 
     setTimeout(() => {
-      document
-        .querySelectorAll(
-          ".animate-fade-in-up:not(.revealed), .animate-fade-in-right:not(.revealed), .animate-fade-in:not(.revealed)",
-        )
-        .forEach((el) => observer.observe(el));
-    }, 60);
+      const elements = document.querySelectorAll(
+        ".animate-fade-in-up:not(.revealed), .animate-fade-in-right:not(.revealed), .animate-fade-in:not(.revealed)",
+      );
+      elements.forEach((el) => {
+        observer.observe(el);
+        // Immediately trigger observer for elements already in viewport
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add("revealed");
+          observer.unobserve(el);
+        }
+      });
+    }, 0);
 
     return () => observer.disconnect();
   });
@@ -142,7 +158,7 @@
           <div class="dropdown-section">
             <span class="section-label">Specific Technologies</span>
             <div class="option-grid">
-              {#each EXTRA_TECHS as tech}
+              {#each indexedSkills as tech}
                 <button
                   class="option-pill"
                   class:selected={selectedTech === tech}

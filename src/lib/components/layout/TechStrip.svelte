@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
+  import { keywordPanel } from "$lib/stores/keywordStore";
+  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
 
   // Tech mapping for Simple Icons
   const TECH_MAP: Record<string, string> = {
@@ -102,6 +104,15 @@
   // Duplicate items for infinite scroll
   const displayItems = $derived([...parsedTags, ...parsedTags]);
 
+  const keywordMap = buildKeywordMap();
+
+  function handleTechClick(techName: string) {
+    const usage = getKeywordUsage(techName, keywordMap);
+    if (usage) {
+      keywordPanel.open(usage);
+    }
+  }
+
   onMount(() => {
     // Ensure images are loaded before starting animation
     const images = trackElement?.querySelectorAll("img") || [];
@@ -125,10 +136,12 @@
     {#each displayItems as tech}
       {@const simpleIcons = SimpleIcons as unknown as Record<string, any>}
       {@const IconComponent = simpleIcons[tech.slug]}
-      <div class="tech-item">
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
+      <div class="tech-item" onclick={() => handleTechClick(tech.name)}>
         {#if IconComponent}
           <IconComponent size={32} color="white" title={tech.name} />
-        {:else}
+        {:else if tech.cdnSlug}
           <img
             src="https://cdn.simpleicons.org/{tech.cdnSlug}/fff"
             alt=""
@@ -193,7 +206,7 @@
     opacity: 0.4;
     filter: grayscale(1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: default;
+    cursor: pointer;
     white-space: nowrap;
   }
 

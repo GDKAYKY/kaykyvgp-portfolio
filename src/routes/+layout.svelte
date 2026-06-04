@@ -64,10 +64,12 @@
   });
 </script>
 
-<Header />
+<div class="page-shell">
+  <Header />
 
-{@render children()}
+  {@render children()}
 
-<Footer />
+  <Footer />
+</div>
 
 <KeywordPanel />

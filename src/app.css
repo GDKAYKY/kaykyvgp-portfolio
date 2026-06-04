@@ -23,6 +23,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* ===== BODY ===== */
 body {
   font-family: "Inter", "Schibsted Grotesk", sans-serif;
@@ -30,6 +34,26 @@ body {
   color: var(--primary-text);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+body > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+body > div > :not(aside) {
+  grid-column: 1;
+}
+
+body > div > aside {
+  grid-column: 2;
+  grid-row: 1 / span 999;
+}
+
+.page-shell {
+  min-width: 0;
+  position: relative;
 }
 
 strong {
@@ -40,6 +64,7 @@ strong {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding-inline: clamp(20px, 4vw, 32px);
 }
 
 .container--header-offset {
@@ -548,18 +573,20 @@ input {
     opacity var(--animation-duration) var(--animation-easing),
     transform var(--animation-duration) var(--animation-easing);
   will-change: opacity, transform;
+  opacity: 1;
+  transform: translate(0) scale(1);
 }
 
 .animate-fade-in {
-  opacity: 0;
+  opacity: 1;
 }
 .animate-fade-in.revealed {
   opacity: 1;
 }
 
 .animate-fade-in-up {
-  opacity: 0;
-  transform: translateY(20px) scale(0.98);
+  opacity: 1;
+  transform: translateY(0) scale(1);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .animate-fade-in-up.revealed {
@@ -568,8 +595,8 @@ input {
 }
 
 .animate-fade-in-left {
-  opacity: 0;
-  transform: translateX(-50px);
+  opacity: 1;
+  transform: translateX(0);
 }
 .animate-fade-in-left.revealed {
   opacity: 1;
@@ -577,8 +604,8 @@ input {
 }
 
 .animate-fade-in-right {
-  opacity: 0;
-  transform: translateX(50px);
+  opacity: 1;
+  transform: translateX(0);
 }
 .animate-fade-in-right.revealed {
   opacity: 1;
@@ -587,34 +614,34 @@ input {
 
 /* Animation Delays */
 .animate-delay-1 {
-  transition-delay: 0.1s;
+  transition-delay: 0.05s;
 }
 .animate-delay-2 {
-  transition-delay: 0.2s;
+  transition-delay: 0.1s;
 }
 .animate-delay-3 {
-  transition-delay: 0.3s;
+  transition-delay: 0.15s;
 }
 .animate-delay-4 {
-  transition-delay: 0.4s;
+  transition-delay: 0.2s;
 }
 .animate-delay-5 {
-  transition-delay: 0.5s;
+  transition-delay: 0.25s;
 }
 .animate-delay-6 {
-  transition-delay: 0.6s;
+  transition-delay: 0.3s;
 }
 .animate-delay-7 {
-  transition-delay: 0.7s;
+  transition-delay: 0.35s;
 }
 .animate-delay-8 {
-  transition-delay: 0.8s;
+  transition-delay: 0.4s;
 }
 .animate-delay-9 {
-  transition-delay: 0.9s;
+  transition-delay: 0.45s;
 }
 .animate-delay-10 {
-  transition-delay: 1s;
+  transition-delay: 0.5s;
 }
 
 /* Stagger Animation */
@@ -623,16 +650,16 @@ input {
   animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
 }
 .stagger-animation > *:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.1s;
 }
 .stagger-animation > *:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.15s;
 }
 .stagger-animation > *:nth-child(4) {
-  animation-delay: 0.4s;
+  animation-delay: 0.2s;
 }
 .stagger-animation > *:nth-child(5) {
-  animation-delay: 0.5s;
+  animation-delay: 0.25s;
 }
 
 /* ===== REDUCED MOTION ===== */
@@ -666,6 +693,10 @@ input {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  body > div {
+    display: block;
+  }
+
   .main-content {
     grid-template-columns: 1fr;
     gap: 48px;

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
-  import TechStrip from "$lib/components/TechStrip.svelte";
+  import TechStrip from "$lib/components/layout/TechStrip.svelte";
   import type { ReleaseInfo } from "$lib/types";
-  
+
   // Import images for enhanced-img
   import ytdlnMockup from "$lib/assets/ytdln_mockup.png?enhanced";
   import ytdlnSettings from "$lib/assets/ytdln_settings_mockup.png?enhanced";
@@ -24,12 +24,12 @@
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
     document
       .querySelectorAll(
-        ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right"
+        ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
       )
       .forEach((el) => observer.observe(el));
   });

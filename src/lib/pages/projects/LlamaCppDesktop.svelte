@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
-  import TechStrip from "$lib/components/TechStrip.svelte";
+  import TechStrip from "$lib/components/layout/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import DemoWindow from "$lib/components/DemoWindow.svelte";
   import type { ReleaseInfo } from "$lib/types";
-  
+
   // Import images for enhanced-img
   import llamaCppImage from "$lib/assets/llama.cpp.png?enhanced";
   import modelsImage from "$lib/assets/models.png?enhanced";
@@ -422,7 +422,6 @@
   .demo-container {
     position: relative;
     width: 100%;
-    height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -431,21 +430,15 @@
   .preview-card {
     position: relative;
     width: 100%;
-    max-width: 650px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 100%;
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #111;
-    transform: scale(0.9);
   }
 
   .preview-card:hover {
-    transform: scale(0.95);
+    transform: scale(1.02);
   }
 
   .preview-image {
@@ -463,7 +456,7 @@
 
   @media (max-width: 900px) {
     .demo-container {
-      height: 460px;
+      width: 100%;
     }
   }
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
-  import TechStrip from "$lib/components/TechStrip.svelte";
+  import TechStrip from "$lib/components/layout/TechStrip.svelte";
 
   onMount(() => {
     const observer = new IntersectionObserver(

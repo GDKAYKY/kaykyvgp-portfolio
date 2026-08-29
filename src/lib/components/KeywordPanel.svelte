@@ -1,63 +1,107 @@
 <script lang="ts">
+  import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
   import { keywordPanel } from "$lib/stores/keywordStore";
+  import { getTechIconName } from "$lib/utils/techIcons";
   import Icon from "./Icon.svelte";
 
-  const state = $derived($keywordPanel);
+  const panelState = $derived($keywordPanel);
+  let panelWidth = $state(400);
+  let resizeStartX = 0;
+  let resizeStartWidth = 400;
+  const techIcon = $derived(
+    (SimpleIcons as unknown as Record<string, any>)[
+      getTechIconName(panelState.selectedKeyword?.keyword || "")
+    ],
+  );
+
+  function stopResize() {
+    window.removeEventListener("pointermove", resizePanel);
+    window.removeEventListener("pointerup", stopResize);
+  }
+
+  function resizePanel(event: PointerEvent) {
+    const maxWidth = Math.min(720, window.innerWidth * 0.75);
+    panelWidth = Math.min(
+      maxWidth,
+      Math.max(320, resizeStartWidth + resizeStartX - event.clientX),
+    );
+  }
+
+  function startResize(event: PointerEvent) {
+    resizeStartX = event.clientX;
+    resizeStartWidth = panelWidth;
+    window.addEventListener("pointermove", resizePanel);
+    window.addEventListener("pointerup", stopResize);
+    event.preventDefault();
+  }
 </script>
 
-{#if state.isOpen && state.selectedKeyword}
-  <aside class="keyword-panel">
+{#if panelState.isOpen && panelState.selectedKeyword}
+  <aside class="keyword-panel" style={`width: ${panelWidth}px`}>
+    <button
+      class="resize-handle"
+      aria-label="Redimensionar painel"
+      onpointerdown={startResize}
+    ></button>
     <div class="panel-header">
-      <h3 class="panel-title">{state.selectedKeyword.keyword}</h3>
+      <div class="panel-title-wrap">
+        {#if techIcon}
+          {@const TechIcon = techIcon}
+          <TechIcon size={24} color="white" />
+        {:else}
+          <Icon name="code-2" size={20} />
+        {/if}
+        <h3 class="panel-title">{panelState.selectedKeyword.keyword}</h3>
+      </div>
       <button class="close-button" onclick={() => keywordPanel.close()}>
         <Icon name="x" size={20} />
       </button>
     </div>
 
     <div class="panel-content">
-      {#if state.selectedKeyword.projects.length > 0}
+      {#if panelState.selectedKeyword.projects.length > 0}
         <section class="usage-section">
           <h4 class="section-title">
             <Icon name="folder" size={18} />
-            Projects ({state.selectedKeyword.projects.length})
+            Projects ({panelState.selectedKeyword.projects.length})
           </h4>
           <ul class="usage-list">
-            {#each state.selectedKeyword.projects as project}
+            {#each panelState.selectedKeyword.projects as project}
               <li class="usage-item">{project}</li>
             {/each}
           </ul>
         </section>
       {/if}
 
-      {#if state.selectedKeyword.certifications.length > 0}
+      {#if panelState.selectedKeyword.certifications.length > 0}
         <section class="usage-section">
           <h4 class="section-title">
             <Icon name="award" size={18} />
-            Certifications ({state.selectedKeyword.certifications.length})
+            Certifications ({panelState.selectedKeyword.certifications.length})
           </h4>
           <ul class="usage-list">
-            {#each state.selectedKeyword.certifications as cert}
+            {#each panelState.selectedKeyword.certifications as cert}
               <li class="usage-item">{cert}</li>
             {/each}
           </ul>
         </section>
       {/if}
 
-      {#if state.selectedKeyword.experiences.length > 0}
+      {#if panelState.selectedKeyword.experiences.length > 0}
         <section class="usage-section">
           <h4 class="section-title">
             <Icon name="briefcase" size={18} />
-            Experience ({state.selectedKeyword.experiences.length})
+            Experience ({panelState.selectedKeyword.experiences.length})
           </h4>
           <ul class="usage-list">
-            {#each state.selectedKeyword.experiences as exp}
+            {#each panelState.selectedKeyword.experiences as exp}
               <li class="usage-item">{exp}</li>
             {/each}
           </ul>
         </section>
       {/if}
 
-      {#if state.selectedKeyword.projects.length === 0 && state.selectedKeyword.certifications.length === 0 && state.selectedKeyword.experiences.length === 0}
+      {#if panelState.selectedKeyword.projects.length === 0 && panelState.selectedKeyword.certifications.length === 0 && panelState.selectedKeyword.experiences.length === 0}
         <div class="empty-state">
           <Icon name="info" size={32} />
           <p>No usage found for this keyword</p>
@@ -71,15 +115,34 @@
   .keyword-panel {
     position: sticky;
     top: 0;
-    width: 360px;
+    width: 400px;
     height: 100vh;
-    background: #0a0a0a;
+    background: #171717;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1001;
     display: flex;
     flex-direction: column;
     animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.22);
+  }
+
+  .resize-handle {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: -4px;
+    width: 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: ew-resize;
+  }
+
+  .resize-handle:hover,
+  .resize-handle:focus-visible {
+    background: rgba(255, 255, 255, 0.22);
+    outline: none;
   }
 
   @keyframes slideIn {
@@ -94,18 +157,33 @@
   }
 
   .panel-header {
+    height: 80px;
+    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 0 1.75rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
+    background: #171717;
+  }
+
+  .panel-title-wrap {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .panel-title-wrap :global(svg) {
+    flex: 0 0 auto;
+    opacity: 0.8;
   }
 
   .panel-title {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 800;
     color: #fff;
     margin: 0;
   }
@@ -115,11 +193,11 @@
     border: none;
     color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.35rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 5px;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
@@ -132,28 +210,38 @@
   .panel-content {
     flex: 1;
     overflow-y: auto;
-    padding: 2rem;
+    zoom: 1.21;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .usage-section {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.7rem;
   }
 
   .section-title {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.7);
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
     margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
+  }
+
+  .section-title::after {
+    display: none;
+  }
+
+  .section-title :global(svg) {
+    width: 15px;
+    height: 15px;
+    opacity: 0.65;
   }
 
   .usage-list {
@@ -162,25 +250,26 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .usage-item {
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.95rem;
+    padding: 0.65rem 0.7rem;
+    background: #2b2b2b;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 0.8rem;
     font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    line-height: 1.35;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
     cursor: pointer;
   }
 
   .usage-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(-6px);
+    background: #383838;
+    transform: none;
   }
 
   .empty-state {
@@ -236,6 +325,10 @@
       border-left: none;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .resize-handle {
+      display: none;
     }
   }
 </style>

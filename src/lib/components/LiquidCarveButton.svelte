@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { FileText } from "lucide-svelte";
 
   export let href = "/";
   export let label = "LIQUID CARVE";
@@ -7,6 +8,9 @@
   export let blobSize = 80;
   export let rounded = 16;
   export let newTab = false;
+  export let download = false;
+  export let idSuffix = "projects";
+  export let fileIcon = false;
 
   let root: HTMLAnchorElement;
   let follow: SVGGElement;
@@ -30,8 +34,8 @@
 
   // The component currently has one instance on the page, so this stays
   // deterministic between SSR and hydration while keeping SVG IDs unique.
-  const filterId = "liquid-carve-goo-projects";
-  const maskId = "liquid-carve-bite-projects";
+  const filterId = `liquid-carve-goo-${idSuffix}`;
+  const maskId = `liquid-carve-bite-${idSuffix}`;
 
   function updateRadius() {
     if (!root) return;
@@ -127,6 +131,7 @@
   bind:this={root}
   class="liquid-carve-button hero-button primary"
   {href}
+  download={download ? "" : undefined}
   target={newTab ? "_blank" : undefined}
   rel={newTab ? "noopener noreferrer" : undefined}
   aria-label={label}
@@ -186,6 +191,9 @@
     </g>
   </svg>
 
+  {#if fileIcon}
+    <FileText class="liquid-carve-icon" size={17} strokeWidth={2} aria-hidden="true" />
+  {/if}
   <span class="liquid-carve-label">{label}</span>
 </a>
 
@@ -241,6 +249,14 @@
     font-weight: 600;
     line-height: 1;
     white-space: nowrap;
+    pointer-events: none;
+  }
+
+  :global(.liquid-carve-icon) {
+    position: relative;
+    z-index: 1;
+    margin-right: 8px;
+    color: #000;
     pointer-events: none;
   }
 

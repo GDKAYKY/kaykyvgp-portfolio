@@ -10,6 +10,9 @@
   import EducationCard from "$lib/components/EducationCard.svelte";
   import SkillsColumn from "$lib/components/SkillsColumn.svelte";
   import LiquidCarveButton from "$lib/components/LiquidCarveButton.svelte";
+  import ContactModal from "$lib/components/ContactModal.svelte";
+  import DetailsModal from "$lib/components/DetailsModal.svelte";
+  import type { Certification, Experience } from "$lib/types/resume";
   import {
     EXPERIENCES,
     CERTIFICATIONS,
@@ -20,6 +23,18 @@
   // Scroll reveal animation
   let elements: NodeListOf<Element>;
   let heroSection: HTMLElement;
+  let contactOpen = false;
+  let selectedDetails: Certification | Experience | null = null;
+  let selectedKind: "certification" | "experience" = "certification";
+
+  function openDetails(item: Certification | Experience, kind: "certification" | "experience") {
+    selectedDetails = item;
+    selectedKind = kind;
+  }
+
+  function closeDetails() {
+    selectedDetails = null;
+  }
 
   onMount(() => {
     gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -137,9 +152,9 @@
     </p>
     <div class="hero-actions animate-fade-in-up animate-delay-4">
       <LiquidCarveButton href="/projects" label="My Projects" />
-      <a href="mailto:kaykyvitorgp@gmail.com" class="hero-button secondary"
-        >Contact Me</a
-      >
+      <button type="button" class="hero-button secondary" onclick={() => (contactOpen = true)}>
+        Contact Me
+      </button>
     </div>
   </div>
 
@@ -158,7 +173,7 @@
         <section id="experience" class="experience-section animate-fade-in-up">
           <h2 class="section-title">Experience</h2>
           {#each EXPERIENCES as experience}
-            <ExperienceCard {experience} />
+            <ExperienceCard {experience} onopen={() => openDetails(experience, "experience")} />
           {/each}
         </section>
 
@@ -166,7 +181,7 @@
         <section class="section animate-fade-in-up">
           <h2 class="section-title">Courses & Certifications</h2>
           {#each CERTIFICATIONS as certification}
-            <CertificationCard {certification} />
+            <CertificationCard {certification} onopen={() => openDetails(certification, "certification")} />
           {/each}
         </section>
 
@@ -191,3 +206,6 @@
     </div>
   </div>
 </div>
+
+<ContactModal bind:open={contactOpen} />
+<DetailsModal open={selectedDetails !== null} item={selectedDetails} kind={selectedKind} onclose={closeDetails} />

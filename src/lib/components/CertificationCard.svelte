@@ -5,12 +5,20 @@
 
   interface Props {
     certification: Certification;
+    onopen?: () => void;
   }
 
-  let { certification }: Props = $props();
+  let { certification, onopen }: Props = $props();
 </script>
 
-<div class="card certification">
+<div
+  class="card certification"
+  role="button"
+  tabindex="0"
+  onclick={onopen}
+  onkeydown={(event) =>
+    (event.key === "Enter" || event.key === " ") && onopen?.()}
+>
   <div class="certification-content">
     <img
       class="certification-logo"
@@ -47,6 +55,7 @@
     target="_blank"
     rel="noopener noreferrer"
     class="credential-button"
+    onclick={(event) => event.stopPropagation()}
   >
     <span class="button-text">See Credential</span>
     <span class="button-icon">↗</span>

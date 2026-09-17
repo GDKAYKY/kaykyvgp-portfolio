@@ -7,6 +7,7 @@ export interface Experience {
   description: string[];
   technologies?: string[];
   projects?: string[];
+  about?: string;
 }
 
 export interface Certification {
@@ -19,6 +20,7 @@ export interface Certification {
   credentialUrl: string;
   skillsGained?: string[];
   tools?: string[];
+  about?: string;
 }
 
 export interface Education {

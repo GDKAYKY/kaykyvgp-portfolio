@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  export let background = "#04050a";
+  export let background = "#000";
   export let density = 300;
   export let dotSize = 120;
   export let speed = 6;

@@ -5,12 +5,13 @@
 
   interface Props {
     experience: Experience;
+    onopen?: () => void;
   }
 
-  let { experience }: Props = $props();
+  let { experience, onopen }: Props = $props();
 </script>
 
-<div class="card experience-item">
+<div class="card experience-item" role="button" tabindex="0" onclick={onopen} onkeydown={(event) => (event.key === "Enter" || event.key === " ") && onopen?.()}>
   <div class="experience-header">
     <img
       class="certification-logo"
@@ -42,4 +43,5 @@
       <li><KeywordHighlight text={item} /></li>
     {/each}
   </ul>
+  <button type="button" class="about-button" onclick={(event) => { event.stopPropagation(); onopen?.(); }}>View details</button>
 </div>

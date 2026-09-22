@@ -4,6 +4,7 @@
   import TechStrip from "$lib/components/layout/TechStrip.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import DemoWindow from "$lib/components/DemoWindow.svelte";
+  import { PROJECTS } from "$lib/data/projects";
   import type { ReleaseInfo } from "$lib/types";
 
   // Import images for enhanced-img
@@ -18,8 +19,7 @@
 
   let { release }: Props = $props();
 
-  const tags =
-    "Tauri v2,Rust,Tokio,Svelte 5,Vitest,Lucide,Tailwind CSS v4,IndexedDB,Dexie,MCP,NVIDIA SMI";
+  const tags = PROJECTS.find((project) => project.slug === "llama-desktop")?.tags ?? "";
 
   onMount(() => {
     const observer = new IntersectionObserver(

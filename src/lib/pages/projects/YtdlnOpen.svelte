@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/layout/TechStrip.svelte";
+  import { PROJECTS } from "$lib/data/projects";
   import type { ReleaseInfo } from "$lib/types";
 
   // Import images for enhanced-img
@@ -13,6 +14,7 @@
   }
 
   let { release }: Props = $props();
+  const tags = PROJECTS.find((project) => project.slug === "ytdln-open")?.tags ?? "";
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -46,7 +48,7 @@
       visualStyle="clean"
       link="https://github.com/GDKAYKY/ytdln-open"
       linkText="View Repository"
-      tags="Electron,Node.js,yt-dlp,aria2c,FFmpeg,React"
+      {tags}
       downloadLink={release?.exe?.url ||
         "https://github.com/GDKAYKY/ytdln-open/releases/download/v01.04.2026(1.1.0)/ytdln-open.Setup.1.1.0.exe"}
       downloadVersion={release?.version || "v1.1.0"}
@@ -71,7 +73,7 @@
   </main>
 </div>
 
-<TechStrip tags="Electron,Node.js,yt-dlp,aria2c,FFmpeg,React" />
+<TechStrip {tags} />
 
 <ProjectShowcase
   context="Power & Flexibility"

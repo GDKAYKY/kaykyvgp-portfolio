@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as LucideIcons from "lucide-svelte";
   import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
+  import IconifyIcon from "@iconify/svelte";
   import type { Component } from "svelte";
 
   interface Props {
@@ -91,9 +92,38 @@
   });
 
   const customIcon = $derived(CUSTOM_ICONS[name]);
+  const iconifyName = $derived(
+    name === "SiAmazonaws"
+      ? "simple-icons:amazonwebservices"
+      : name === "SiCsharp"
+        ? "simple-icons:csharp"
+        : name === "SiGooglecloud"
+          ? "simple-icons:googlecloud"
+          : name === "SiSonarqubecloud"
+            ? "simple-icons:sonarqubecloud"
+            : name === "SiAmazons3"
+              ? "simple-icons:amazons3"
+              : name === "SiMicrosoftazure"
+                ? "simple-icons:microsoftazure"
+                : name === "SiAmazoncloudwatch"
+                  ? "simple-icons:amazoncloudwatch"
+                  : name === "SiAzuredevops"
+                    ? "simple-icons:azuredevops"
+                    : name === "SiAmazonlambda"
+                      ? "simple-icons:awslambda"
+                      : null,
+  );
 </script>
 
-{#if customIcon}
+{#if iconifyName}
+  <IconifyIcon
+    icon={iconifyName}
+    width={size}
+    height={size}
+    class={className}
+    aria-hidden="true"
+  />
+{:else if customIcon}
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

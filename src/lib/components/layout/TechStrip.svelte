@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import * as SimpleIcons from "@icons-pack/svelte-simple-icons";
-  import { keywordPanel } from "$lib/stores/keywordStore";
-  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
+  import { skillsMenu } from "$lib/stores/skillsMenuStore";
+  import Icon from "../Icon.svelte";
 
   // Tech mapping for Simple Icons
   const TECH_MAP: Record<string, string> = {
@@ -10,6 +9,18 @@
     dotnet: "SiDotnet",
     ".net": "SiDotnet",
     aws: "SiAmazonaws",
+    "aws cloudwatch": "SiAmazoncloudwatch",
+    cloudwatch: "SiAmazoncloudwatch",
+    "aws s3": "SiAmazons3",
+    s3: "SiAmazons3",
+    "aws lambda": "SiAmazonlambda",
+    lambda: "SiAmazonlambda",
+    azure: "SiMicrosoftazure",
+    "microsoft azure": "SiMicrosoftazure",
+    "azure devops": "SiAzuredevops",
+    sonarqube: "SiSonarqubecloud",
+    "sonarqube cloud": "SiSonarqubecloud",
+    angular: "SiAngular",
     docker: "SiDocker",
     electron: "SiElectron",
     nodejs: "SiNodedotjs",
@@ -104,13 +115,8 @@
   // Duplicate items for infinite scroll
   const displayItems = $derived([...parsedTags, ...parsedTags]);
 
-  const keywordMap = buildKeywordMap();
-
   function handleTechClick(techName: string) {
-    const usage = getKeywordUsage(techName, keywordMap);
-    if (usage) {
-      keywordPanel.open(usage);
-    }
+    skillsMenu.open(techName);
   }
 
   onMount(() => {
@@ -134,21 +140,10 @@
 <div class="tech-strip-container">
   <div class="tech-strip-track" bind:this={trackElement}>
     {#each displayItems as tech}
-      {@const simpleIcons = SimpleIcons as unknown as Record<string, any>}
-      {@const IconComponent = simpleIcons[tech.slug]}
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_static_element_interactions -->
       <div class="tech-item" onclick={() => handleTechClick(tech.name)}>
-        {#if IconComponent}
-          <IconComponent size={32} color="white" title={tech.name} />
-        {:else if tech.cdnSlug}
-          <img
-            src="https://cdn.simpleicons.org/{tech.cdnSlug}/fff"
-            alt=""
-            aria-hidden="true"
-            title={tech.name}
-          />
-        {/if}
+        <Icon name={tech.slug} size={32} />
         <span>{tech.name}</span>
       </div>
     {/each}
@@ -216,8 +211,7 @@
     transform: translateY(-2px);
   }
 
-  .tech-item :global(svg),
-  .tech-item img {
+  .tech-item :global(svg) {
     height: 32px;
     width: auto;
     object-fit: contain;
@@ -248,10 +242,6 @@
 
     .tech-strip-track {
       gap: 4rem;
-    }
-
-    .tech-item img {
-      height: 24px;
     }
 
     .tech-item span {

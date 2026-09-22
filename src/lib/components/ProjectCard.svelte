@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { keywordPanel } from "$lib/stores/keywordStore";
-  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
+  import { skillsMenu } from "$lib/stores/skillsMenuStore";
 
   interface Props {
     title: string;
@@ -26,15 +25,10 @@
     Math.max(0, parsedTags.length - MAX_VISIBLE_TAGS),
   );
 
-  const keywordMap = buildKeywordMap();
-
   function handleTagClick(event: MouseEvent, tag: string) {
     event.preventDefault();
     event.stopPropagation();
-    const usage = getKeywordUsage(tag, keywordMap);
-    if (usage) {
-      keywordPanel.open(usage);
-    }
+    skillsMenu.open(tag);
   }
 </script>
 

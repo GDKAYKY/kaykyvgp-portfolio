@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
+  import KeywordHighlight from "./KeywordHighlight.svelte";
   import type { Certification, Experience } from "$lib/types/resume";
 
   interface Props {
@@ -50,8 +51,10 @@
       </div>
 
       <p class="details-about">
-        {item.about ??
-          "A detailed overview of this experience and the skills developed along the way."}
+        <KeywordHighlight
+          text={item.about ??
+            "A detailed overview of this experience and the skills developed along the way."}
+        />
       </p>
 
       {#if kind === "certification"}
@@ -61,11 +64,15 @@
         </div>
         <h3>Skills covered</h3>
         <ul class="details-list">
-          {#each certification?.skills ?? [] as skill}<li>{skill}</li>{/each}
+          {#each certification?.skills ?? [] as skill}
+            <li><KeywordHighlight text={skill} /></li>
+          {/each}
         </ul>
         {#if certification?.tools?.length}
           <h3>Tools</h3>
-          <p class="details-tools">{certification.tools.join(" · ")}</p>
+          <p class="details-tools">
+            <KeywordHighlight text={certification.tools.join(" · ")} />
+          </p>
         {/if}
       {:else}
         <div class="details-meta">
@@ -74,13 +81,15 @@
         </div>
         <h3>What I worked on</h3>
         <ul class="details-list">
-          {#each experience?.description ?? [] as description}<li>
-              {description}
-            </li>{/each}
+          {#each experience?.description ?? [] as description}
+            <li><KeywordHighlight text={description} /></li>
+          {/each}
         </ul>
         {#if experience?.technologies?.length}
           <h3>Technologies</h3>
-          <p class="details-tools">{experience.technologies.join(" · ")}</p>
+          <p class="details-tools">
+            <KeywordHighlight text={experience.technologies.join(" · ")} />
+          </p>
         {/if}
       {/if}
 

@@ -50,7 +50,7 @@ export function buildKeywordMap(): KeywordMap {
 
   // Processar experiências - identificar keywords automaticamente
   EXPERIENCES.forEach((exp) => {
-    const fullText = `${exp.position} ${exp.description.join(' ')} ${exp.technologies?.join(' ') || ''}`;
+    const fullText = `${exp.position} ${exp.description.join(' ')} ${exp.technologies?.join(' ') || ''} ${exp.about || ''}`;
     const identified = identifyKeywords(fullText);
     
     identified.allLabels.forEach((keyword) => {

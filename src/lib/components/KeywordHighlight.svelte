@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { keywordPanel } from "$lib/stores/keywordStore";
-  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
+  import { skillsMenu } from "$lib/stores/skillsMenuStore";
   import { identifyKeywords } from "$lib/utils/keywords";
 
   interface Props {
@@ -14,8 +13,6 @@
   }
 
   let { text }: Props = $props();
-
-  const keywordMap = buildKeywordMap();
 
   // Identificar keywords automaticamente no texto usando o dicionário
   const identified = $derived(identifyKeywords(text));
@@ -108,11 +105,10 @@
     return segments;
   }
 
-  function handleKeywordClick(keyword: string) {
-    const usage = getKeywordUsage(keyword, keywordMap);
-    if (usage) {
-      keywordPanel.open(usage);
-    }
+  function handleKeywordClick(event: MouseEvent, keyword: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    skillsMenu.open(keyword);
   }
 
   const segments = $derived(parseTextWithKeywords(text));
@@ -125,7 +121,7 @@
       <!-- svelte-ignore a11y_no_static_element_interactions -->
       <span
         class="keyword-highlight"
-        onclick={() => handleKeywordClick(segment.keyword!)}
+        onclick={(event) => handleKeywordClick(event, segment.keyword!)}
       >
         {segment.text}
       </span>

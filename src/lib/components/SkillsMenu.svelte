@@ -4,6 +4,8 @@
   import { PROJECTS } from "$lib/data/projects";
   import { CERTIFICATIONS, EXPERIENCES } from "$lib/data/resume";
   import { detailsModal } from "$lib/stores/detailsStore";
+  import { skillsMenu } from "$lib/stores/skillsMenuStore";
+  import Icon from "./Icon.svelte";
   import { buildKeywordMap } from "$lib/utils/keywordMapper";
   import type { SkillItem } from "$lib/types/resume";
 
@@ -29,6 +31,8 @@
   let selectedSkill = $state<string | null>(null);
   const keywordMap = buildKeywordMap();
 
+  const menuRequest = $derived($skillsMenu);
+
   const filteredSkills = $derived.by(() => {
     const query = searchQuery.trim().toLowerCase();
 
@@ -36,6 +40,10 @@
 
     return skills.filter((skill) => skill.label.toLowerCase().includes(query));
   });
+
+  const selectedSkillIcon = $derived(
+    skills.find((skill) => skill.label === selectedSkill)?.icon ?? "code-2",
+  );
 
   const selectedUsage = $derived.by(() => {
     if (!selectedSkill) return null;
@@ -68,7 +76,7 @@
     });
     EXPERIENCES.forEach((experience) => {
       if (
-        `${experience.position} ${experience.company} ${experience.description.join(" ")} ${experience.technologies?.join(" ") ?? ""}`
+        `${experience.position} ${experience.company} ${experience.description.join(" ")} ${experience.technologies?.join(" ") ?? ""} ${experience.about ?? ""}`
           .toLowerCase()
           .includes(query)
       ) {
@@ -101,6 +109,15 @@
       certifications: certificationLinks,
       experiences: experienceLinks,
     };
+  });
+
+  $effect(() => {
+    const request = menuRequest;
+    if (!request.isOpen || !request.selectedSkill || !menuToggle) return;
+
+    searchQuery = request.selectedSkill;
+    selectedSkill = request.selectedSkill;
+    if (!isOpen) menuToggle.click();
   });
 
   onMount(() => {
@@ -165,6 +182,7 @@
         } else {
           searchQuery = "";
           selectedSkill = null;
+          skillsMenu.close();
           timeline.eventCallback("onReverseComplete", () => {
             gsap.set(menuOverlay, { pointerEvents: "none" });
           });
@@ -249,7 +267,10 @@
                 class:selected={selectedSkill === skill.label}
                 onclick={() => (selectedSkill = skill.label)}
               >
-              <span>{skill.label}</span>
+              <span class="skills-result-label">
+                <Icon name={skill.icon} size={17} />
+                <span>{skill.label}</span>
+              </span>
               <span class="skills-menu-index">{String(index + 1).padStart(2, "0")}</span>
               </button>
             </li>
@@ -264,7 +285,10 @@
   {#if selectedSkill && selectedUsage}
     <aside class="skills-usage-panel" aria-label={`Where ${selectedSkill} is used`}>
       <div class="skills-usage-header">
-        <h2>{selectedSkill}</h2>
+        <h2>
+          <Icon name={selectedSkillIcon} size={20} />
+          <span>{selectedSkill}</span>
+        </h2>
         <button
           type="button"
           class="skills-usage-close"
@@ -465,6 +489,12 @@
     cursor: pointer;
   }
 
+  .skills-result-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .skills-result:hover,
   .skills-result:focus-visible,
   .skills-result.selected {
@@ -504,6 +534,9 @@
   }
 
   .skills-usage-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
     margin: 0;
     color: #fff;
     font-size: 1.2rem;

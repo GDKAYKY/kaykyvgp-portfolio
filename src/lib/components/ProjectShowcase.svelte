@@ -3,8 +3,7 @@
   import DownloadButton from "./DownloadButton.svelte";
   import KeywordHighlight from "./KeywordHighlight.svelte";
   import TechStrip from "./layout/TechStrip.svelte";
-  import { keywordPanel } from "$lib/stores/keywordStore";
-  import { buildKeywordMap, getKeywordUsage } from "$lib/utils/keywordMapper";
+  import { skillsMenu } from "$lib/stores/skillsMenuStore";
 
   interface Props {
     context: string;
@@ -59,13 +58,8 @@
       .filter((t) => t),
   );
 
-  const keywordMap = buildKeywordMap();
-
   function handleTagClick(tag: string) {
-    const usage = getKeywordUsage(tag, keywordMap);
-    if (usage) {
-      keywordPanel.open(usage);
-    }
+    skillsMenu.open(tag);
   }
 </script>
 

@@ -2,6 +2,9 @@
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/layout/TechStrip.svelte";
+  import { PROJECTS } from "$lib/data/projects";
+
+  const tags = PROJECTS.find((project) => project.slug === "span-core")?.tags ?? "";
 
   // Import images for enhanced-img
   import ytdlnMockup from "$lib/assets/ytdln_mockup.png?enhanced";
@@ -36,7 +39,7 @@
     imageAlt="SPAN-CORE Interface"
     link="https://github.com/GDKAYKY/span-core"
     linkText="View Repository"
-    tags="C++,Qt,yt-dlp,FFmpeg"
+    {tags}
   >
     <p>
       <strong>SPAN-CORE</strong> is a high-performance video downloading engine built
@@ -53,4 +56,4 @@
   </ProjectShowcase>
 </div>
 
-<TechStrip tags="C++,Qt,yt-dlp,FFmpeg" />
+<TechStrip {tags} />

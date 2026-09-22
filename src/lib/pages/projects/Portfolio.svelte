@@ -2,6 +2,9 @@
   import { onMount } from "svelte";
   import ProjectShowcase from "$lib/components/ProjectShowcase.svelte";
   import TechStrip from "$lib/components/layout/TechStrip.svelte";
+  import { PROJECTS } from "$lib/data/projects";
+
+  const tags = PROJECTS.find((project) => project.slug === "portfolio")?.tags ?? "";
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +34,7 @@
     description=""
     link="https://github.com/GDKAYKY/kaykyvgp-portfolio"
     linkText="View Repository"
-    tags="Svelte,TypeScript,Design System"
+    {tags}
     visualStyle="clean"
   >
     <p>
@@ -49,4 +52,4 @@
   </ProjectShowcase>
 </div>
 
-<TechStrip tags="Svelte,TypeScript,Design System" />
+<TechStrip {tags} />

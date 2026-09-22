@@ -13,6 +13,7 @@
   import ContactModal from "$lib/components/ContactModal.svelte";
   import DetailsModal from "$lib/components/DetailsModal.svelte";
   import type { Certification, Experience } from "$lib/types/resume";
+
   import {
     EXPERIENCES,
     CERTIFICATIONS,
@@ -20,14 +21,16 @@
     SKILLS_COLUMNS,
   } from "$lib/data/resume";
 
-  // Scroll reveal animation
-  let elements: NodeListOf<Element>;
+  let elements: NodeListOf<Element> | undefined;
   let heroSection: HTMLElement;
-  let contactOpen = false;
-  let selectedDetails: Certification | Experience | null = null;
-  let selectedKind: "certification" | "experience" = "certification";
+  let contactOpen = $state(false);
+  let selectedDetails = $state<Certification | Experience | null>(null);
+  let selectedKind = $state<"certification" | "experience">("certification");
 
-  function openDetails(item: Certification | Experience, kind: "certification" | "experience") {
+  function openDetails(
+    item: Certification | Experience,
+    kind: "certification" | "experience",
+  ) {
     selectedDetails = item;
     selectedKind = kind;
   }
@@ -77,7 +80,7 @@
         ).matches;
         const split = SplitText.create(".hero-title, .hero-description", {
           type: "words",
-          aria: "hidden",
+          aria: "auto",
         });
 
         if (reduceMotion) {
@@ -111,9 +114,6 @@
       ".animate-fade-in, .animate-fade-in-up, .animate-fade-in-left, .animate-fade-in-right",
     );
 
-    // Immediately reveal all elements - no invisible spacing
-    elements.forEach((el) => el.classList.add("revealed"));
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -135,7 +135,7 @@
       destroyed = true;
       heroContext.revert();
       mainContext.revert();
-      elements.forEach((el) => observer.unobserve(el));
+      elements?.forEach((el) => observer.unobserve(el));
     };
   });
 </script>
@@ -144,23 +144,28 @@
   <ParticleEffect />
   <div class="hero-content">
     <h1 class="hero-title">
-      I'm Kayky, creating software that scales ideas into products.
+      I'm Kayky, building software that transforms ideas into products.
     </h1>
     <p class="hero-description animate-fade-in-right animate-delay-3">
-      I build high-performance, secure, and scalable systems using .NET and
+      I build reliable, secure, and scalable systems using .NET, Nodejs and
       Cloud technologies.
     </p>
     <div class="hero-actions animate-fade-in-up animate-delay-4">
       <LiquidCarveButton href="/projects" label="My Projects" />
-      <button type="button" class="hero-button secondary" onclick={() => (contactOpen = true)}>
+      <button
+        type="button"
+        class="hero-button secondary"
+        onclick={() => (contactOpen = true)}
+      >
         Contact Me
       </button>
     </div>
   </div>
 
-  <div class="hero-visual animate-fade-in-up animate-delay-5">
-    <!-- Decorative visual elements -->
-  </div>
+  <div
+    class="hero-visual animate-fade-in-up animate-delay-5"
+    aria-hidden="true"
+  ></div>
 </section>
 
 <TechStrip />
@@ -173,7 +178,10 @@
         <section id="experience" class="experience-section animate-fade-in-up">
           <h2 class="section-title">Experience</h2>
           {#each EXPERIENCES as experience}
-            <ExperienceCard {experience} onopen={() => openDetails(experience, "experience")} />
+            <ExperienceCard
+              {experience}
+              onopen={() => openDetails(experience, "experience")}
+            />
           {/each}
         </section>
 
@@ -181,7 +189,10 @@
         <section class="section animate-fade-in-up">
           <h2 class="section-title">Courses & Certifications</h2>
           {#each CERTIFICATIONS as certification}
-            <CertificationCard {certification} onopen={() => openDetails(certification, "certification")} />
+            <CertificationCard
+              {certification}
+              onopen={() => openDetails(certification, "certification")}
+            />
           {/each}
         </section>
 
@@ -208,4 +219,9 @@
 </div>
 
 <ContactModal bind:open={contactOpen} />
-<DetailsModal open={selectedDetails !== null} item={selectedDetails} kind={selectedKind} onclose={closeDetails} />
+<DetailsModal
+  open={selectedDetails !== null}
+  item={selectedDetails}
+  kind={selectedKind}
+  onclose={closeDetails}
+/>

@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { PageData } from './$types';
-  import { LlamaCppDesktop, YtdlnOpen, SpanCore, Portfolio } from '$lib';
+  import type { PageData } from "./$types";
+  import { LlamaCppDesktop, YtdlnOpen, SpanCore, Portfolio } from "$lib";
 
   let { data }: { data: PageData } = $props();
 
   const componentMap: Record<string, any> = {
-    'llama-cpp-desktop': LlamaCppDesktop,
-    'ytdln-open': YtdlnOpen,
-    'span-core': SpanCore,
-    'portfolio': Portfolio,
+    "llama-desktop": LlamaCppDesktop,
+    "ytdln-open": YtdlnOpen,
+    "span-core": SpanCore,
+    portfolio: Portfolio,
   };
 
   const Component = componentMap[data.project.slug];

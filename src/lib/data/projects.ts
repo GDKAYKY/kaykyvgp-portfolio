@@ -2,14 +2,14 @@ import type { Project } from "$lib/types";
 
 export const PROJECTS: Project[] = [
   {
-    slug: "llama-cpp-desktop",
-    title: "Llama.cpp Desktop",
+    slug: "llama-desktop",
+    title: "Llama Desktop",
     type: "AI Desktop Utility",
     description:
       "A premium Tauri-based desktop application for managing and running Llama.cpp models locally with a state-of-the-art interface. Features high-performance Rust backend and a sleek Svelte 5 frontend.",
     image: "/assets/llama_cpp_desktop_mockup.png",
     imageAlt: "Llama Desktop Chat Interface",
-    link: "/projects/llama-cpp-desktop",
+    link: "/projects/llama-desktop",
     github: "https://github.com/GDKAYKY/llama.cpp-desktop",
     tags: "Tauri v2,Rust,Tokio,Reqwest,Serde,Svelte 5,TypeScript,Vite,Tailwind CSS,IndexedDB,Dexie",
     categories: ["AI", "Desktop", "Rust"],

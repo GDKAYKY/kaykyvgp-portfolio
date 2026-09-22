@@ -6,7 +6,7 @@ import { LlamaCppDesktop, YtdlnOpen, SpanCore, Portfolio } from "$lib";
  * This allows dynamic routing based on the slug parameter
  */
 export const PROJECT_COMPONENTS: Record<string, Component> = {
-  "llama-cpp-desktop": LlamaCppDesktop,
+  "llama-desktop": LlamaCppDesktop,
   "ytdln-open": YtdlnOpen,
   "span-core": SpanCore,
   portfolio: Portfolio,

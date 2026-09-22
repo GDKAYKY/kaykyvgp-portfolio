@@ -9,7 +9,7 @@ export const EXPERIENCES: Experience[] = [
   {
     company: "Who",
     logo: "/assets/logos/who_logo.jpeg",
-    position: "Software Developer Junior Apprentice",
+    position: "Software Developer as Junior Apprentice",
     location: "Belo Horizonte, Minas Gerais, Brazil",
     period: "Dec 2024 – Dec 2025 (1 Year)",
     description: [

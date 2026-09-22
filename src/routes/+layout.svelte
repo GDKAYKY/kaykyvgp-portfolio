@@ -6,6 +6,8 @@
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import KeywordPanel from "$lib/components/KeywordPanel.svelte";
+  import DetailsModal from "$lib/components/DetailsModal.svelte";
+  import { detailsModal } from "$lib/stores/detailsStore";
 
   if (!dev) {
     injectSpeedInsights();
@@ -73,3 +75,9 @@
 </div>
 
 <KeywordPanel />
+<DetailsModal
+  open={$detailsModal.item !== null}
+  item={$detailsModal.item}
+  kind={$detailsModal.kind}
+  onclose={detailsModal.close}
+/> 

@@ -8,35 +8,26 @@
   import ExperienceCard from "$lib/components/ExperienceCard.svelte";
   import CertificationCard from "$lib/components/CertificationCard.svelte";
   import EducationCard from "$lib/components/EducationCard.svelte";
-  import SkillsColumn from "$lib/components/SkillsColumn.svelte";
   import LiquidCarveButton from "$lib/components/LiquidCarveButton.svelte";
   import ContactModal from "$lib/components/ContactModal.svelte";
-  import DetailsModal from "$lib/components/DetailsModal.svelte";
+  import { detailsModal } from "$lib/stores/detailsStore";
   import type { Certification, Experience } from "$lib/types/resume";
 
   import {
     EXPERIENCES,
     CERTIFICATIONS,
     EDUCATION,
-    SKILLS_COLUMNS,
   } from "$lib/data/resume";
 
   let elements: NodeListOf<Element> | undefined;
   let heroSection: HTMLElement;
   let contactOpen = $state(false);
-  let selectedDetails = $state<Certification | Experience | null>(null);
-  let selectedKind = $state<"certification" | "experience">("certification");
 
   function openDetails(
     item: Certification | Experience,
     kind: "certification" | "experience",
   ) {
-    selectedDetails = item;
-    selectedKind = kind;
-  }
-
-  function closeDetails() {
-    selectedDetails = null;
+    detailsModal.open(item, kind);
   }
 
   onMount(() => {
@@ -204,24 +195,9 @@
           {/each}
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="section animate-fade-in-up">
-          <h2 class="section-title">Skills</h2>
-          <div class="skills-grid stagger-animation">
-            {#each SKILLS_COLUMNS as column}
-              <SkillsColumn {column} />
-            {/each}
-          </div>
-        </section>
       </main>
     </div>
   </div>
 </div>
 
 <ContactModal bind:open={contactOpen} />
-<DetailsModal
-  open={selectedDetails !== null}
-  item={selectedDetails}
-  kind={selectedKind}
-  onclose={closeDetails}
-/>

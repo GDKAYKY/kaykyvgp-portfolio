@@ -1,6 +1,28 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { page } from "$app/state";
+  import SkillsMenu from "$lib/components/SkillsMenu.svelte";
+  import { PROJECTS } from "$lib/data/projects";
+  import { SKILLS_COLUMNS } from "$lib/data/resume";
+  import { buildKeywordMap } from "$lib/utils/keywordMapper";
+
+  const keywordLabels = Object.values(buildKeywordMap()).map(
+    ({ keyword }) => keyword,
+  );
+  const projectTags = PROJECTS.flatMap((project) =>
+    project.tags.split(",").map((tag) => tag.trim()),
+  );
+  const skillLabels = [
+    ...SKILLS_COLUMNS.flatMap((column) => column.skills.map((skill) => skill.label)),
+    ...keywordLabels,
+    ...projectTags,
+  ].reduce<string[]>((labels, label) => {
+    if (label && !labels.some((existing) => existing.toLowerCase() === label.toLowerCase())) {
+      labels.push(label);
+    }
+    return labels;
+  }, []);
+  const skills = skillLabels.map((label) => ({ icon: "code-2", label }));
 
   let floating = $state(false);
   let triggerPoint = $state(100);
@@ -101,7 +123,7 @@
     </a>
     <nav class="header-nav">
       <a href="/#experience" class="nav-item">Experience</a>
-      <a href="/#skills" class="nav-item">Skills</a>
+      <SkillsMenu {skills} />
       <a href="/projects" class="nav-button" class:active={isProjectsPage}
         >My Projects</a
       >
